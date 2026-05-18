@@ -1,0 +1,121 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../prisma/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum EventStatus {
+  OPEN
+  CLOSED
+  RESOLVED
+}
+
+enum BetStatus {
+  PENDING
+  WON
+  LOST
+}
+
+enum TransactionType {
+  ADMIN_GIFT
+  BET_PLACED
+  BET_WON
+  INITIAL_GRANT
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(USER)
+  balance      Int      @default(0)
+  createdAt    DateTime @default(now())
+
+  bets             Bet[]
+  transactions     CoinTransaction[]
+  createdEvents    Event[]            @relation("EventCreator")
+  usedInviteCode   InviteCode?        @relation("UsedCode")
+  createdCodes     InviteCode[]       @relation("CreatedCodes")
+}
+
+model InviteCode {
+  id          String    @id @default(cuid())
+  code        String    @unique
+  createdAt   DateTime  @default(now())
+  usedAt      DateTime?
+
+  createdBy   User      @relation("CreatedCodes", fields: [createdById], references: [id])
+  createdById String
+
+  usedBy      User?     @relation("UsedCode", fields: [usedById], references: [id])
+  usedById    String?   @unique
+}
+
+model Event {
+  id                String      @id @default(cuid())
+  title             String
+  description       String
+  category          String
+  closesAt          DateTime
+  status            EventStatus @default(OPEN)
+  createdAt         DateTime    @default(now())
+
+  resolvedOutcome   Outcome?    @relation("ResolvedOutcome", fields: [resolvedOutcomeId], references: [id])
+  resolvedOutcomeId String?
+
+  createdBy         User        @relation("EventCreator", fields: [createdById], references: [id])
+  createdById       String
+
+  outcomes          Outcome[]   @relation("EventOutcomes")
+  bets              Bet[]
+}
+
+model Outcome {
+  id             String  @id @default(cuid())
+  label          String
+  totalBetAmount Int     @default(0)
+
+  event          Event   @relation("EventOutcomes", fields: [eventId], references: [id])
+  eventId        String
+
+  bets           Bet[]
+  resolvedEvents Event[] @relation("ResolvedOutcome")
+}
+
+model Bet {
+  id        String    @id @default(cuid())
+  amount    Int
+  status    BetStatus @default(PENDING)
+  payout    Int?
+  createdAt DateTime  @default(now())
+
+  user      User      @relation(fields: [userId], references: [id])
+  userId    String
+
+  event     Event     @relation(fields: [eventId], references: [id])
+  eventId   String
+
+  outcome   Outcome   @relation(fields: [outcomeId], references: [id])
+  outcomeId String
+}
+
+model CoinTransaction {
+  id          String          @id @default(cuid())
+  amount      Int
+  type        TransactionType
+  note        String?
+  referenceId String?
+  createdAt   DateTime        @default(now())
+
+  user        User            @relation(fields: [userId], references: [id])
+  userId      String
+}
