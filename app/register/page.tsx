@@ -49,7 +49,7 @@ export default function RegisterPage() {
       <Card className="w-full max-w-md bg-slate-800 border-slate-700">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl text-white">
-            הצטרפות לפוליצ&apos;וק
+            הצטרפות לפולישוק
           </CardTitle>
           <p className="text-slate-400 text-sm">
             קבל 1,000 מטבעות להתחלה בהרשמה

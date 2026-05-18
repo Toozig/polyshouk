@@ -5,7 +5,7 @@ export default function HomePage() {
     <div className="min-h-screen flex flex-col items-center justify-center px-4 text-center">
       <div className="max-w-2xl">
         <h1 className="text-5xl font-bold text-white mb-4">
-          פוליצ&apos;וק
+          פולישוק
         </h1>
         <p className="text-xl text-slate-400 mb-2">שוק תחזיות בעברית</p>
         <p className="text-slate-500 mb-10">

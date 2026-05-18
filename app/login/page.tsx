@@ -47,7 +47,7 @@ export default function LoginPage() {
       <Card className="w-full max-w-md bg-slate-800 border-slate-700">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl text-white">
-            התחברות לפוליצ&apos;וק
+            התחברות לפולישוק
           </CardTitle>
         </CardHeader>
         <CardContent>

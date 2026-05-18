@@ -27,7 +27,7 @@ export async function Navbar() {
             href="/"
             className="text-xl font-bold text-blue-400 hover:text-blue-300 transition-colors"
           >
-            פוליצ&apos;וק
+            פולישוק
           </Link>
           <Link
             href="/events"

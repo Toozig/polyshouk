@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "פוליצ'וק - שוק תחזיות",
+  title: "פולישוק - שוק תחזיות",
   description: "שוק תחזיות בעברית",
 };
 
