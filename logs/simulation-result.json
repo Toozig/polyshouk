@@ -1,0 +1,199 @@
+{
+  "seed": 42,
+  "rounds": 8000,
+  "stats": {
+    "buys": 3625,
+    "sells": 2161,
+    "skips": 2036
+  },
+  "conservation": {
+    "initialTotal": 100000,
+    "finalUsersPlusPools": 100400,
+    "delta": 400
+  },
+  "events": [
+    {
+      "id": "sim-ev-1",
+      "title": "Will Bitcoin trade above $150,000 by Dec 31, 2026?",
+      "winner": "Yes",
+      "poolBalance": 555.9141705949041,
+      "outcomes": [
+        {
+          "label": "Yes",
+          "priceCents": 16,
+          "lmsrQ": 19713
+        },
+        {
+          "label": "No",
+          "priceCents": 84,
+          "lmsrQ": 19953
+        }
+      ]
+    },
+    {
+      "id": "sim-ev-2",
+      "title": "Will Israel win Eurovision 2027?",
+      "winner": "Yes",
+      "poolBalance": 422.88257352781875,
+      "outcomes": [
+        {
+          "label": "Yes",
+          "priceCents": 37,
+          "lmsrQ": 20515
+        },
+        {
+          "label": "No",
+          "priceCents": 63,
+          "lmsrQ": 20591
+        }
+      ]
+    },
+    {
+      "id": "sim-ev-3",
+      "title": "Who will win the Israeli Premier League 2025/26?",
+      "winner": "Hapoel Tel Aviv",
+      "poolBalance": 336.4546319719593,
+      "outcomes": [
+        {
+          "label": "Maccabi Tel Aviv",
+          "priceCents": 51,
+          "lmsrQ": 26747
+        },
+        {
+          "label": "Hapoel Beer Sheva",
+          "priceCents": 21,
+          "lmsrQ": 26668
+        },
+        {
+          "label": "Hapoel Tel Aviv",
+          "priceCents": 28,
+          "lmsrQ": 26691
+        }
+      ]
+    },
+    {
+      "id": "sim-ev-4",
+      "title": "Will the Bank of Israel raise interest rates in 2026?",
+      "winner": "No",
+      "poolBalance": 507.2112459994096,
+      "outcomes": [
+        {
+          "label": "Yes",
+          "priceCents": 77,
+          "lmsrQ": 18740
+        },
+        {
+          "label": "No",
+          "priceCents": 23,
+          "lmsrQ": 18568
+        }
+      ]
+    }
+  ],
+  "top10": [
+    {
+      "username": "bot_089",
+      "balance": 2089.2755227378193,
+      "netProfit": 1089.2755227378193
+    },
+    {
+      "username": "bot_092",
+      "balance": 1717.3046739164038,
+      "netProfit": 717.3046739164038
+    },
+    {
+      "username": "bot_017",
+      "balance": 1673.6793586206452,
+      "netProfit": 673.6793586206452
+    },
+    {
+      "username": "bot_064",
+      "balance": 1658.913324006117,
+      "netProfit": 658.9133240061169
+    },
+    {
+      "username": "bot_095",
+      "balance": 1647.432550282012,
+      "netProfit": 647.432550282012
+    },
+    {
+      "username": "bot_018",
+      "balance": 1441.867963400893,
+      "netProfit": 441.8679634008929
+    },
+    {
+      "username": "bot_022",
+      "balance": 1406.6384853957993,
+      "netProfit": 406.6384853957993
+    },
+    {
+      "username": "bot_026",
+      "balance": 1404.1884288477527,
+      "netProfit": 404.1884288477527
+    },
+    {
+      "username": "bot_037",
+      "balance": 1389.1124830268564,
+      "netProfit": 389.11248302685635
+    },
+    {
+      "username": "bot_051",
+      "balance": 1376.309864017243,
+      "netProfit": 376.30986401724294
+    }
+  ],
+  "bottom10": [
+    {
+      "username": "bot_078",
+      "balance": 336.5024347264198,
+      "netProfit": -663.4975652735802
+    },
+    {
+      "username": "bot_041",
+      "balance": 430.7925033163092,
+      "netProfit": -569.2074966836908
+    },
+    {
+      "username": "bot_085",
+      "balance": 440.94967940081654,
+      "netProfit": -559.0503205991835
+    },
+    {
+      "username": "bot_031",
+      "balance": 506.41356100599205,
+      "netProfit": -493.58643899400795
+    },
+    {
+      "username": "bot_015",
+      "balance": 537.4281942622479,
+      "netProfit": -462.57180573775213
+    },
+    {
+      "username": "bot_013",
+      "balance": 547.0576213911908,
+      "netProfit": -452.94237860880924
+    },
+    {
+      "username": "bot_055",
+      "balance": 585.8508366165661,
+      "netProfit": -414.1491633834339
+    },
+    {
+      "username": "bot_008",
+      "balance": 599.3555007999112,
+      "netProfit": -400.64449920008883
+    },
+    {
+      "username": "bot_038",
+      "balance": 603.2141436066413,
+      "netProfit": -396.7858563933587
+    },
+    {
+      "username": "bot_061",
+      "balance": 622.0876038565762,
+      "netProfit": -377.91239614342385
+    }
+  ],
+  "activeUsers": 100,
+  "averageBalance": 985.7753737790591
+}

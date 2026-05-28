@@ -13,7 +13,7 @@ export type { BetStatus } from "@/prisma/generated/prisma/enums";
 
 export type EventWithOutcomes = Event & {
   outcomes: Outcome[];
-  createdBy: Pick<User, "id" | "name">;
+  createdBy: Pick<User, "id" | "username">;
 };
 
 export type BetWithDetails = Bet & {

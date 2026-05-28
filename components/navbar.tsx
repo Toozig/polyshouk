@@ -13,7 +13,7 @@ export async function Navbar() {
   const dbUser = sessionUser?.id
     ? await prisma.user.findUnique({
         where: { id: sessionUser.id },
-        select: { id: true, name: true, role: true, balance: true },
+        select: { id: true, username: true, role: true, balance: true },
       })
     : null;
 
@@ -56,7 +56,7 @@ export async function Navbar() {
         <div className="flex items-center gap-3">
           {user ? (
             <>
-              <span className="text-slate-300 text-sm">{user.name}</span>
+              <span className="text-slate-300 text-sm">{user.username}</span>
               {user.balance !== undefined && (
                 <span className="text-blue-400 text-sm font-medium">
                   {formatCoins(user.balance)}

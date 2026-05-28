@@ -14,16 +14,39 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  combineDateAndTime,
+  EventClosesAtPicker,
+} from "@/components/events/event-closes-at-picker";
+import {
+  CURRENCY_NAME,
+  DEFAULT_LIQUIDITY_M,
+  EVENT_CLOSES_AT_MAX,
+  MIN_LIQUIDITY_M,
+} from "@/lib/constants";
+import { formatCoins } from "@/lib/utils";
 
-export function CreateEventDialog() {
+interface CreateEventDialogProps {
+  userBalance: number;
+  triggerClassName?: string;
+}
+
+export function CreateEventDialog({
+  userBalance,
+  triggerClassName,
+}: CreateEventDialogProps) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  const [closesAt, setClosesAt] = useState("");
+  const [liquidityM, setLiquidityM] = useState(DEFAULT_LIQUIDITY_M);
+  const [closeDate, setCloseDate] = useState<Date | undefined>();
+  const [closeTime, setCloseTime] = useState("23:59");
   const [outcomes, setOutcomes] = useState(["", ""]);
+
+  const canAfford = userBalance >= liquidityM;
 
   function addOutcome() {
     setOutcomes((prev) => [...prev, ""]);
@@ -38,6 +61,16 @@ export function CreateEventDialog() {
     setOutcomes((prev) => prev.filter((_, i) => i !== index));
   }
 
+  function resetForm() {
+    setTitle("");
+    setDescription("");
+    setCategory("");
+    setLiquidityM(DEFAULT_LIQUIDITY_M);
+    setCloseDate(undefined);
+    setCloseTime("23:59");
+    setOutcomes(["", ""]);
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const validOutcomes = outcomes.filter((o) => o.trim());
@@ -46,16 +79,43 @@ export function CreateEventDialog() {
       return;
     }
 
+    if (liquidityM < MIN_LIQUIDITY_M) {
+      toast.error(`נזילות מינימלית: ${MIN_LIQUIDITY_M}`);
+      return;
+    }
+
+    if (!canAfford) {
+      toast.error(`נדרשים ${formatCoins(liquidityM)} לנזילות`);
+      return;
+    }
+
+    if (!closeDate) {
+      toast.error("נא לבחור תאריך סגירה");
+      return;
+    }
+
+    const closesAtDate = combineDateAndTime(closeDate, closeTime);
+    const now = new Date();
+    if (closesAtDate <= now) {
+      toast.error("תאריך הסגירה חייב להיות בעתיד");
+      return;
+    }
+    if (closesAtDate > EVENT_CLOSES_AT_MAX) {
+      toast.error("תאריך הסגירה לא יכול להיות אחרי 2 בנובמבר 2026");
+      return;
+    }
+
     setLoading(true);
-    const response = await fetch("/api/admin/events", {
+    const response = await fetch("/api/events", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         title,
         description,
         category,
-        closesAt: new Date(closesAt).toISOString(),
+        closesAt: closesAtDate.toISOString(),
         outcomes: validOutcomes,
+        liquidityM,
       }),
     });
 
@@ -69,25 +129,38 @@ export function CreateEventDialog() {
 
     toast.success("האירוע נוצר בהצלחה!");
     setOpen(false);
-    setTitle("");
-    setDescription("");
-    setCategory("");
-    setClosesAt("");
-    setOutcomes(["", ""]);
+    resetForm();
     router.refresh();
+    router.push(`/events/${data.id}`);
   }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger>
-        <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-          צור אירוע חדש
-        </Button>
+      <DialogTrigger
+        render={
+          <Button
+            className={
+              triggerClassName ?? "bg-blue-600 hover:bg-blue-700 text-white"
+            }
+            disabled={userBalance < MIN_LIQUIDITY_M}
+          />
+        }
+      >
+        צור אירוע חדש
       </DialogTrigger>
       <DialogContent className="bg-slate-800 border-slate-700 text-white max-w-lg">
         <DialogHeader>
           <DialogTitle>צור אירוע חדש</DialogTitle>
         </DialogHeader>
+        <p className="text-slate-400 text-sm">
+          נזילות (m): ננעלת כביטוח לשוק LMSR · יתרה:{" "}
+          {formatCoins(userBalance)}
+        </p>
+        {!canAfford && liquidityM >= MIN_LIQUIDITY_M && (
+          <p className="text-red-400 text-sm">
+            אין מספיק {CURRENCY_NAME} לנזילות {formatCoins(liquidityM)}
+          </p>
+        )}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-1">
             <Label className="text-slate-300">כותרת</Label>
@@ -118,14 +191,30 @@ export function CreateEventDialog() {
             />
           </div>
           <div className="space-y-1">
-            <Label className="text-slate-300">תאריך סגירה</Label>
+            <Label className="text-slate-300">
+              נזילות (m) — מינימום {MIN_LIQUIDITY_M}
+            </Label>
             <Input
-              type="datetime-local"
-              value={closesAt}
-              onChange={(e) => setClosesAt(e.target.value)}
+              type="number"
+              min={MIN_LIQUIDITY_M}
+              max={userBalance}
+              value={liquidityM}
+              onChange={(e) => setLiquidityM(Number(e.target.value))}
               required
-              className="bg-slate-700 border-slate-600 text-white"
+              className="bg-slate-700 border-slate-600 text-white text-right"
               dir="ltr"
+            />
+            <p className="text-slate-500 text-xs">
+              הסכום ננעל עד לפתרון האירוע. עודף בבריכה חוזר אליך.
+            </p>
+          </div>
+          <div className="space-y-1">
+            <Label className="text-slate-300">תאריך סגירה להימורים</Label>
+            <EventClosesAtPicker
+              date={closeDate}
+              time={closeTime}
+              onDateChange={setCloseDate}
+              onTimeChange={setCloseTime}
             />
           </div>
           <div className="space-y-2">
@@ -164,10 +253,12 @@ export function CreateEventDialog() {
           </div>
           <Button
             type="submit"
-            disabled={loading}
+            disabled={loading || !canAfford || !closeDate}
             className="w-full bg-blue-600 hover:bg-blue-700"
           >
-            {loading ? "יוצר..." : "צור אירוע"}
+            {loading
+              ? "יוצר..."
+              : `צור אירוע (נזילות ${formatCoins(liquidityM)})`}
           </Button>
         </form>
       </DialogContent>

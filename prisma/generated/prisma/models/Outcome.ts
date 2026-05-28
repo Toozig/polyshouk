@@ -27,62 +27,62 @@ export type AggregateOutcome = {
 }
 
 export type OutcomeAvgAggregateOutputType = {
-  totalBetAmount: number | null
+  lmsrQ: number | null
 }
 
 export type OutcomeSumAggregateOutputType = {
-  totalBetAmount: number | null
+  lmsrQ: number | null
 }
 
 export type OutcomeMinAggregateOutputType = {
   id: string | null
   label: string | null
-  totalBetAmount: number | null
+  lmsrQ: number | null
   eventId: string | null
 }
 
 export type OutcomeMaxAggregateOutputType = {
   id: string | null
   label: string | null
-  totalBetAmount: number | null
+  lmsrQ: number | null
   eventId: string | null
 }
 
 export type OutcomeCountAggregateOutputType = {
   id: number
   label: number
-  totalBetAmount: number
+  lmsrQ: number
   eventId: number
   _all: number
 }
 
 
 export type OutcomeAvgAggregateInputType = {
-  totalBetAmount?: true
+  lmsrQ?: true
 }
 
 export type OutcomeSumAggregateInputType = {
-  totalBetAmount?: true
+  lmsrQ?: true
 }
 
 export type OutcomeMinAggregateInputType = {
   id?: true
   label?: true
-  totalBetAmount?: true
+  lmsrQ?: true
   eventId?: true
 }
 
 export type OutcomeMaxAggregateInputType = {
   id?: true
   label?: true
-  totalBetAmount?: true
+  lmsrQ?: true
   eventId?: true
 }
 
 export type OutcomeCountAggregateInputType = {
   id?: true
   label?: true
-  totalBetAmount?: true
+  lmsrQ?: true
   eventId?: true
   _all?: true
 }
@@ -176,7 +176,7 @@ export type OutcomeGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 export type OutcomeGroupByOutputType = {
   id: string
   label: string
-  totalBetAmount: number
+  lmsrQ: number
   eventId: string
   _count: OutcomeCountAggregateOutputType | null
   _avg: OutcomeAvgAggregateOutputType | null
@@ -206,7 +206,7 @@ export type OutcomeWhereInput = {
   NOT?: Prisma.OutcomeWhereInput | Prisma.OutcomeWhereInput[]
   id?: Prisma.StringFilter<"Outcome"> | string
   label?: Prisma.StringFilter<"Outcome"> | string
-  totalBetAmount?: Prisma.IntFilter<"Outcome"> | number
+  lmsrQ?: Prisma.IntFilter<"Outcome"> | number
   eventId?: Prisma.StringFilter<"Outcome"> | string
   event?: Prisma.XOR<Prisma.EventScalarRelationFilter, Prisma.EventWhereInput>
   bets?: Prisma.BetListRelationFilter
@@ -216,7 +216,7 @@ export type OutcomeWhereInput = {
 export type OutcomeOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   label?: Prisma.SortOrder
-  totalBetAmount?: Prisma.SortOrder
+  lmsrQ?: Prisma.SortOrder
   eventId?: Prisma.SortOrder
   event?: Prisma.EventOrderByWithRelationInput
   bets?: Prisma.BetOrderByRelationAggregateInput
@@ -229,7 +229,7 @@ export type OutcomeWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.OutcomeWhereInput[]
   NOT?: Prisma.OutcomeWhereInput | Prisma.OutcomeWhereInput[]
   label?: Prisma.StringFilter<"Outcome"> | string
-  totalBetAmount?: Prisma.IntFilter<"Outcome"> | number
+  lmsrQ?: Prisma.IntFilter<"Outcome"> | number
   eventId?: Prisma.StringFilter<"Outcome"> | string
   event?: Prisma.XOR<Prisma.EventScalarRelationFilter, Prisma.EventWhereInput>
   bets?: Prisma.BetListRelationFilter
@@ -239,7 +239,7 @@ export type OutcomeWhereUniqueInput = Prisma.AtLeast<{
 export type OutcomeOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   label?: Prisma.SortOrder
-  totalBetAmount?: Prisma.SortOrder
+  lmsrQ?: Prisma.SortOrder
   eventId?: Prisma.SortOrder
   _count?: Prisma.OutcomeCountOrderByAggregateInput
   _avg?: Prisma.OutcomeAvgOrderByAggregateInput
@@ -254,14 +254,14 @@ export type OutcomeScalarWhereWithAggregatesInput = {
   NOT?: Prisma.OutcomeScalarWhereWithAggregatesInput | Prisma.OutcomeScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Outcome"> | string
   label?: Prisma.StringWithAggregatesFilter<"Outcome"> | string
-  totalBetAmount?: Prisma.IntWithAggregatesFilter<"Outcome"> | number
+  lmsrQ?: Prisma.IntWithAggregatesFilter<"Outcome"> | number
   eventId?: Prisma.StringWithAggregatesFilter<"Outcome"> | string
 }
 
 export type OutcomeCreateInput = {
   id?: string
   label: string
-  totalBetAmount?: number
+  lmsrQ?: number
   event: Prisma.EventCreateNestedOneWithoutOutcomesInput
   bets?: Prisma.BetCreateNestedManyWithoutOutcomeInput
   resolvedEvents?: Prisma.EventCreateNestedManyWithoutResolvedOutcomeInput
@@ -270,7 +270,7 @@ export type OutcomeCreateInput = {
 export type OutcomeUncheckedCreateInput = {
   id?: string
   label: string
-  totalBetAmount?: number
+  lmsrQ?: number
   eventId: string
   bets?: Prisma.BetUncheckedCreateNestedManyWithoutOutcomeInput
   resolvedEvents?: Prisma.EventUncheckedCreateNestedManyWithoutResolvedOutcomeInput
@@ -279,7 +279,7 @@ export type OutcomeUncheckedCreateInput = {
 export type OutcomeUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   label?: Prisma.StringFieldUpdateOperationsInput | string
-  totalBetAmount?: Prisma.IntFieldUpdateOperationsInput | number
+  lmsrQ?: Prisma.IntFieldUpdateOperationsInput | number
   event?: Prisma.EventUpdateOneRequiredWithoutOutcomesNestedInput
   bets?: Prisma.BetUpdateManyWithoutOutcomeNestedInput
   resolvedEvents?: Prisma.EventUpdateManyWithoutResolvedOutcomeNestedInput
@@ -288,7 +288,7 @@ export type OutcomeUpdateInput = {
 export type OutcomeUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   label?: Prisma.StringFieldUpdateOperationsInput | string
-  totalBetAmount?: Prisma.IntFieldUpdateOperationsInput | number
+  lmsrQ?: Prisma.IntFieldUpdateOperationsInput | number
   eventId?: Prisma.StringFieldUpdateOperationsInput | string
   bets?: Prisma.BetUncheckedUpdateManyWithoutOutcomeNestedInput
   resolvedEvents?: Prisma.EventUncheckedUpdateManyWithoutResolvedOutcomeNestedInput
@@ -297,20 +297,20 @@ export type OutcomeUncheckedUpdateInput = {
 export type OutcomeCreateManyInput = {
   id?: string
   label: string
-  totalBetAmount?: number
+  lmsrQ?: number
   eventId: string
 }
 
 export type OutcomeUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   label?: Prisma.StringFieldUpdateOperationsInput | string
-  totalBetAmount?: Prisma.IntFieldUpdateOperationsInput | number
+  lmsrQ?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type OutcomeUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   label?: Prisma.StringFieldUpdateOperationsInput | string
-  totalBetAmount?: Prisma.IntFieldUpdateOperationsInput | number
+  lmsrQ?: Prisma.IntFieldUpdateOperationsInput | number
   eventId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -332,30 +332,30 @@ export type OutcomeOrderByRelationAggregateInput = {
 export type OutcomeCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   label?: Prisma.SortOrder
-  totalBetAmount?: Prisma.SortOrder
+  lmsrQ?: Prisma.SortOrder
   eventId?: Prisma.SortOrder
 }
 
 export type OutcomeAvgOrderByAggregateInput = {
-  totalBetAmount?: Prisma.SortOrder
+  lmsrQ?: Prisma.SortOrder
 }
 
 export type OutcomeMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   label?: Prisma.SortOrder
-  totalBetAmount?: Prisma.SortOrder
+  lmsrQ?: Prisma.SortOrder
   eventId?: Prisma.SortOrder
 }
 
 export type OutcomeMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   label?: Prisma.SortOrder
-  totalBetAmount?: Prisma.SortOrder
+  lmsrQ?: Prisma.SortOrder
   eventId?: Prisma.SortOrder
 }
 
 export type OutcomeSumOrderByAggregateInput = {
-  totalBetAmount?: Prisma.SortOrder
+  lmsrQ?: Prisma.SortOrder
 }
 
 export type OutcomeScalarRelationFilter = {
@@ -438,7 +438,7 @@ export type OutcomeUpdateOneRequiredWithoutBetsNestedInput = {
 export type OutcomeCreateWithoutResolvedEventsInput = {
   id?: string
   label: string
-  totalBetAmount?: number
+  lmsrQ?: number
   event: Prisma.EventCreateNestedOneWithoutOutcomesInput
   bets?: Prisma.BetCreateNestedManyWithoutOutcomeInput
 }
@@ -446,7 +446,7 @@ export type OutcomeCreateWithoutResolvedEventsInput = {
 export type OutcomeUncheckedCreateWithoutResolvedEventsInput = {
   id?: string
   label: string
-  totalBetAmount?: number
+  lmsrQ?: number
   eventId: string
   bets?: Prisma.BetUncheckedCreateNestedManyWithoutOutcomeInput
 }
@@ -459,7 +459,7 @@ export type OutcomeCreateOrConnectWithoutResolvedEventsInput = {
 export type OutcomeCreateWithoutEventInput = {
   id?: string
   label: string
-  totalBetAmount?: number
+  lmsrQ?: number
   bets?: Prisma.BetCreateNestedManyWithoutOutcomeInput
   resolvedEvents?: Prisma.EventCreateNestedManyWithoutResolvedOutcomeInput
 }
@@ -467,7 +467,7 @@ export type OutcomeCreateWithoutEventInput = {
 export type OutcomeUncheckedCreateWithoutEventInput = {
   id?: string
   label: string
-  totalBetAmount?: number
+  lmsrQ?: number
   bets?: Prisma.BetUncheckedCreateNestedManyWithoutOutcomeInput
   resolvedEvents?: Prisma.EventUncheckedCreateNestedManyWithoutResolvedOutcomeInput
 }
@@ -496,7 +496,7 @@ export type OutcomeUpdateToOneWithWhereWithoutResolvedEventsInput = {
 export type OutcomeUpdateWithoutResolvedEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   label?: Prisma.StringFieldUpdateOperationsInput | string
-  totalBetAmount?: Prisma.IntFieldUpdateOperationsInput | number
+  lmsrQ?: Prisma.IntFieldUpdateOperationsInput | number
   event?: Prisma.EventUpdateOneRequiredWithoutOutcomesNestedInput
   bets?: Prisma.BetUpdateManyWithoutOutcomeNestedInput
 }
@@ -504,7 +504,7 @@ export type OutcomeUpdateWithoutResolvedEventsInput = {
 export type OutcomeUncheckedUpdateWithoutResolvedEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   label?: Prisma.StringFieldUpdateOperationsInput | string
-  totalBetAmount?: Prisma.IntFieldUpdateOperationsInput | number
+  lmsrQ?: Prisma.IntFieldUpdateOperationsInput | number
   eventId?: Prisma.StringFieldUpdateOperationsInput | string
   bets?: Prisma.BetUncheckedUpdateManyWithoutOutcomeNestedInput
 }
@@ -531,14 +531,14 @@ export type OutcomeScalarWhereInput = {
   NOT?: Prisma.OutcomeScalarWhereInput | Prisma.OutcomeScalarWhereInput[]
   id?: Prisma.StringFilter<"Outcome"> | string
   label?: Prisma.StringFilter<"Outcome"> | string
-  totalBetAmount?: Prisma.IntFilter<"Outcome"> | number
+  lmsrQ?: Prisma.IntFilter<"Outcome"> | number
   eventId?: Prisma.StringFilter<"Outcome"> | string
 }
 
 export type OutcomeCreateWithoutBetsInput = {
   id?: string
   label: string
-  totalBetAmount?: number
+  lmsrQ?: number
   event: Prisma.EventCreateNestedOneWithoutOutcomesInput
   resolvedEvents?: Prisma.EventCreateNestedManyWithoutResolvedOutcomeInput
 }
@@ -546,7 +546,7 @@ export type OutcomeCreateWithoutBetsInput = {
 export type OutcomeUncheckedCreateWithoutBetsInput = {
   id?: string
   label: string
-  totalBetAmount?: number
+  lmsrQ?: number
   eventId: string
   resolvedEvents?: Prisma.EventUncheckedCreateNestedManyWithoutResolvedOutcomeInput
 }
@@ -570,7 +570,7 @@ export type OutcomeUpdateToOneWithWhereWithoutBetsInput = {
 export type OutcomeUpdateWithoutBetsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   label?: Prisma.StringFieldUpdateOperationsInput | string
-  totalBetAmount?: Prisma.IntFieldUpdateOperationsInput | number
+  lmsrQ?: Prisma.IntFieldUpdateOperationsInput | number
   event?: Prisma.EventUpdateOneRequiredWithoutOutcomesNestedInput
   resolvedEvents?: Prisma.EventUpdateManyWithoutResolvedOutcomeNestedInput
 }
@@ -578,7 +578,7 @@ export type OutcomeUpdateWithoutBetsInput = {
 export type OutcomeUncheckedUpdateWithoutBetsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   label?: Prisma.StringFieldUpdateOperationsInput | string
-  totalBetAmount?: Prisma.IntFieldUpdateOperationsInput | number
+  lmsrQ?: Prisma.IntFieldUpdateOperationsInput | number
   eventId?: Prisma.StringFieldUpdateOperationsInput | string
   resolvedEvents?: Prisma.EventUncheckedUpdateManyWithoutResolvedOutcomeNestedInput
 }
@@ -586,13 +586,13 @@ export type OutcomeUncheckedUpdateWithoutBetsInput = {
 export type OutcomeCreateManyEventInput = {
   id?: string
   label: string
-  totalBetAmount?: number
+  lmsrQ?: number
 }
 
 export type OutcomeUpdateWithoutEventInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   label?: Prisma.StringFieldUpdateOperationsInput | string
-  totalBetAmount?: Prisma.IntFieldUpdateOperationsInput | number
+  lmsrQ?: Prisma.IntFieldUpdateOperationsInput | number
   bets?: Prisma.BetUpdateManyWithoutOutcomeNestedInput
   resolvedEvents?: Prisma.EventUpdateManyWithoutResolvedOutcomeNestedInput
 }
@@ -600,7 +600,7 @@ export type OutcomeUpdateWithoutEventInput = {
 export type OutcomeUncheckedUpdateWithoutEventInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   label?: Prisma.StringFieldUpdateOperationsInput | string
-  totalBetAmount?: Prisma.IntFieldUpdateOperationsInput | number
+  lmsrQ?: Prisma.IntFieldUpdateOperationsInput | number
   bets?: Prisma.BetUncheckedUpdateManyWithoutOutcomeNestedInput
   resolvedEvents?: Prisma.EventUncheckedUpdateManyWithoutResolvedOutcomeNestedInput
 }
@@ -608,7 +608,7 @@ export type OutcomeUncheckedUpdateWithoutEventInput = {
 export type OutcomeUncheckedUpdateManyWithoutEventInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   label?: Prisma.StringFieldUpdateOperationsInput | string
-  totalBetAmount?: Prisma.IntFieldUpdateOperationsInput | number
+  lmsrQ?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -654,7 +654,7 @@ export type OutcomeCountOutputTypeCountResolvedEventsArgs<ExtArgs extends runtim
 export type OutcomeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   label?: boolean
-  totalBetAmount?: boolean
+  lmsrQ?: boolean
   eventId?: boolean
   event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
   bets?: boolean | Prisma.Outcome$betsArgs<ExtArgs>
@@ -665,7 +665,7 @@ export type OutcomeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
 export type OutcomeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   label?: boolean
-  totalBetAmount?: boolean
+  lmsrQ?: boolean
   eventId?: boolean
   event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["outcome"]>
@@ -673,7 +673,7 @@ export type OutcomeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
 export type OutcomeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   label?: boolean
-  totalBetAmount?: boolean
+  lmsrQ?: boolean
   eventId?: boolean
   event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["outcome"]>
@@ -681,11 +681,11 @@ export type OutcomeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
 export type OutcomeSelectScalar = {
   id?: boolean
   label?: boolean
-  totalBetAmount?: boolean
+  lmsrQ?: boolean
   eventId?: boolean
 }
 
-export type OutcomeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "label" | "totalBetAmount" | "eventId", ExtArgs["result"]["outcome"]>
+export type OutcomeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "label" | "lmsrQ" | "eventId", ExtArgs["result"]["outcome"]>
 export type OutcomeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
   bets?: boolean | Prisma.Outcome$betsArgs<ExtArgs>
@@ -709,7 +709,10 @@ export type $OutcomePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     label: string
-    totalBetAmount: number
+    /**
+     * * LMSR outstanding share quantity qᵢ for this outcome.
+     */
+    lmsrQ: number
     eventId: string
   }, ExtArgs["result"]["outcome"]>
   composites: {}
@@ -1139,7 +1142,7 @@ export interface Prisma__OutcomeClient<T, Null = never, ExtArgs extends runtime.
 export interface OutcomeFieldRefs {
   readonly id: Prisma.FieldRef<"Outcome", 'String'>
   readonly label: Prisma.FieldRef<"Outcome", 'String'>
-  readonly totalBetAmount: Prisma.FieldRef<"Outcome", 'Int'>
+  readonly lmsrQ: Prisma.FieldRef<"Outcome", 'Int'>
   readonly eventId: Prisma.FieldRef<"Outcome", 'String'>
 }
     

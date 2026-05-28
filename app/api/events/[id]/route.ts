@@ -11,7 +11,7 @@ export async function GET(
     where: { id },
     include: {
       outcomes: true,
-      createdBy: { select: { id: true, name: true } },
+      createdBy: { select: { id: true, username: true } },
       _count: { select: { bets: true } },
     },
   });

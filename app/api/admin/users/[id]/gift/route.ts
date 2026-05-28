@@ -31,7 +31,7 @@ export async function POST(
     const user = await tx.user.update({
       where: { id: userId },
       data: { balance: { increment: amount } },
-      select: { id: true, name: true, balance: true },
+      select: { id: true, username: true, balance: true },
     });
 
     await tx.coinTransaction.create({

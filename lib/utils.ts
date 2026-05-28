@@ -1,12 +1,13 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { CURRENCY_NAME } from "@/lib/constants";
 
 export function cn(...inputs: ClassValue[]): string {
   return twMerge(clsx(inputs));
 }
 
 export function formatCoins(amount: number): string {
-  return `${amount.toLocaleString("he-IL")} מטבעות`;
+  return `${amount.toLocaleString("he-IL")} ${CURRENCY_NAME}`;
 }
 
 export function formatDate(date: Date | string): string {
@@ -17,10 +18,3 @@ export function formatDate(date: Date | string): string {
   });
 }
 
-export function calculateOdds(
-  outcomeBets: number,
-  totalBets: number
-): number {
-  if (totalBets === 0) return 50;
-  return Math.round((outcomeBets / totalBets) * 100);
-}

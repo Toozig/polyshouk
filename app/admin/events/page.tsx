@@ -3,8 +3,8 @@ import { Badge } from "@/components/ui/badge";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { formatDate } from "@/lib/utils";
-import { CreateEventDialog } from "@/components/admin/create-event-dialog";
-import { ResolveEventDialog } from "@/components/admin/resolve-event-dialog";
+import { CreateEventDialog } from "@/components/events/create-event-dialog";
+import { ResolveEventDialog } from "@/components/events/resolve-event-dialog";
 
 export const revalidate = 0;
 
@@ -25,21 +25,29 @@ export default async function AdminEventsPage() {
   const role = (session?.user as { role?: string } | undefined)?.role;
   if (!session?.user?.id || role !== "ADMIN") redirect("/");
 
-  const events = await prisma.event.findMany({
-    include: {
-      outcomes: true,
-      createdBy: { select: { name: true } },
-      resolvedOutcome: true,
-      _count: { select: { bets: true } },
-    },
-    orderBy: { createdAt: "desc" },
-  });
+  const [events, adminUser] = await Promise.all([
+    prisma.event.findMany({
+      include: {
+        outcomes: true,
+        createdBy: { select: { username: true } },
+        resolvedOutcome: true,
+        _count: { select: { bets: true } },
+      },
+      orderBy: { createdAt: "desc" },
+    }),
+    prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: { balance: true },
+    }),
+  ]);
+
+  const balance = adminUser?.balance ?? 0;
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-bold text-white">ניהול אירועים</h1>
-        <CreateEventDialog />
+        <CreateEventDialog userBalance={balance} />
       </div>
 
       <div className="space-y-4">
@@ -60,6 +68,7 @@ export default async function AdminEventsPage() {
                 </div>
                 <p className="text-slate-400 text-sm">{event.description}</p>
                 <div className="flex gap-4 mt-2 text-slate-500 text-xs">
+                  <span>יוצר: {event.createdBy.username}</span>
                   <span>קטגוריה: {event.category}</span>
                   <span>נסגר: {formatDate(event.closesAt)}</span>
                   <span>{event._count.bets} הימורים</span>
@@ -90,6 +99,7 @@ export default async function AdminEventsPage() {
                   eventId={event.id}
                   eventTitle={event.title}
                   outcomes={event.outcomes}
+                  canResolve
                 />
               )}
             </div>

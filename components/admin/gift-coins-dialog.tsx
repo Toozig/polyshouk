@@ -13,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { CURRENCY_NAME } from "@/lib/constants";
 
 interface GiftCoinsDialogProps {
   userId: string;
@@ -44,7 +45,7 @@ export function GiftCoinsDialog({ userId, userName }: GiftCoinsDialogProps) {
       return;
     }
 
-    toast.success(`נשלחו ${amount} מטבעות ל-${userName}`);
+    toast.success(`נשלחו ${amount} ${CURRENCY_NAME} ל-${userName}`);
     setOpen(false);
     setAmount(100);
     setNote("");
@@ -59,16 +60,16 @@ export function GiftCoinsDialog({ userId, userName }: GiftCoinsDialogProps) {
           size="sm"
           className="border-blue-500 text-blue-400 hover:bg-blue-500/10"
         >
-          תן מטבעות
+          תן {CURRENCY_NAME}
         </Button>
       </DialogTrigger>
       <DialogContent className="bg-slate-800 border-slate-700 text-white">
         <DialogHeader>
-          <DialogTitle>שלח מטבעות ל-{userName}</DialogTitle>
+          <DialogTitle>שלח {CURRENCY_NAME} ל-{userName}</DialogTitle>
         </DialogHeader>
         <div className="space-y-4 mt-2">
           <div className="space-y-1">
-            <Label className="text-slate-300">כמות מטבעות</Label>
+            <Label className="text-slate-300">כמות {CURRENCY_NAME}</Label>
             <Input
               type="number"
               min={1}
@@ -92,7 +93,7 @@ export function GiftCoinsDialog({ userId, userName }: GiftCoinsDialogProps) {
             disabled={loading || amount <= 0}
             className="w-full bg-blue-600 hover:bg-blue-700"
           >
-            {loading ? "שולח..." : "שלח מטבעות"}
+            {loading ? "שולח..." : `שלח ${CURRENCY_NAME}`}
           </Button>
         </div>
       </DialogContent>

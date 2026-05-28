@@ -894,8 +894,7 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const UserScalarFieldEnum = {
   id: 'id',
-  name: 'name',
-  email: 'email',
+  username: 'username',
   passwordHash: 'passwordHash',
   role: 'role',
   balance: 'balance',
@@ -925,6 +924,9 @@ export const EventScalarFieldEnum = {
   closesAt: 'closesAt',
   status: 'status',
   createdAt: 'createdAt',
+  liquidityM: 'liquidityM',
+  bParameter: 'bParameter',
+  poolBalance: 'poolBalance',
   resolvedOutcomeId: 'resolvedOutcomeId',
   createdById: 'createdById'
 } as const
@@ -935,7 +937,7 @@ export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof Ev
 export const OutcomeScalarFieldEnum = {
   id: 'id',
   label: 'label',
-  totalBetAmount: 'totalBetAmount',
+  lmsrQ: 'lmsrQ',
   eventId: 'eventId'
 } as const
 
@@ -945,6 +947,9 @@ export type OutcomeScalarFieldEnum = (typeof OutcomeScalarFieldEnum)[keyof typeo
 export const BetScalarFieldEnum = {
   id: 'id',
   amount: 'amount',
+  shares: 'shares',
+  sharesRemaining: 'sharesRemaining',
+  priceAtBet: 'priceAtBet',
   status: 'status',
   payout: 'payout',
   createdAt: 'createdAt',

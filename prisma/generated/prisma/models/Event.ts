@@ -20,8 +20,22 @@ export type EventModel = runtime.Types.Result.DefaultSelection<Prisma.$EventPayl
 
 export type AggregateEvent = {
   _count: EventCountAggregateOutputType | null
+  _avg: EventAvgAggregateOutputType | null
+  _sum: EventSumAggregateOutputType | null
   _min: EventMinAggregateOutputType | null
   _max: EventMaxAggregateOutputType | null
+}
+
+export type EventAvgAggregateOutputType = {
+  liquidityM: number | null
+  bParameter: number | null
+  poolBalance: number | null
+}
+
+export type EventSumAggregateOutputType = {
+  liquidityM: number | null
+  bParameter: number | null
+  poolBalance: number | null
 }
 
 export type EventMinAggregateOutputType = {
@@ -32,6 +46,9 @@ export type EventMinAggregateOutputType = {
   closesAt: Date | null
   status: $Enums.EventStatus | null
   createdAt: Date | null
+  liquidityM: number | null
+  bParameter: number | null
+  poolBalance: number | null
   resolvedOutcomeId: string | null
   createdById: string | null
 }
@@ -44,6 +61,9 @@ export type EventMaxAggregateOutputType = {
   closesAt: Date | null
   status: $Enums.EventStatus | null
   createdAt: Date | null
+  liquidityM: number | null
+  bParameter: number | null
+  poolBalance: number | null
   resolvedOutcomeId: string | null
   createdById: string | null
 }
@@ -56,11 +76,26 @@ export type EventCountAggregateOutputType = {
   closesAt: number
   status: number
   createdAt: number
+  liquidityM: number
+  bParameter: number
+  poolBalance: number
   resolvedOutcomeId: number
   createdById: number
   _all: number
 }
 
+
+export type EventAvgAggregateInputType = {
+  liquidityM?: true
+  bParameter?: true
+  poolBalance?: true
+}
+
+export type EventSumAggregateInputType = {
+  liquidityM?: true
+  bParameter?: true
+  poolBalance?: true
+}
 
 export type EventMinAggregateInputType = {
   id?: true
@@ -70,6 +105,9 @@ export type EventMinAggregateInputType = {
   closesAt?: true
   status?: true
   createdAt?: true
+  liquidityM?: true
+  bParameter?: true
+  poolBalance?: true
   resolvedOutcomeId?: true
   createdById?: true
 }
@@ -82,6 +120,9 @@ export type EventMaxAggregateInputType = {
   closesAt?: true
   status?: true
   createdAt?: true
+  liquidityM?: true
+  bParameter?: true
+  poolBalance?: true
   resolvedOutcomeId?: true
   createdById?: true
 }
@@ -94,6 +135,9 @@ export type EventCountAggregateInputType = {
   closesAt?: true
   status?: true
   createdAt?: true
+  liquidityM?: true
+  bParameter?: true
+  poolBalance?: true
   resolvedOutcomeId?: true
   createdById?: true
   _all?: true
@@ -137,6 +181,18 @@ export type EventAggregateArgs<ExtArgs extends runtime.Types.Extensions.Internal
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: EventAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: EventSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: EventMinAggregateInputType
@@ -167,6 +223,8 @@ export type EventGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   _count?: EventCountAggregateInputType | true
+  _avg?: EventAvgAggregateInputType
+  _sum?: EventSumAggregateInputType
   _min?: EventMinAggregateInputType
   _max?: EventMaxAggregateInputType
 }
@@ -179,9 +237,14 @@ export type EventGroupByOutputType = {
   closesAt: Date
   status: $Enums.EventStatus
   createdAt: Date
+  liquidityM: number
+  bParameter: number
+  poolBalance: number
   resolvedOutcomeId: string | null
   createdById: string
   _count: EventCountAggregateOutputType | null
+  _avg: EventAvgAggregateOutputType | null
+  _sum: EventSumAggregateOutputType | null
   _min: EventMinAggregateOutputType | null
   _max: EventMaxAggregateOutputType | null
 }
@@ -212,6 +275,9 @@ export type EventWhereInput = {
   closesAt?: Prisma.DateTimeFilter<"Event"> | Date | string
   status?: Prisma.EnumEventStatusFilter<"Event"> | $Enums.EventStatus
   createdAt?: Prisma.DateTimeFilter<"Event"> | Date | string
+  liquidityM?: Prisma.IntFilter<"Event"> | number
+  bParameter?: Prisma.IntFilter<"Event"> | number
+  poolBalance?: Prisma.IntFilter<"Event"> | number
   resolvedOutcomeId?: Prisma.StringNullableFilter<"Event"> | string | null
   createdById?: Prisma.StringFilter<"Event"> | string
   resolvedOutcome?: Prisma.XOR<Prisma.OutcomeNullableScalarRelationFilter, Prisma.OutcomeWhereInput> | null
@@ -228,6 +294,9 @@ export type EventOrderByWithRelationInput = {
   closesAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  liquidityM?: Prisma.SortOrder
+  bParameter?: Prisma.SortOrder
+  poolBalance?: Prisma.SortOrder
   resolvedOutcomeId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrder
   resolvedOutcome?: Prisma.OutcomeOrderByWithRelationInput
@@ -247,6 +316,9 @@ export type EventWhereUniqueInput = Prisma.AtLeast<{
   closesAt?: Prisma.DateTimeFilter<"Event"> | Date | string
   status?: Prisma.EnumEventStatusFilter<"Event"> | $Enums.EventStatus
   createdAt?: Prisma.DateTimeFilter<"Event"> | Date | string
+  liquidityM?: Prisma.IntFilter<"Event"> | number
+  bParameter?: Prisma.IntFilter<"Event"> | number
+  poolBalance?: Prisma.IntFilter<"Event"> | number
   resolvedOutcomeId?: Prisma.StringNullableFilter<"Event"> | string | null
   createdById?: Prisma.StringFilter<"Event"> | string
   resolvedOutcome?: Prisma.XOR<Prisma.OutcomeNullableScalarRelationFilter, Prisma.OutcomeWhereInput> | null
@@ -263,11 +335,16 @@ export type EventOrderByWithAggregationInput = {
   closesAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  liquidityM?: Prisma.SortOrder
+  bParameter?: Prisma.SortOrder
+  poolBalance?: Prisma.SortOrder
   resolvedOutcomeId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrder
   _count?: Prisma.EventCountOrderByAggregateInput
+  _avg?: Prisma.EventAvgOrderByAggregateInput
   _max?: Prisma.EventMaxOrderByAggregateInput
   _min?: Prisma.EventMinOrderByAggregateInput
+  _sum?: Prisma.EventSumOrderByAggregateInput
 }
 
 export type EventScalarWhereWithAggregatesInput = {
@@ -281,6 +358,9 @@ export type EventScalarWhereWithAggregatesInput = {
   closesAt?: Prisma.DateTimeWithAggregatesFilter<"Event"> | Date | string
   status?: Prisma.EnumEventStatusWithAggregatesFilter<"Event"> | $Enums.EventStatus
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Event"> | Date | string
+  liquidityM?: Prisma.IntWithAggregatesFilter<"Event"> | number
+  bParameter?: Prisma.IntWithAggregatesFilter<"Event"> | number
+  poolBalance?: Prisma.IntWithAggregatesFilter<"Event"> | number
   resolvedOutcomeId?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
   createdById?: Prisma.StringWithAggregatesFilter<"Event"> | string
 }
@@ -293,6 +373,9 @@ export type EventCreateInput = {
   closesAt: Date | string
   status?: $Enums.EventStatus
   createdAt?: Date | string
+  liquidityM?: number
+  bParameter?: number
+  poolBalance?: number
   resolvedOutcome?: Prisma.OutcomeCreateNestedOneWithoutResolvedEventsInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedEventsInput
   outcomes?: Prisma.OutcomeCreateNestedManyWithoutEventInput
@@ -307,6 +390,9 @@ export type EventUncheckedCreateInput = {
   closesAt: Date | string
   status?: $Enums.EventStatus
   createdAt?: Date | string
+  liquidityM?: number
+  bParameter?: number
+  poolBalance?: number
   resolvedOutcomeId?: string | null
   createdById: string
   outcomes?: Prisma.OutcomeUncheckedCreateNestedManyWithoutEventInput
@@ -321,6 +407,9 @@ export type EventUpdateInput = {
   closesAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  liquidityM?: Prisma.IntFieldUpdateOperationsInput | number
+  bParameter?: Prisma.IntFieldUpdateOperationsInput | number
+  poolBalance?: Prisma.IntFieldUpdateOperationsInput | number
   resolvedOutcome?: Prisma.OutcomeUpdateOneWithoutResolvedEventsNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedEventsNestedInput
   outcomes?: Prisma.OutcomeUpdateManyWithoutEventNestedInput
@@ -335,6 +424,9 @@ export type EventUncheckedUpdateInput = {
   closesAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  liquidityM?: Prisma.IntFieldUpdateOperationsInput | number
+  bParameter?: Prisma.IntFieldUpdateOperationsInput | number
+  poolBalance?: Prisma.IntFieldUpdateOperationsInput | number
   resolvedOutcomeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   outcomes?: Prisma.OutcomeUncheckedUpdateManyWithoutEventNestedInput
@@ -349,6 +441,9 @@ export type EventCreateManyInput = {
   closesAt: Date | string
   status?: $Enums.EventStatus
   createdAt?: Date | string
+  liquidityM?: number
+  bParameter?: number
+  poolBalance?: number
   resolvedOutcomeId?: string | null
   createdById: string
 }
@@ -361,6 +456,9 @@ export type EventUpdateManyMutationInput = {
   closesAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  liquidityM?: Prisma.IntFieldUpdateOperationsInput | number
+  bParameter?: Prisma.IntFieldUpdateOperationsInput | number
+  poolBalance?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type EventUncheckedUpdateManyInput = {
@@ -371,6 +469,9 @@ export type EventUncheckedUpdateManyInput = {
   closesAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  liquidityM?: Prisma.IntFieldUpdateOperationsInput | number
+  bParameter?: Prisma.IntFieldUpdateOperationsInput | number
+  poolBalance?: Prisma.IntFieldUpdateOperationsInput | number
   resolvedOutcomeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -393,8 +494,17 @@ export type EventCountOrderByAggregateInput = {
   closesAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  liquidityM?: Prisma.SortOrder
+  bParameter?: Prisma.SortOrder
+  poolBalance?: Prisma.SortOrder
   resolvedOutcomeId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
+}
+
+export type EventAvgOrderByAggregateInput = {
+  liquidityM?: Prisma.SortOrder
+  bParameter?: Prisma.SortOrder
+  poolBalance?: Prisma.SortOrder
 }
 
 export type EventMaxOrderByAggregateInput = {
@@ -405,6 +515,9 @@ export type EventMaxOrderByAggregateInput = {
   closesAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  liquidityM?: Prisma.SortOrder
+  bParameter?: Prisma.SortOrder
+  poolBalance?: Prisma.SortOrder
   resolvedOutcomeId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
 }
@@ -417,8 +530,17 @@ export type EventMinOrderByAggregateInput = {
   closesAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  liquidityM?: Prisma.SortOrder
+  bParameter?: Prisma.SortOrder
+  poolBalance?: Prisma.SortOrder
   resolvedOutcomeId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
+}
+
+export type EventSumOrderByAggregateInput = {
+  liquidityM?: Prisma.SortOrder
+  bParameter?: Prisma.SortOrder
+  poolBalance?: Prisma.SortOrder
 }
 
 export type EventScalarRelationFilter = {
@@ -550,6 +672,9 @@ export type EventCreateWithoutCreatedByInput = {
   closesAt: Date | string
   status?: $Enums.EventStatus
   createdAt?: Date | string
+  liquidityM?: number
+  bParameter?: number
+  poolBalance?: number
   resolvedOutcome?: Prisma.OutcomeCreateNestedOneWithoutResolvedEventsInput
   outcomes?: Prisma.OutcomeCreateNestedManyWithoutEventInput
   bets?: Prisma.BetCreateNestedManyWithoutEventInput
@@ -563,6 +688,9 @@ export type EventUncheckedCreateWithoutCreatedByInput = {
   closesAt: Date | string
   status?: $Enums.EventStatus
   createdAt?: Date | string
+  liquidityM?: number
+  bParameter?: number
+  poolBalance?: number
   resolvedOutcomeId?: string | null
   outcomes?: Prisma.OutcomeUncheckedCreateNestedManyWithoutEventInput
   bets?: Prisma.BetUncheckedCreateNestedManyWithoutEventInput
@@ -605,6 +733,9 @@ export type EventScalarWhereInput = {
   closesAt?: Prisma.DateTimeFilter<"Event"> | Date | string
   status?: Prisma.EnumEventStatusFilter<"Event"> | $Enums.EventStatus
   createdAt?: Prisma.DateTimeFilter<"Event"> | Date | string
+  liquidityM?: Prisma.IntFilter<"Event"> | number
+  bParameter?: Prisma.IntFilter<"Event"> | number
+  poolBalance?: Prisma.IntFilter<"Event"> | number
   resolvedOutcomeId?: Prisma.StringNullableFilter<"Event"> | string | null
   createdById?: Prisma.StringFilter<"Event"> | string
 }
@@ -617,6 +748,9 @@ export type EventCreateWithoutOutcomesInput = {
   closesAt: Date | string
   status?: $Enums.EventStatus
   createdAt?: Date | string
+  liquidityM?: number
+  bParameter?: number
+  poolBalance?: number
   resolvedOutcome?: Prisma.OutcomeCreateNestedOneWithoutResolvedEventsInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedEventsInput
   bets?: Prisma.BetCreateNestedManyWithoutEventInput
@@ -630,6 +764,9 @@ export type EventUncheckedCreateWithoutOutcomesInput = {
   closesAt: Date | string
   status?: $Enums.EventStatus
   createdAt?: Date | string
+  liquidityM?: number
+  bParameter?: number
+  poolBalance?: number
   resolvedOutcomeId?: string | null
   createdById: string
   bets?: Prisma.BetUncheckedCreateNestedManyWithoutEventInput
@@ -648,6 +785,9 @@ export type EventCreateWithoutResolvedOutcomeInput = {
   closesAt: Date | string
   status?: $Enums.EventStatus
   createdAt?: Date | string
+  liquidityM?: number
+  bParameter?: number
+  poolBalance?: number
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedEventsInput
   outcomes?: Prisma.OutcomeCreateNestedManyWithoutEventInput
   bets?: Prisma.BetCreateNestedManyWithoutEventInput
@@ -661,6 +801,9 @@ export type EventUncheckedCreateWithoutResolvedOutcomeInput = {
   closesAt: Date | string
   status?: $Enums.EventStatus
   createdAt?: Date | string
+  liquidityM?: number
+  bParameter?: number
+  poolBalance?: number
   createdById: string
   outcomes?: Prisma.OutcomeUncheckedCreateNestedManyWithoutEventInput
   bets?: Prisma.BetUncheckedCreateNestedManyWithoutEventInput
@@ -695,6 +838,9 @@ export type EventUpdateWithoutOutcomesInput = {
   closesAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  liquidityM?: Prisma.IntFieldUpdateOperationsInput | number
+  bParameter?: Prisma.IntFieldUpdateOperationsInput | number
+  poolBalance?: Prisma.IntFieldUpdateOperationsInput | number
   resolvedOutcome?: Prisma.OutcomeUpdateOneWithoutResolvedEventsNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedEventsNestedInput
   bets?: Prisma.BetUpdateManyWithoutEventNestedInput
@@ -708,6 +854,9 @@ export type EventUncheckedUpdateWithoutOutcomesInput = {
   closesAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  liquidityM?: Prisma.IntFieldUpdateOperationsInput | number
+  bParameter?: Prisma.IntFieldUpdateOperationsInput | number
+  poolBalance?: Prisma.IntFieldUpdateOperationsInput | number
   resolvedOutcomeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   bets?: Prisma.BetUncheckedUpdateManyWithoutEventNestedInput
@@ -737,6 +886,9 @@ export type EventCreateWithoutBetsInput = {
   closesAt: Date | string
   status?: $Enums.EventStatus
   createdAt?: Date | string
+  liquidityM?: number
+  bParameter?: number
+  poolBalance?: number
   resolvedOutcome?: Prisma.OutcomeCreateNestedOneWithoutResolvedEventsInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedEventsInput
   outcomes?: Prisma.OutcomeCreateNestedManyWithoutEventInput
@@ -750,6 +902,9 @@ export type EventUncheckedCreateWithoutBetsInput = {
   closesAt: Date | string
   status?: $Enums.EventStatus
   createdAt?: Date | string
+  liquidityM?: number
+  bParameter?: number
+  poolBalance?: number
   resolvedOutcomeId?: string | null
   createdById: string
   outcomes?: Prisma.OutcomeUncheckedCreateNestedManyWithoutEventInput
@@ -779,6 +934,9 @@ export type EventUpdateWithoutBetsInput = {
   closesAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  liquidityM?: Prisma.IntFieldUpdateOperationsInput | number
+  bParameter?: Prisma.IntFieldUpdateOperationsInput | number
+  poolBalance?: Prisma.IntFieldUpdateOperationsInput | number
   resolvedOutcome?: Prisma.OutcomeUpdateOneWithoutResolvedEventsNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedEventsNestedInput
   outcomes?: Prisma.OutcomeUpdateManyWithoutEventNestedInput
@@ -792,6 +950,9 @@ export type EventUncheckedUpdateWithoutBetsInput = {
   closesAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  liquidityM?: Prisma.IntFieldUpdateOperationsInput | number
+  bParameter?: Prisma.IntFieldUpdateOperationsInput | number
+  poolBalance?: Prisma.IntFieldUpdateOperationsInput | number
   resolvedOutcomeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   outcomes?: Prisma.OutcomeUncheckedUpdateManyWithoutEventNestedInput
@@ -805,6 +966,9 @@ export type EventCreateManyCreatedByInput = {
   closesAt: Date | string
   status?: $Enums.EventStatus
   createdAt?: Date | string
+  liquidityM?: number
+  bParameter?: number
+  poolBalance?: number
   resolvedOutcomeId?: string | null
 }
 
@@ -816,6 +980,9 @@ export type EventUpdateWithoutCreatedByInput = {
   closesAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  liquidityM?: Prisma.IntFieldUpdateOperationsInput | number
+  bParameter?: Prisma.IntFieldUpdateOperationsInput | number
+  poolBalance?: Prisma.IntFieldUpdateOperationsInput | number
   resolvedOutcome?: Prisma.OutcomeUpdateOneWithoutResolvedEventsNestedInput
   outcomes?: Prisma.OutcomeUpdateManyWithoutEventNestedInput
   bets?: Prisma.BetUpdateManyWithoutEventNestedInput
@@ -829,6 +996,9 @@ export type EventUncheckedUpdateWithoutCreatedByInput = {
   closesAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  liquidityM?: Prisma.IntFieldUpdateOperationsInput | number
+  bParameter?: Prisma.IntFieldUpdateOperationsInput | number
+  poolBalance?: Prisma.IntFieldUpdateOperationsInput | number
   resolvedOutcomeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   outcomes?: Prisma.OutcomeUncheckedUpdateManyWithoutEventNestedInput
   bets?: Prisma.BetUncheckedUpdateManyWithoutEventNestedInput
@@ -842,6 +1012,9 @@ export type EventUncheckedUpdateManyWithoutCreatedByInput = {
   closesAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  liquidityM?: Prisma.IntFieldUpdateOperationsInput | number
+  bParameter?: Prisma.IntFieldUpdateOperationsInput | number
+  poolBalance?: Prisma.IntFieldUpdateOperationsInput | number
   resolvedOutcomeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
@@ -853,6 +1026,9 @@ export type EventCreateManyResolvedOutcomeInput = {
   closesAt: Date | string
   status?: $Enums.EventStatus
   createdAt?: Date | string
+  liquidityM?: number
+  bParameter?: number
+  poolBalance?: number
   createdById: string
 }
 
@@ -864,6 +1040,9 @@ export type EventUpdateWithoutResolvedOutcomeInput = {
   closesAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  liquidityM?: Prisma.IntFieldUpdateOperationsInput | number
+  bParameter?: Prisma.IntFieldUpdateOperationsInput | number
+  poolBalance?: Prisma.IntFieldUpdateOperationsInput | number
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedEventsNestedInput
   outcomes?: Prisma.OutcomeUpdateManyWithoutEventNestedInput
   bets?: Prisma.BetUpdateManyWithoutEventNestedInput
@@ -877,6 +1056,9 @@ export type EventUncheckedUpdateWithoutResolvedOutcomeInput = {
   closesAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  liquidityM?: Prisma.IntFieldUpdateOperationsInput | number
+  bParameter?: Prisma.IntFieldUpdateOperationsInput | number
+  poolBalance?: Prisma.IntFieldUpdateOperationsInput | number
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   outcomes?: Prisma.OutcomeUncheckedUpdateManyWithoutEventNestedInput
   bets?: Prisma.BetUncheckedUpdateManyWithoutEventNestedInput
@@ -890,6 +1072,9 @@ export type EventUncheckedUpdateManyWithoutResolvedOutcomeInput = {
   closesAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  liquidityM?: Prisma.IntFieldUpdateOperationsInput | number
+  bParameter?: Prisma.IntFieldUpdateOperationsInput | number
+  poolBalance?: Prisma.IntFieldUpdateOperationsInput | number
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -941,6 +1126,9 @@ export type EventSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   closesAt?: boolean
   status?: boolean
   createdAt?: boolean
+  liquidityM?: boolean
+  bParameter?: boolean
+  poolBalance?: boolean
   resolvedOutcomeId?: boolean
   createdById?: boolean
   resolvedOutcome?: boolean | Prisma.Event$resolvedOutcomeArgs<ExtArgs>
@@ -958,6 +1146,9 @@ export type EventSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   closesAt?: boolean
   status?: boolean
   createdAt?: boolean
+  liquidityM?: boolean
+  bParameter?: boolean
+  poolBalance?: boolean
   resolvedOutcomeId?: boolean
   createdById?: boolean
   resolvedOutcome?: boolean | Prisma.Event$resolvedOutcomeArgs<ExtArgs>
@@ -972,6 +1163,9 @@ export type EventSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   closesAt?: boolean
   status?: boolean
   createdAt?: boolean
+  liquidityM?: boolean
+  bParameter?: boolean
+  poolBalance?: boolean
   resolvedOutcomeId?: boolean
   createdById?: boolean
   resolvedOutcome?: boolean | Prisma.Event$resolvedOutcomeArgs<ExtArgs>
@@ -986,11 +1180,14 @@ export type EventSelectScalar = {
   closesAt?: boolean
   status?: boolean
   createdAt?: boolean
+  liquidityM?: boolean
+  bParameter?: boolean
+  poolBalance?: boolean
   resolvedOutcomeId?: boolean
   createdById?: boolean
 }
 
-export type EventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "category" | "closesAt" | "status" | "createdAt" | "resolvedOutcomeId" | "createdById", ExtArgs["result"]["event"]>
+export type EventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "category" | "closesAt" | "status" | "createdAt" | "liquidityM" | "bParameter" | "poolBalance" | "resolvedOutcomeId" | "createdById", ExtArgs["result"]["event"]>
 export type EventInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   resolvedOutcome?: boolean | Prisma.Event$resolvedOutcomeArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1023,6 +1220,18 @@ export type $EventPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     closesAt: Date
     status: $Enums.EventStatus
     createdAt: Date
+    /**
+     * * Creator-locked collateral (m).
+     */
+    liquidityM: number
+    /**
+     * * LMSR depth parameter (b).
+     */
+    bParameter: number
+    /**
+     * * House pool balance (collateral + net trade flows).
+     */
+    poolBalance: number
     resolvedOutcomeId: string | null
     createdById: string
   }, ExtArgs["result"]["event"]>
@@ -1459,6 +1668,9 @@ export interface EventFieldRefs {
   readonly closesAt: Prisma.FieldRef<"Event", 'DateTime'>
   readonly status: Prisma.FieldRef<"Event", 'EventStatus'>
   readonly createdAt: Prisma.FieldRef<"Event", 'DateTime'>
+  readonly liquidityM: Prisma.FieldRef<"Event", 'Int'>
+  readonly bParameter: Prisma.FieldRef<"Event", 'Int'>
+  readonly poolBalance: Prisma.FieldRef<"Event", 'Int'>
   readonly resolvedOutcomeId: Prisma.FieldRef<"Event", 'String'>
   readonly createdById: Prisma.FieldRef<"Event", 'String'>
 }

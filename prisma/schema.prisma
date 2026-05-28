@@ -27,14 +27,16 @@ enum BetStatus {
 enum TransactionType {
   ADMIN_GIFT
   BET_PLACED
+  BET_SOLD
   BET_WON
+  EVENT_CREATED
+  EVENT_LIQUIDITY_RETURN
   INITIAL_GRANT
 }
 
 model User {
   id           String   @id @default(cuid())
-  name         String
-  email        String   @unique
+  username     String   @unique
   passwordHash String
   role         Role     @default(USER)
   balance      Int      @default(0)
@@ -69,6 +71,13 @@ model Event {
   status            EventStatus @default(OPEN)
   createdAt         DateTime    @default(now())
 
+  /** Creator-locked collateral (m). */
+  liquidityM        Int         @default(100)
+  /** LMSR depth parameter (b). */
+  bParameter        Int         @default(100)
+  /** House pool balance (collateral + net trade flows). */
+  poolBalance       Int         @default(0)
+
   resolvedOutcome   Outcome?    @relation("ResolvedOutcome", fields: [resolvedOutcomeId], references: [id])
   resolvedOutcomeId String?
 
@@ -82,7 +91,8 @@ model Event {
 model Outcome {
   id             String  @id @default(cuid())
   label          String
-  totalBetAmount Int     @default(0)
+  /** LMSR outstanding share quantity qᵢ for this outcome. */
+  lmsrQ          Int     @default(0)
 
   event          Event   @relation("EventOutcomes", fields: [eventId], references: [id])
   eventId        String
@@ -92,11 +102,14 @@ model Outcome {
 }
 
 model Bet {
-  id        String    @id @default(cuid())
-  amount    Int
-  status    BetStatus @default(PENDING)
-  payout    Int?
-  createdAt DateTime  @default(now())
+  id              String    @id @default(cuid())
+  amount          Int
+  shares          Int
+  sharesRemaining Int
+  priceAtBet      Int
+  status          BetStatus @default(PENDING)
+  payout          Int?
+  createdAt       DateTime  @default(now())
 
   user      User      @relation(fields: [userId], references: [id])
   userId    String

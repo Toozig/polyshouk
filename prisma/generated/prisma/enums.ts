@@ -38,7 +38,10 @@ export type BetStatus = (typeof BetStatus)[keyof typeof BetStatus]
 export const TransactionType = {
   ADMIN_GIFT: 'ADMIN_GIFT',
   BET_PLACED: 'BET_PLACED',
+  BET_SOLD: 'BET_SOLD',
   BET_WON: 'BET_WON',
+  EVENT_CREATED: 'EVENT_CREATED',
+  EVENT_LIQUIDITY_RETURN: 'EVENT_LIQUIDITY_RETURN',
   INITIAL_GRANT: 'INITIAL_GRANT'
 } as const
 

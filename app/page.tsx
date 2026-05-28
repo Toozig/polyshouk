@@ -9,7 +9,7 @@ export default function HomePage() {
         </h1>
         <p className="text-xl text-slate-400 mb-2">שוק תחזיות בעברית</p>
         <p className="text-slate-500 mb-10">
-          הנח הימורים על אירועים עתידיים, צבור מטבעות וצפה בתחזיותיך מתממשות
+          הנח הימורים על אירועים עתידיים, צבור ערך וצפה בתחזיותיך מתממשות
         </p>
         <div className="flex gap-4 justify-center">
           <Link

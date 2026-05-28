@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { calculateOdds, formatDate } from "@/lib/utils";
+import { OutcomeMarketRow } from "@/components/market/outcome-market-row";
+import { marketFromEvent } from "@/lib/market";
+import { formatDate } from "@/lib/utils";
 import type { EventWithOutcomes } from "@/types";
 
 interface EventCardProps {
@@ -9,10 +11,7 @@ interface EventCardProps {
 }
 
 export function EventCard({ event }: EventCardProps) {
-  const totalBets = event.outcomes.reduce(
-    (sum, o) => sum + o.totalBetAmount,
-    0
-  );
+  const market = marketFromEvent(event);
 
   return (
     <Card className="bg-slate-800 border-slate-700 hover:border-slate-500 transition-colors">
@@ -26,29 +25,20 @@ export function EventCard({ event }: EventCardProps) {
           </Badge>
         </div>
         <p className="text-slate-400 text-sm">
-          נסגר: {formatDate(event.closesAt)}
+          נסגר: {formatDate(event.closesAt)} · נזילות {event.liquidityM}
         </p>
       </CardHeader>
 
       <CardContent className="space-y-3">
         <div className="space-y-2">
-          {event.outcomes.map((outcome) => {
-            const pct = calculateOdds(outcome.totalBetAmount, totalBets);
-            return (
-              <div key={outcome.id}>
-                <div className="flex justify-between text-sm mb-1">
-                  <span className="text-slate-300">{outcome.label}</span>
-                  <span className="text-white font-medium">{pct}%</span>
-                </div>
-                <div className="h-2 bg-slate-700 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-blue-500 rounded-full transition-all"
-                    style={{ width: `${pct}%` }}
-                  />
-                </div>
-              </div>
-            );
-          })}
+          {event.outcomes.map((outcome, index) => (
+            <OutcomeMarketRow
+              key={outcome.id}
+              label={outcome.label}
+              market={market}
+              outcomeIndex={index}
+            />
+          ))}
         </div>
 
         <Link

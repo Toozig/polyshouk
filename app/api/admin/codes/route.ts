@@ -19,7 +19,7 @@ export async function GET(): Promise<NextResponse> {
 
   const codes = await prisma.inviteCode.findMany({
     include: {
-      usedBy: { select: { name: true } },
+      usedBy: { select: { username: true } },
     },
     orderBy: { createdAt: "desc" },
   });

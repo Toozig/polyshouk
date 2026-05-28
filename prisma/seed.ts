@@ -1,11 +1,16 @@
 import { PrismaClient } from "../prisma/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import * as bcrypt from "bcryptjs";
+import { defaultBForEvent } from "../lib/market";
 
 const adapter = new PrismaPg({
-  connectionString: process.env.DATABASE_URL ?? "postgresql://postgres:postgres@localhost:5432/polyshouk",
+  connectionString:
+    process.env.DATABASE_URL ??
+    "postgresql://postgres:postgres@localhost:5432/polyshouk",
 });
 const prisma = new PrismaClient({ adapter });
+
+const SEED_LIQUIDITY_M = 100;
 
 async function main(): Promise<void> {
   console.log("🌱 Starting seed...");
@@ -13,20 +18,25 @@ async function main(): Promise<void> {
   const passwordHash = await bcrypt.hash("admin123", 10);
 
   const admin = await prisma.user.upsert({
-    where: { email: "admin@polyshouk.com" },
+    where: { username: "admin" },
     update: {},
     create: {
-      name: "מנהל",
-      email: "admin@polyshouk.com",
+      username: "admin",
       passwordHash,
       role: "ADMIN",
       balance: 999999,
     },
   });
 
-  console.log(`✅ Admin user: ${admin.email}`);
+  console.log(`✅ Admin user: ${admin.username}`);
 
-  const inviteCodes = ["WELCOME1", "WELCOME2", "WELCOME3", "WELCOME4", "WELCOME5"];
+  const inviteCodes = [
+    "WELCOME1",
+    "WELCOME2",
+    "WELCOME3",
+    "WELCOME4",
+    "WELCOME5",
+  ];
 
   for (const code of inviteCodes) {
     await prisma.inviteCode.upsert({
@@ -41,6 +51,9 @@ async function main(): Promise<void> {
 
   console.log(`✅ Created ${inviteCodes.length} invite codes`);
 
+  const labels1 = ["הליכוד", "מחנה המדינה", "המחנה הממלכתי"];
+  const b1 = defaultBForEvent(SEED_LIQUIDITY_M, labels1.length);
+
   const event1 = await prisma.event.upsert({
     where: { id: "seed-event-1" },
     update: {},
@@ -48,20 +61,25 @@ async function main(): Promise<void> {
       id: "seed-event-1",
       title: "מי יזכה בבחירות 2026?",
       description:
-        "בחירות לכנסת ה-26 נערכות בשנת 2026. איזו מפלגה תרכוש את מספר המושבים הגבוה ביותר?",
+        "בחירות לכנסת ה-26 נערכות בשנת 2026. איזו מפלגה תרכוס את מספר המושבים הגבוה ביותר?",
       category: "פוליטיקה",
       closesAt: new Date("2026-11-01T20:00:00Z"),
       status: "OPEN",
       createdById: admin.id,
+      liquidityM: SEED_LIQUIDITY_M,
+      bParameter: b1,
+      poolBalance: SEED_LIQUIDITY_M,
       outcomes: {
-        create: [
-          { label: "הליכוד" },
-          { label: "מחנה המדינה" },
-          { label: "המחנה הממלכתי" },
-        ],
+        create: labels1.map((label) => ({
+          label,
+          lmsrQ: SEED_LIQUIDITY_M,
+        })),
       },
     },
   });
+
+  const labels2 = ["כן, נזכה!", "לא, לא נזכה"];
+  const b2 = defaultBForEvent(SEED_LIQUIDITY_M, labels2.length);
 
   const event2 = await prisma.event.upsert({
     where: { id: "seed-event-2" },
@@ -75,8 +93,14 @@ async function main(): Promise<void> {
       closesAt: new Date("2027-05-15T22:00:00Z"),
       status: "OPEN",
       createdById: admin.id,
+      liquidityM: SEED_LIQUIDITY_M,
+      bParameter: b2,
+      poolBalance: SEED_LIQUIDITY_M,
       outcomes: {
-        create: [{ label: "כן, נזכה!" }, { label: "לא, לא נזכה" }],
+        create: labels2.map((label) => ({
+          label,
+          lmsrQ: SEED_LIQUIDITY_M,
+        })),
       },
     },
   });

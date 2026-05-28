@@ -30,6 +30,10 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# local dev logs (see logs/README.md)
+/logs/*.log
+/logs/*.jsonl
+
 # env files (can opt-in for committing if needed)
 .env*
 

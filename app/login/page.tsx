@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -27,7 +27,7 @@ export default function LoginPage() {
     setLoading(true);
 
     const result = await signIn("credentials", {
-      email,
+      username,
       password,
       redirect: false,
     });
@@ -35,7 +35,7 @@ export default function LoginPage() {
     setLoading(false);
 
     if (result?.error) {
-      setError("כתובת אימייל או סיסמה שגויים");
+      setError("שם משתמש או סיסמה שגויים");
     } else {
       router.push("/events");
       router.refresh();
@@ -53,17 +53,18 @@ export default function LoginPage() {
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-slate-300">
-                כתובת אימייל
+              <Label htmlFor="username" className="text-slate-300">
+                שם משתמש
               </Label>
               <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                id="username"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 required
+                autoComplete="username"
                 className="bg-slate-700 border-slate-600 text-white text-right placeholder:text-slate-400"
-                placeholder="your@email.com"
+                placeholder="שם המשתמש שלך"
                 dir="ltr"
               />
             </div>
@@ -78,6 +79,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                autoComplete="current-password"
                 className="bg-slate-700 border-slate-600 text-white"
                 placeholder="••••••••"
               />

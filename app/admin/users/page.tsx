@@ -23,8 +23,7 @@ export default async function AdminUsersPage() {
   const users = await prisma.user.findMany({
     select: {
       id: true,
-      name: true,
-      email: true,
+      username: true,
       role: true,
       balance: true,
       createdAt: true,
@@ -41,8 +40,7 @@ export default async function AdminUsersPage() {
         <Table>
           <TableHeader>
             <TableRow className="border-slate-700 hover:bg-transparent">
-              <TableHead className="text-slate-400">שם</TableHead>
-              <TableHead className="text-slate-400">אימייל</TableHead>
+              <TableHead className="text-slate-400">שם משתמש</TableHead>
               <TableHead className="text-slate-400">תפקיד</TableHead>
               <TableHead className="text-slate-400 text-left">יתרה</TableHead>
               <TableHead className="text-slate-400 text-left">הימורים</TableHead>
@@ -53,11 +51,8 @@ export default async function AdminUsersPage() {
           <TableBody>
             {users.map((user) => (
               <TableRow key={user.id} className="border-slate-700">
-                <TableCell className="text-white font-medium">
-                  {user.name}
-                </TableCell>
-                <TableCell className="text-slate-400" dir="ltr">
-                  {user.email}
+                <TableCell className="text-white font-medium" dir="ltr">
+                  {user.username}
                 </TableCell>
                 <TableCell>
                   <Badge
@@ -80,7 +75,7 @@ export default async function AdminUsersPage() {
                   {formatDate(user.createdAt)}
                 </TableCell>
                 <TableCell>
-                  <GiftCoinsDialog userId={user.id} userName={user.name} />
+                  <GiftCoinsDialog userId={user.id} userName={user.username} />
                 </TableCell>
               </TableRow>
             ))}

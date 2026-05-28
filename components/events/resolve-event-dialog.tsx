@@ -17,12 +17,16 @@ interface ResolveEventDialogProps {
   eventId: string;
   eventTitle: string;
   outcomes: Outcome[];
+  canResolve: boolean;
+  resolveBlockedReason?: string;
 }
 
 export function ResolveEventDialog({
   eventId,
   eventTitle,
   outcomes,
+  canResolve,
+  resolveBlockedReason,
 }: ResolveEventDialogProps) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -35,7 +39,7 @@ export function ResolveEventDialog({
     if (!selectedOutcomeId) return;
     setLoading(true);
 
-    const response = await fetch(`/api/admin/events/${eventId}/resolve`, {
+    const response = await fetch(`/api/events/${eventId}/resolve`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ outcomeId: selectedOutcomeId }),
@@ -54,6 +58,13 @@ export function ResolveEventDialog({
     router.refresh();
   }
 
+  if (!canResolve) {
+    if (!resolveBlockedReason) return null;
+    return (
+      <p className="text-yellow-400 text-sm">{resolveBlockedReason}</p>
+    );
+  }
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
@@ -70,6 +81,9 @@ export function ResolveEventDialog({
           <DialogTitle>פתרון אירוע</DialogTitle>
         </DialogHeader>
         <p className="text-slate-400 text-sm">{eventTitle}</p>
+        <p className="text-slate-500 text-xs">
+          בחר את התוצאה המנצחת. לאחר האישור יחולקו הזכיות למנצחים.
+        </p>
         <div className="space-y-2 my-4">
           <p className="text-slate-300 text-sm font-medium">
             בחר את התוצאה המנצחת:

@@ -12,11 +12,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { REGISTRATION_PRIVACY_DISCLAIMER } from "@/lib/constants";
+import { parseJsonResponse } from "@/lib/parse-response";
 
 export default function RegisterPage() {
   const router = useRouter();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [inviteCode, setInviteCode] = useState("");
   const [error, setError] = useState("");
@@ -27,17 +28,31 @@ export default function RegisterPage() {
     setError("");
     setLoading(true);
 
-    const response = await fetch("/api/auth/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, password, inviteCode }),
-    });
+    let response: Response;
+    try {
+      response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password, inviteCode }),
+      });
+    } catch {
+      setLoading(false);
+      setError("לא ניתן להתחבר לשרת. נסה שוב.");
+      return;
+    }
 
-    const data = await response.json();
+    const { data, parseError } = await parseJsonResponse<{ error?: string }>(
+      response
+    );
     setLoading(false);
 
+    if (parseError) {
+      setError("תשובה לא תקינה מהשרת. נסה שוב.");
+      return;
+    }
+
     if (!response.ok) {
-      setError(data.error ?? "אירעה שגיאה. נסה שנית.");
+      setError(data?.error ?? "אירעה שגיאה. נסה שנית.");
       return;
     }
 
@@ -45,47 +60,45 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-950 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-slate-950 px-4 py-8">
       <Card className="w-full max-w-md bg-slate-800 border-slate-700">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl text-white">
             הצטרפות לפולישוק
           </CardTitle>
           <p className="text-slate-400 text-sm">
-            קבל 1,000 מטבעות להתחלה בהרשמה
+            קבל 1,000 ערך להתחלה בהרשמה
           </p>
         </CardHeader>
         <CardContent>
+          <div
+            role="note"
+            className="mb-4 rounded-lg border border-amber-600/40 bg-amber-950/40 px-3 py-3 text-amber-100/90 text-sm leading-relaxed text-right"
+          >
+            {REGISTRATION_PRIVACY_DISCLAIMER}
+          </div>
+
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="name" className="text-slate-300">
-                שם מלא
+              <Label htmlFor="username" className="text-slate-300">
+                שם משתמש
               </Label>
               <Input
-                id="name"
+                id="username"
                 type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 required
+                minLength={3}
+                maxLength={24}
+                autoComplete="username"
                 className="bg-slate-700 border-slate-600 text-white text-right placeholder:text-slate-400"
-                placeholder="ישראל ישראלי"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="email" className="text-slate-300">
-                כתובת אימייל
-              </Label>
-              <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="bg-slate-700 border-slate-600 text-white text-right placeholder:text-slate-400"
-                placeholder="your@email.com"
+                placeholder="לדוגמה: player_42"
                 dir="ltr"
               />
+              <p className="text-slate-500 text-xs">
+                משמש להתחברות ומוצג לאחרים — לא שם אמיתי ולא פרטים מזהים.
+              </p>
             </div>
 
             <div className="space-y-2">
@@ -99,6 +112,7 @@ export default function RegisterPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 minLength={6}
+                autoComplete="new-password"
                 className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400"
                 placeholder="לפחות 6 תווים"
               />

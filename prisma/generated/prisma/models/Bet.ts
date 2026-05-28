@@ -28,17 +28,26 @@ export type AggregateBet = {
 
 export type BetAvgAggregateOutputType = {
   amount: number | null
+  shares: number | null
+  sharesRemaining: number | null
+  priceAtBet: number | null
   payout: number | null
 }
 
 export type BetSumAggregateOutputType = {
   amount: number | null
+  shares: number | null
+  sharesRemaining: number | null
+  priceAtBet: number | null
   payout: number | null
 }
 
 export type BetMinAggregateOutputType = {
   id: string | null
   amount: number | null
+  shares: number | null
+  sharesRemaining: number | null
+  priceAtBet: number | null
   status: $Enums.BetStatus | null
   payout: number | null
   createdAt: Date | null
@@ -50,6 +59,9 @@ export type BetMinAggregateOutputType = {
 export type BetMaxAggregateOutputType = {
   id: string | null
   amount: number | null
+  shares: number | null
+  sharesRemaining: number | null
+  priceAtBet: number | null
   status: $Enums.BetStatus | null
   payout: number | null
   createdAt: Date | null
@@ -61,6 +73,9 @@ export type BetMaxAggregateOutputType = {
 export type BetCountAggregateOutputType = {
   id: number
   amount: number
+  shares: number
+  sharesRemaining: number
+  priceAtBet: number
   status: number
   payout: number
   createdAt: number
@@ -73,17 +88,26 @@ export type BetCountAggregateOutputType = {
 
 export type BetAvgAggregateInputType = {
   amount?: true
+  shares?: true
+  sharesRemaining?: true
+  priceAtBet?: true
   payout?: true
 }
 
 export type BetSumAggregateInputType = {
   amount?: true
+  shares?: true
+  sharesRemaining?: true
+  priceAtBet?: true
   payout?: true
 }
 
 export type BetMinAggregateInputType = {
   id?: true
   amount?: true
+  shares?: true
+  sharesRemaining?: true
+  priceAtBet?: true
   status?: true
   payout?: true
   createdAt?: true
@@ -95,6 +119,9 @@ export type BetMinAggregateInputType = {
 export type BetMaxAggregateInputType = {
   id?: true
   amount?: true
+  shares?: true
+  sharesRemaining?: true
+  priceAtBet?: true
   status?: true
   payout?: true
   createdAt?: true
@@ -106,6 +133,9 @@ export type BetMaxAggregateInputType = {
 export type BetCountAggregateInputType = {
   id?: true
   amount?: true
+  shares?: true
+  sharesRemaining?: true
+  priceAtBet?: true
   status?: true
   payout?: true
   createdAt?: true
@@ -204,6 +234,9 @@ export type BetGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
 export type BetGroupByOutputType = {
   id: string
   amount: number
+  shares: number
+  sharesRemaining: number
+  priceAtBet: number
   status: $Enums.BetStatus
   payout: number | null
   createdAt: Date
@@ -238,6 +271,9 @@ export type BetWhereInput = {
   NOT?: Prisma.BetWhereInput | Prisma.BetWhereInput[]
   id?: Prisma.StringFilter<"Bet"> | string
   amount?: Prisma.IntFilter<"Bet"> | number
+  shares?: Prisma.IntFilter<"Bet"> | number
+  sharesRemaining?: Prisma.IntFilter<"Bet"> | number
+  priceAtBet?: Prisma.IntFilter<"Bet"> | number
   status?: Prisma.EnumBetStatusFilter<"Bet"> | $Enums.BetStatus
   payout?: Prisma.IntNullableFilter<"Bet"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Bet"> | Date | string
@@ -252,6 +288,9 @@ export type BetWhereInput = {
 export type BetOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   amount?: Prisma.SortOrder
+  shares?: Prisma.SortOrder
+  sharesRemaining?: Prisma.SortOrder
+  priceAtBet?: Prisma.SortOrder
   status?: Prisma.SortOrder
   payout?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -269,6 +308,9 @@ export type BetWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.BetWhereInput[]
   NOT?: Prisma.BetWhereInput | Prisma.BetWhereInput[]
   amount?: Prisma.IntFilter<"Bet"> | number
+  shares?: Prisma.IntFilter<"Bet"> | number
+  sharesRemaining?: Prisma.IntFilter<"Bet"> | number
+  priceAtBet?: Prisma.IntFilter<"Bet"> | number
   status?: Prisma.EnumBetStatusFilter<"Bet"> | $Enums.BetStatus
   payout?: Prisma.IntNullableFilter<"Bet"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Bet"> | Date | string
@@ -283,6 +325,9 @@ export type BetWhereUniqueInput = Prisma.AtLeast<{
 export type BetOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   amount?: Prisma.SortOrder
+  shares?: Prisma.SortOrder
+  sharesRemaining?: Prisma.SortOrder
+  priceAtBet?: Prisma.SortOrder
   status?: Prisma.SortOrder
   payout?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -302,6 +347,9 @@ export type BetScalarWhereWithAggregatesInput = {
   NOT?: Prisma.BetScalarWhereWithAggregatesInput | Prisma.BetScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Bet"> | string
   amount?: Prisma.IntWithAggregatesFilter<"Bet"> | number
+  shares?: Prisma.IntWithAggregatesFilter<"Bet"> | number
+  sharesRemaining?: Prisma.IntWithAggregatesFilter<"Bet"> | number
+  priceAtBet?: Prisma.IntWithAggregatesFilter<"Bet"> | number
   status?: Prisma.EnumBetStatusWithAggregatesFilter<"Bet"> | $Enums.BetStatus
   payout?: Prisma.IntNullableWithAggregatesFilter<"Bet"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Bet"> | Date | string
@@ -313,6 +361,9 @@ export type BetScalarWhereWithAggregatesInput = {
 export type BetCreateInput = {
   id?: string
   amount: number
+  shares: number
+  sharesRemaining: number
+  priceAtBet: number
   status?: $Enums.BetStatus
   payout?: number | null
   createdAt?: Date | string
@@ -324,6 +375,9 @@ export type BetCreateInput = {
 export type BetUncheckedCreateInput = {
   id?: string
   amount: number
+  shares: number
+  sharesRemaining: number
+  priceAtBet: number
   status?: $Enums.BetStatus
   payout?: number | null
   createdAt?: Date | string
@@ -335,6 +389,9 @@ export type BetUncheckedCreateInput = {
 export type BetUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
+  shares?: Prisma.IntFieldUpdateOperationsInput | number
+  sharesRemaining?: Prisma.IntFieldUpdateOperationsInput | number
+  priceAtBet?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumBetStatusFieldUpdateOperationsInput | $Enums.BetStatus
   payout?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -346,6 +403,9 @@ export type BetUpdateInput = {
 export type BetUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
+  shares?: Prisma.IntFieldUpdateOperationsInput | number
+  sharesRemaining?: Prisma.IntFieldUpdateOperationsInput | number
+  priceAtBet?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumBetStatusFieldUpdateOperationsInput | $Enums.BetStatus
   payout?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -357,6 +417,9 @@ export type BetUncheckedUpdateInput = {
 export type BetCreateManyInput = {
   id?: string
   amount: number
+  shares: number
+  sharesRemaining: number
+  priceAtBet: number
   status?: $Enums.BetStatus
   payout?: number | null
   createdAt?: Date | string
@@ -368,6 +431,9 @@ export type BetCreateManyInput = {
 export type BetUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
+  shares?: Prisma.IntFieldUpdateOperationsInput | number
+  sharesRemaining?: Prisma.IntFieldUpdateOperationsInput | number
+  priceAtBet?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumBetStatusFieldUpdateOperationsInput | $Enums.BetStatus
   payout?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -376,6 +442,9 @@ export type BetUpdateManyMutationInput = {
 export type BetUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
+  shares?: Prisma.IntFieldUpdateOperationsInput | number
+  sharesRemaining?: Prisma.IntFieldUpdateOperationsInput | number
+  priceAtBet?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumBetStatusFieldUpdateOperationsInput | $Enums.BetStatus
   payout?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -397,6 +466,9 @@ export type BetOrderByRelationAggregateInput = {
 export type BetCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   amount?: Prisma.SortOrder
+  shares?: Prisma.SortOrder
+  sharesRemaining?: Prisma.SortOrder
+  priceAtBet?: Prisma.SortOrder
   status?: Prisma.SortOrder
   payout?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -407,12 +479,18 @@ export type BetCountOrderByAggregateInput = {
 
 export type BetAvgOrderByAggregateInput = {
   amount?: Prisma.SortOrder
+  shares?: Prisma.SortOrder
+  sharesRemaining?: Prisma.SortOrder
+  priceAtBet?: Prisma.SortOrder
   payout?: Prisma.SortOrder
 }
 
 export type BetMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   amount?: Prisma.SortOrder
+  shares?: Prisma.SortOrder
+  sharesRemaining?: Prisma.SortOrder
+  priceAtBet?: Prisma.SortOrder
   status?: Prisma.SortOrder
   payout?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -424,6 +502,9 @@ export type BetMaxOrderByAggregateInput = {
 export type BetMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   amount?: Prisma.SortOrder
+  shares?: Prisma.SortOrder
+  sharesRemaining?: Prisma.SortOrder
+  priceAtBet?: Prisma.SortOrder
   status?: Prisma.SortOrder
   payout?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -434,6 +515,9 @@ export type BetMinOrderByAggregateInput = {
 
 export type BetSumOrderByAggregateInput = {
   amount?: Prisma.SortOrder
+  shares?: Prisma.SortOrder
+  sharesRemaining?: Prisma.SortOrder
+  priceAtBet?: Prisma.SortOrder
   payout?: Prisma.SortOrder
 }
 
@@ -578,6 +662,9 @@ export type NullableIntFieldUpdateOperationsInput = {
 export type BetCreateWithoutUserInput = {
   id?: string
   amount: number
+  shares: number
+  sharesRemaining: number
+  priceAtBet: number
   status?: $Enums.BetStatus
   payout?: number | null
   createdAt?: Date | string
@@ -588,6 +675,9 @@ export type BetCreateWithoutUserInput = {
 export type BetUncheckedCreateWithoutUserInput = {
   id?: string
   amount: number
+  shares: number
+  sharesRemaining: number
+  priceAtBet: number
   status?: $Enums.BetStatus
   payout?: number | null
   createdAt?: Date | string
@@ -627,6 +717,9 @@ export type BetScalarWhereInput = {
   NOT?: Prisma.BetScalarWhereInput | Prisma.BetScalarWhereInput[]
   id?: Prisma.StringFilter<"Bet"> | string
   amount?: Prisma.IntFilter<"Bet"> | number
+  shares?: Prisma.IntFilter<"Bet"> | number
+  sharesRemaining?: Prisma.IntFilter<"Bet"> | number
+  priceAtBet?: Prisma.IntFilter<"Bet"> | number
   status?: Prisma.EnumBetStatusFilter<"Bet"> | $Enums.BetStatus
   payout?: Prisma.IntNullableFilter<"Bet"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Bet"> | Date | string
@@ -638,6 +731,9 @@ export type BetScalarWhereInput = {
 export type BetCreateWithoutEventInput = {
   id?: string
   amount: number
+  shares: number
+  sharesRemaining: number
+  priceAtBet: number
   status?: $Enums.BetStatus
   payout?: number | null
   createdAt?: Date | string
@@ -648,6 +744,9 @@ export type BetCreateWithoutEventInput = {
 export type BetUncheckedCreateWithoutEventInput = {
   id?: string
   amount: number
+  shares: number
+  sharesRemaining: number
+  priceAtBet: number
   status?: $Enums.BetStatus
   payout?: number | null
   createdAt?: Date | string
@@ -684,6 +783,9 @@ export type BetUpdateManyWithWhereWithoutEventInput = {
 export type BetCreateWithoutOutcomeInput = {
   id?: string
   amount: number
+  shares: number
+  sharesRemaining: number
+  priceAtBet: number
   status?: $Enums.BetStatus
   payout?: number | null
   createdAt?: Date | string
@@ -694,6 +796,9 @@ export type BetCreateWithoutOutcomeInput = {
 export type BetUncheckedCreateWithoutOutcomeInput = {
   id?: string
   amount: number
+  shares: number
+  sharesRemaining: number
+  priceAtBet: number
   status?: $Enums.BetStatus
   payout?: number | null
   createdAt?: Date | string
@@ -730,6 +835,9 @@ export type BetUpdateManyWithWhereWithoutOutcomeInput = {
 export type BetCreateManyUserInput = {
   id?: string
   amount: number
+  shares: number
+  sharesRemaining: number
+  priceAtBet: number
   status?: $Enums.BetStatus
   payout?: number | null
   createdAt?: Date | string
@@ -740,6 +848,9 @@ export type BetCreateManyUserInput = {
 export type BetUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
+  shares?: Prisma.IntFieldUpdateOperationsInput | number
+  sharesRemaining?: Prisma.IntFieldUpdateOperationsInput | number
+  priceAtBet?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumBetStatusFieldUpdateOperationsInput | $Enums.BetStatus
   payout?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -750,6 +861,9 @@ export type BetUpdateWithoutUserInput = {
 export type BetUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
+  shares?: Prisma.IntFieldUpdateOperationsInput | number
+  sharesRemaining?: Prisma.IntFieldUpdateOperationsInput | number
+  priceAtBet?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumBetStatusFieldUpdateOperationsInput | $Enums.BetStatus
   payout?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -760,6 +874,9 @@ export type BetUncheckedUpdateWithoutUserInput = {
 export type BetUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
+  shares?: Prisma.IntFieldUpdateOperationsInput | number
+  sharesRemaining?: Prisma.IntFieldUpdateOperationsInput | number
+  priceAtBet?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumBetStatusFieldUpdateOperationsInput | $Enums.BetStatus
   payout?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -770,6 +887,9 @@ export type BetUncheckedUpdateManyWithoutUserInput = {
 export type BetCreateManyEventInput = {
   id?: string
   amount: number
+  shares: number
+  sharesRemaining: number
+  priceAtBet: number
   status?: $Enums.BetStatus
   payout?: number | null
   createdAt?: Date | string
@@ -780,6 +900,9 @@ export type BetCreateManyEventInput = {
 export type BetUpdateWithoutEventInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
+  shares?: Prisma.IntFieldUpdateOperationsInput | number
+  sharesRemaining?: Prisma.IntFieldUpdateOperationsInput | number
+  priceAtBet?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumBetStatusFieldUpdateOperationsInput | $Enums.BetStatus
   payout?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -790,6 +913,9 @@ export type BetUpdateWithoutEventInput = {
 export type BetUncheckedUpdateWithoutEventInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
+  shares?: Prisma.IntFieldUpdateOperationsInput | number
+  sharesRemaining?: Prisma.IntFieldUpdateOperationsInput | number
+  priceAtBet?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumBetStatusFieldUpdateOperationsInput | $Enums.BetStatus
   payout?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -800,6 +926,9 @@ export type BetUncheckedUpdateWithoutEventInput = {
 export type BetUncheckedUpdateManyWithoutEventInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
+  shares?: Prisma.IntFieldUpdateOperationsInput | number
+  sharesRemaining?: Prisma.IntFieldUpdateOperationsInput | number
+  priceAtBet?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumBetStatusFieldUpdateOperationsInput | $Enums.BetStatus
   payout?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -810,6 +939,9 @@ export type BetUncheckedUpdateManyWithoutEventInput = {
 export type BetCreateManyOutcomeInput = {
   id?: string
   amount: number
+  shares: number
+  sharesRemaining: number
+  priceAtBet: number
   status?: $Enums.BetStatus
   payout?: number | null
   createdAt?: Date | string
@@ -820,6 +952,9 @@ export type BetCreateManyOutcomeInput = {
 export type BetUpdateWithoutOutcomeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
+  shares?: Prisma.IntFieldUpdateOperationsInput | number
+  sharesRemaining?: Prisma.IntFieldUpdateOperationsInput | number
+  priceAtBet?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumBetStatusFieldUpdateOperationsInput | $Enums.BetStatus
   payout?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -830,6 +965,9 @@ export type BetUpdateWithoutOutcomeInput = {
 export type BetUncheckedUpdateWithoutOutcomeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
+  shares?: Prisma.IntFieldUpdateOperationsInput | number
+  sharesRemaining?: Prisma.IntFieldUpdateOperationsInput | number
+  priceAtBet?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumBetStatusFieldUpdateOperationsInput | $Enums.BetStatus
   payout?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -840,6 +978,9 @@ export type BetUncheckedUpdateWithoutOutcomeInput = {
 export type BetUncheckedUpdateManyWithoutOutcomeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
+  shares?: Prisma.IntFieldUpdateOperationsInput | number
+  sharesRemaining?: Prisma.IntFieldUpdateOperationsInput | number
+  priceAtBet?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumBetStatusFieldUpdateOperationsInput | $Enums.BetStatus
   payout?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -852,6 +993,9 @@ export type BetUncheckedUpdateManyWithoutOutcomeInput = {
 export type BetSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   amount?: boolean
+  shares?: boolean
+  sharesRemaining?: boolean
+  priceAtBet?: boolean
   status?: boolean
   payout?: boolean
   createdAt?: boolean
@@ -866,6 +1010,9 @@ export type BetSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
 export type BetSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   amount?: boolean
+  shares?: boolean
+  sharesRemaining?: boolean
+  priceAtBet?: boolean
   status?: boolean
   payout?: boolean
   createdAt?: boolean
@@ -880,6 +1027,9 @@ export type BetSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extension
 export type BetSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   amount?: boolean
+  shares?: boolean
+  sharesRemaining?: boolean
+  priceAtBet?: boolean
   status?: boolean
   payout?: boolean
   createdAt?: boolean
@@ -894,6 +1044,9 @@ export type BetSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extension
 export type BetSelectScalar = {
   id?: boolean
   amount?: boolean
+  shares?: boolean
+  sharesRemaining?: boolean
+  priceAtBet?: boolean
   status?: boolean
   payout?: boolean
   createdAt?: boolean
@@ -902,7 +1055,7 @@ export type BetSelectScalar = {
   outcomeId?: boolean
 }
 
-export type BetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "amount" | "status" | "payout" | "createdAt" | "userId" | "eventId" | "outcomeId", ExtArgs["result"]["bet"]>
+export type BetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "amount" | "shares" | "sharesRemaining" | "priceAtBet" | "status" | "payout" | "createdAt" | "userId" | "eventId" | "outcomeId", ExtArgs["result"]["bet"]>
 export type BetInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
@@ -929,6 +1082,9 @@ export type $BetPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     amount: number
+    shares: number
+    sharesRemaining: number
+    priceAtBet: number
     status: $Enums.BetStatus
     payout: number | null
     createdAt: Date
@@ -1363,6 +1519,9 @@ export interface Prisma__BetClient<T, Null = never, ExtArgs extends runtime.Type
 export interface BetFieldRefs {
   readonly id: Prisma.FieldRef<"Bet", 'String'>
   readonly amount: Prisma.FieldRef<"Bet", 'Int'>
+  readonly shares: Prisma.FieldRef<"Bet", 'Int'>
+  readonly sharesRemaining: Prisma.FieldRef<"Bet", 'Int'>
+  readonly priceAtBet: Prisma.FieldRef<"Bet", 'Int'>
   readonly status: Prisma.FieldRef<"Bet", 'BetStatus'>
   readonly payout: Prisma.FieldRef<"Bet", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Bet", 'DateTime'>

@@ -22,7 +22,7 @@ export default async function AdminCodesPage() {
 
   const codes = await prisma.inviteCode.findMany({
     include: {
-      usedBy: { select: { name: true } },
+      usedBy: { select: { username: true } },
     },
     orderBy: { createdAt: "desc" },
   });
@@ -69,7 +69,7 @@ export default async function AdminCodesPage() {
                   </Badge>
                 </TableCell>
                 <TableCell className="text-slate-300">
-                  {code.usedBy?.name ?? (
+                  {code.usedBy?.username ?? (
                     <span className="text-slate-500">לא נוצל</span>
                   )}
                 </TableCell>
