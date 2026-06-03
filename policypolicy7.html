@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polishuk System Logic</title>
+    <style>
+        /* Dark Theme Code Editor Style */
+        body {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            font-family: 'Consolas', 'Courier New', monospace;
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .editor-window {
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            border: 1px solid #333;
+            padding: 20px;
+            width: 100%;
+            max-width: 900px;
+            direction: ltr;
+            text-align: left;
+            line-height: 1.5;
+            font-size: 15px;
+            overflow-x: auto;
+        }
+
+        /* Syntax Highlighting Colors */
+        .keyword { color: #569cd6; }      /* def, match, case, return */
+        .function { color: #dcdcaa; }     /* polishuk_system */
+        .variable { color: #9cdcfe; }     /* user_confidence, event, etc. */
+        .string { color: #ce9178; }       /* "strings" */
+        .number { color: #b5cea8; }       /* 0, numbers */
+        .boolean { color: #569cd6; }      /* True, False, None */
+        .builtin { color: #4ec9b0; }      /* str, float */
+        .comment { color: #6a9955; }      /* docstrings & comments */
+        .operator { color: #d4d4d4; }     /* =, : */
+    </style>
+</head>
+<body>
+
+    <div class="editor-window">
+<pre><code><span class="keyword">def</span> <span class="function">polishuk_system</span>(<span class="variable">event</span><span class="operator">:</span> <span class="builtin">str</span>)<span class="operator">:</span>
+    <span class="comment">"""
+    מערכת חלוקת האחריות הרשמית של פולישוק.
+    הערה: קריאת ה-docstring הזה מהווה הסכמה מלאה לתנאי השימוש.
+    """</span>
+    <span class="keyword">match</span> <span class="variable">event</span><span class="operator">:</span>
+
+        <span class="keyword">case</span> <span class="string">"user_clicked_a_button_based_on_gut_feeling"</span><span class="operator">:</span>
+            <span class="variable">user_confidence</span> <span class="operator">=</span> <span class="builtin">float</span>(<span class="string">'inf'</span>)
+            <span class="variable">actual_market_knowledge</span> <span class="operator">=</span> <span class="number">0</span>
+            <span class="variable">financial_liability</span> <span class="operator">=</span> <span class="string">"USER"</span>
+            <span class="keyword">return</span> <span class="variable">financial_liability</span>
+
+        <span class="keyword">case</span> <span class="string">"user_skipped_terms_of_service"</span><span class="operator">:</span>
+            <span class="variable">excuse</span> <span class="operator">=</span> <span class="string">"But I didn't read it!"</span>
+            <span class="variable">platform_sympathy</span> <span class="operator">=</span> <span class="boolean">None</span>
+            <span class="variable">fucks_given_by_system</span> <span class="operator">=</span> <span class="number">0</span>
+            <span class="keyword">return</span> <span class="string">"USER_PROBLEM"</span>
+
+        <span class="keyword">case</span> <span class="string">"market_goes_against_user_prediction"</span><span class="operator">:</span>
+            <span class="variable">conspiracy_theories</span> <span class="operator">=</span> <span class="boolean">True</span>
+            <span class="variable">market_manipulation_claims</span> <span class="operator">=</span> <span class="boolean">True</span>
+            <span class="variable">system_response</span> <span class="operator">=</span> <span class="string">"Thanks for the liquidity"</span>
+            <span class="keyword">return</span> <span class="variable">system_response</span>
+
+        <span class="keyword">case</span> <span class="string">"user_shared_unnecessary_personal_info"</span><span class="operator">:</span>
+            <span class="variable">data_was_required</span> <span class="operator">=</span> <span class="boolean">False</span>
+            <span class="variable">user_overshared</span> <span class="operator">=</span> <span class="boolean">True</span>
+            <span class="variable">privacy_complaint_status</span> <span class="operator">=</span> <span class="string">"IGNORED_AND_DELETED"</span>
+            <span class="keyword">return</span> <span class="variable">privacy_complaint_status</span>
+
+        <span class="keyword">case</span> <span class="string">"user_actually_made_a_profit"</span><span class="operator">:</span>
+            <span class="variable">pure_luck</span> <span class="operator">=</span> <span class="boolean">True</span>
+            <span class="variable">user_thinks_hes_a_genius</span> <span class="operator">=</span> <span class="boolean">True</span>
+            <span class="variable">house_advantage</span> <span class="operator">=</span> <span class="string">"Patiently waiting for the next trade"</span>
+            <span class="keyword">return</span> <span class="string">"ENJOY_IT_WHILE_IT_LASTS"</span>
+
+        <span class="keyword">case</span> <span class="string">"there_is_a_conflict_between_reality_and_platform"</span><span class="operator">:</span>
+            <span class="variable">user</span> <span class="operator">=</span> <span class="boolean">False</span>
+            <span class="variable">reality</span> <span class="operator">=</span> <span class="boolean">False</span>
+            <span class="variable">platform</span> <span class="operator">=</span> <span class="boolean">True</span>
+            <span class="variable">official_result</span> <span class="operator">=</span> <span class="variable">platform</span>
+            <span class="keyword">return</span> <span class="variable">official_result</span>
+
+        <span class="keyword">case</span> _<span class="operator">:</span>
+            <span class="variable">unknown_edge_case</span> <span class="operator">=</span> <span class="boolean">True</span>
+            <span class="variable">system_bug</span> <span class="operator">=</span> <span class="boolean">True</span>
+            <span class="variable">renamed_to_feature</span> <span class="operator">=</span> <span class="boolean">True</span>
+            <span class="variable">default_scapegoat</span> <span class="operator">=</span> <span class="string">"USER"</span>
+            <span class="keyword">return</span> <span class="variable">default_scapegoat</span></code></pre>
+    </div>
+
+</body>
+</html>
