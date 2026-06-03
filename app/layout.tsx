@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
+import { SiteFooter } from "@/components/site-footer";
 import { DevErrorReporter } from "@/components/dev-error-reporter";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -35,6 +36,7 @@ export default function RootLayout({
         {process.env.NODE_ENV === "development" ? <DevErrorReporter /> : null}
         <Navbar />
         <main className="flex-1">{children}</main>
+        <SiteFooter />
         <Toaster position="top-center" richColors />
       </body>
     </html>

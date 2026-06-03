@@ -1,3 +1,26 @@
+# Polyshouk
+
+## Quick start
+
+Run everything (Postgres + schema + seed + dev server) with one command:
+
+```bash
+./run.sh
+```
+
+This will:
+
+1. Start Docker Desktop if it isn't running.
+2. Start (or create) the `polyshouk-db` Postgres container on `localhost:5432`.
+3. Wait for Postgres, install deps if missing, run `prisma generate` + `prisma db push`, and seed the database.
+4. Start the Next.js dev server at [http://localhost:3000](http://localhost:3000).
+
+The script is safe to re-run — it reuses the existing container, `.env`, and npm scripts.
+
+Seeded admin login: `admin` / `admin123`.
+
+---
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

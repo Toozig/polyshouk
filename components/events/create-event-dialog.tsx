@@ -19,10 +19,8 @@ import {
   EventClosesAtPicker,
 } from "@/components/events/event-closes-at-picker";
 import {
-  CURRENCY_NAME,
   DEFAULT_LIQUIDITY_M,
   EVENT_CLOSES_AT_MAX,
-  MIN_LIQUIDITY_M,
 } from "@/lib/constants";
 import { formatCoins } from "@/lib/utils";
 
@@ -41,12 +39,12 @@ export function CreateEventDialog({
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  const [liquidityM, setLiquidityM] = useState(DEFAULT_LIQUIDITY_M);
   const [closeDate, setCloseDate] = useState<Date | undefined>();
   const [closeTime, setCloseTime] = useState("23:59");
   const [outcomes, setOutcomes] = useState(["", ""]);
 
-  const canAfford = userBalance >= liquidityM;
+  const publishPrice = DEFAULT_LIQUIDITY_M;
+  const canPublish = userBalance >= publishPrice;
 
   function addOutcome() {
     setOutcomes((prev) => [...prev, ""]);
@@ -65,7 +63,6 @@ export function CreateEventDialog({
     setTitle("");
     setDescription("");
     setCategory("");
-    setLiquidityM(DEFAULT_LIQUIDITY_M);
     setCloseDate(undefined);
     setCloseTime("23:59");
     setOutcomes(["", ""]);
@@ -79,13 +76,10 @@ export function CreateEventDialog({
       return;
     }
 
-    if (liquidityM < MIN_LIQUIDITY_M) {
-      toast.error(`נזילות מינימלית: ${MIN_LIQUIDITY_M}`);
-      return;
-    }
-
-    if (!canAfford) {
-      toast.error(`נדרשים ${formatCoins(liquidityM)} לנזילות`);
+    if (!canPublish) {
+      toast.error(
+        `מחיר הפרסום ${formatCoins(publishPrice)} — אין יתרה מספקת`
+      );
       return;
     }
 
@@ -115,7 +109,7 @@ export function CreateEventDialog({
         category,
         closesAt: closesAtDate.toISOString(),
         outcomes: validOutcomes,
-        liquidityM,
+        liquidityM: publishPrice,
       }),
     });
 
@@ -142,25 +136,19 @@ export function CreateEventDialog({
             className={
               triggerClassName ?? "bg-blue-600 hover:bg-blue-700 text-white"
             }
-            disabled={userBalance < MIN_LIQUIDITY_M}
-          />
+          >
+            צור אירוע חדש
+          </Button>
         }
-      >
-        צור אירוע חדש
-      </DialogTrigger>
+      />
       <DialogContent className="bg-slate-800 border-slate-700 text-white max-w-lg">
         <DialogHeader>
           <DialogTitle>צור אירוע חדש</DialogTitle>
         </DialogHeader>
         <p className="text-slate-400 text-sm">
-          נזילות (m): ננעלת כביטוח לשוק LMSR · יתרה:{" "}
-          {formatCoins(userBalance)}
+          יתרתך:{" "}
+          <span className="text-slate-200">{formatCoins(userBalance)}</span>
         </p>
-        {!canAfford && liquidityM >= MIN_LIQUIDITY_M && (
-          <p className="text-red-400 text-sm">
-            אין מספיק {CURRENCY_NAME} לנזילות {formatCoins(liquidityM)}
-          </p>
-        )}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-1">
             <Label className="text-slate-300">כותרת</Label>
@@ -190,23 +178,27 @@ export function CreateEventDialog({
               className="bg-slate-700 border-slate-600 text-white text-right"
             />
           </div>
-          <div className="space-y-1">
-            <Label className="text-slate-300">
-              נזילות (m) — מינימום {MIN_LIQUIDITY_M}
-            </Label>
-            <Input
-              type="number"
-              min={MIN_LIQUIDITY_M}
-              max={userBalance}
-              value={liquidityM}
-              onChange={(e) => setLiquidityM(Number(e.target.value))}
-              required
-              className="bg-slate-700 border-slate-600 text-white text-right"
-              dir="ltr"
-            />
-            <p className="text-slate-500 text-xs">
-              הסכום ננעל עד לפתרון האירוע. עודף בבריכה חוזר אליך.
+          <div className="space-y-2 rounded-lg border border-slate-600 bg-slate-900/40 p-4">
+            <div className="flex flex-wrap items-baseline justify-between gap-2 gap-y-1">
+              <span className="text-slate-100 text-base font-semibold">
+                מחיר הפרסום
+              </span>
+              <span
+                className="text-xl font-bold tabular-nums text-amber-300"
+                dir="ltr"
+              >
+                {formatCoins(publishPrice)}
+              </span>
+            </div>
+            <p className="text-slate-500 text-xs leading-relaxed">
+              בעת הפרסום ינוכה הסכום מהיתרה והוא ינעל עד לפתרון האירוע. אם
+              יישאר עודף בקופת השוק — הוא יחזור אליך.
             </p>
+            {!canPublish && (
+              <p className="text-red-400 text-sm" role="alert">
+                אין יתרה מספקת — נדרשים {formatCoins(publishPrice)} לפרסום.
+              </p>
+            )}
           </div>
           <div className="space-y-1">
             <Label className="text-slate-300">תאריך סגירה להימורים</Label>
@@ -253,12 +245,12 @@ export function CreateEventDialog({
           </div>
           <Button
             type="submit"
-            disabled={loading || !canAfford || !closeDate}
+            disabled={loading || !closeDate || !canPublish}
             className="w-full bg-blue-600 hover:bg-blue-700"
           >
             {loading
               ? "יוצר..."
-              : `צור אירוע (נזילות ${formatCoins(liquidityM)})`}
+              : `פרסם — ${formatCoins(publishPrice)}`}
           </Button>
         </form>
       </DialogContent>

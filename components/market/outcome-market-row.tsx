@@ -16,6 +16,8 @@ interface OutcomeMarketRowProps {
   betAmount?: number;
   selected?: boolean;
   isWinner?: boolean;
+  /** רק אחוזים, מחיר למניה ופס — בלי דוגמת קנייה של 100 ערכים */
+  compact?: boolean;
   onSelect?: () => void;
   className?: string;
 }
@@ -27,11 +29,56 @@ export function OutcomeMarketRow({
   betAmount,
   selected,
   isWinner,
+  compact,
   onSelect,
   className,
 }: OutcomeMarketRowProps) {
   const prices = getOutcomePrices(market);
   const priceCents = prices[outcomeIndex] ?? 50;
+
+  if (compact) {
+    const compactBody = (
+      <>
+        <div className="flex justify-between items-start gap-2 mb-1.5">
+          <div className="min-w-0">
+            <span className="text-white text-sm font-medium block">
+              {label}
+              {isWinner && (
+                <span className="text-green-400 text-xs mr-1.5">✓ מנצח</span>
+              )}
+            </span>
+            <span className="text-slate-500 text-xs" dir="ltr">
+              {formatPriceCents(priceCents)} למניה
+            </span>
+          </div>
+          <div className="text-left shrink-0">
+            <div className="text-xl font-bold text-white tabular-nums" dir="ltr">
+              {formatChancePercent(priceCents)}
+            </div>
+          </div>
+        </div>
+        <div className="h-1.5 bg-slate-700 rounded-full overflow-hidden">
+          <div
+            className="h-full bg-blue-500 rounded-full transition-all"
+            style={{ width: `${priceCents}%` }}
+          />
+        </div>
+      </>
+    );
+
+    return (
+      <div
+        className={cn(
+          "rounded-md border px-2.5 py-2",
+          isWinner ? "border-green-500/80 bg-slate-800/80" : "border-slate-600/80 bg-slate-800/50",
+          className
+        )}
+      >
+        {compactBody}
+      </div>
+    );
+  }
+
   const spend = betAmount !== undefined && betAmount > 0 ? betAmount : 100;
   const { shares, cost } = quoteBuyByAmount(market, outcomeIndex, spend);
   const payout = payoutIfWin(shares);

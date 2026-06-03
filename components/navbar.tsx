@@ -40,7 +40,7 @@ export async function Navbar() {
               href="/profile"
               className="text-slate-300 hover:text-white transition-colors"
             >
-              פרופיל
+              סולם הערכים שלי
             </Link>
           )}
           {user?.role === "ADMIN" && (

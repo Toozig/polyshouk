@@ -1,6 +1,13 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { auth } from "@/lib/auth";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const session = await auth();
+  if (session?.user?.id) {
+    redirect("/events");
+  }
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 text-center">
       <div className="max-w-2xl">

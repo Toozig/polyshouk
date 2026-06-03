@@ -5,12 +5,24 @@ import { OutcomeMarketRow } from "@/components/market/outcome-market-row";
 import { marketFromEvent } from "@/lib/market";
 import { formatDate } from "@/lib/utils";
 import type { EventWithOutcomes } from "@/types";
+import { EventStatus } from "@/prisma/generated/prisma/enums";
+
+const EVENT_STATUS_LABEL: Record<
+  (typeof EventStatus)[keyof typeof EventStatus],
+  string
+> = {
+  OPEN: "פתוח",
+  CLOSED: "נסגר להימורים",
+  RESOLVED: "הוכרע",
+};
 
 interface EventCardProps {
   event: EventWithOutcomes;
+  /** When set, show market status (e.g. on the creator event list). */
+  showEventStatus?: boolean;
 }
 
-export function EventCard({ event }: EventCardProps) {
+export function EventCard({ event, showEventStatus }: EventCardProps) {
   const market = marketFromEvent(event);
 
   return (
@@ -20,9 +32,25 @@ export function EventCard({ event }: EventCardProps) {
           <CardTitle className="text-white text-lg leading-tight">
             {event.title}
           </CardTitle>
-          <Badge className="bg-blue-600 text-white shrink-0">
-            {event.category}
-          </Badge>
+          <div className="flex flex-col items-end gap-1 shrink-0">
+            <Badge className="bg-blue-600 text-white">
+              {event.category}
+            </Badge>
+            {showEventStatus ? (
+              <Badge
+                variant="outline"
+                className={
+                  event.status === "OPEN"
+                    ? "border-emerald-500/60 text-emerald-300"
+                    : event.status === "CLOSED"
+                      ? "border-amber-500/60 text-amber-200"
+                      : "border-violet-500/60 text-violet-200"
+                }
+              >
+                {EVENT_STATUS_LABEL[event.status]}
+              </Badge>
+            ) : null}
+          </div>
         </div>
         <p className="text-slate-400 text-sm">
           נסגר: {formatDate(event.closesAt)} · נזילות {event.liquidityM}
