@@ -47,3 +47,18 @@ export type Bet = Prisma.BetModel
  * 
  */
 export type CoinTransaction = Prisma.CoinTransactionModel
+/**
+ * Model Complaint
+ * * User-submitted complaint / report (moderation).
+ */
+export type Complaint = Prisma.ComplaintModel
+/**
+ * Model DirectMessage
+ * * Private message between users (or admin → user).
+ */
+export type DirectMessage = Prisma.DirectMessageModel
+/**
+ * Model Notification
+ * 
+ */
+export type Notification = Prisma.NotificationModel

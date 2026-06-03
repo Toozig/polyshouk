@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { BetForm } from "@/components/bets/bet-form";
 import { SellSharesForm } from "@/components/bets/sell-shares-form";
@@ -9,6 +9,10 @@ import { prisma } from "@/lib/db";
 import { OutcomeMarketRow } from "@/components/market/outcome-market-row";
 import { marketFromEvent } from "@/lib/market";
 import { formatDate } from "@/lib/utils";
+import { eventWhereUniqueFromRouteSegment } from "@/lib/events/event-route-param";
+import { aggregatePremiumOutcomeShares } from "@/lib/premium-outcome-shares";
+import { PremiumEventInsights } from "@/components/events/premium-event-insights";
+import { ResolvedEventBettingSummary } from "@/components/events/resolved-event-betting-summary";
 
 export const revalidate = 0;
 
@@ -17,12 +21,25 @@ interface EventPageProps {
 }
 
 export default async function EventPage({ params }: EventPageProps) {
-  const { id } = await params;
+  const { id: routeSegment } = await params;
+  const uniqueWhere = eventWhereUniqueFromRouteSegment(routeSegment);
+  if (!uniqueWhere) notFound();
 
-  await reconcileEventLmsrQ(id);
+  const eventPreview = await prisma.event.findUnique({
+    where: uniqueWhere,
+    select: { id: true, eventNumber: true },
+  });
+  if (!eventPreview) notFound();
+
+  if (routeSegment !== String(eventPreview.eventNumber)) {
+    redirect(`/events/${eventPreview.eventNumber}`);
+  }
+
+  const eventId = eventPreview.id;
+  await reconcileEventLmsrQ(eventId);
 
   const event = await prisma.event.findUnique({
-    where: { id },
+    where: { id: eventId },
     include: {
       outcomes: true,
       createdBy: { select: { id: true, username: true } },
@@ -34,7 +51,7 @@ export default async function EventPage({ params }: EventPageProps) {
   if (!event) notFound();
 
   const session = await auth();
-  const sessionUser = session?.user as { id?: string; role?: string } | undefined;
+  const sessionUser = session?.user;
 
   const dbUser = sessionUser?.id
     ? await prisma.user.findUnique({
@@ -53,7 +70,7 @@ export default async function EventPage({ params }: EventPageProps) {
           by: ["outcomeId"],
           where: {
             userId: sessionUser.id,
-            eventId: id,
+            eventId,
             status: "PENDING",
             sharesRemaining: { gt: 0 },
           },
@@ -67,6 +84,50 @@ export default async function EventPage({ params }: EventPageProps) {
   }));
   const isCreator = sessionUser?.id === event.createdById;
   const isAdmin = sessionUser?.role === "ADMIN";
+  const isPremium = Boolean(sessionUser?.isPremium);
+
+  let resolvedPublicBreakdown: ReturnType<
+    typeof aggregatePremiumOutcomeShares
+  > | null = null;
+  let premiumOpenBreakdown: ReturnType<
+    typeof aggregatePremiumOutcomeShares
+  > | null = null;
+
+  if (event.status === "RESOLVED" && event.resolvedOutcomeId) {
+    resolvedPublicBreakdown = aggregatePremiumOutcomeShares(
+      await prisma.bet.findMany({
+        where: { eventId, status: { in: ["WON", "LOST"] } },
+        select: {
+          userId: true,
+          outcomeId: true,
+          sharesRemaining: true,
+          payout: true,
+          user: { select: { username: true } },
+        },
+      }),
+      event.status,
+      event.resolvedOutcomeId
+    );
+  } else if (isPremium) {
+    premiumOpenBreakdown = aggregatePremiumOutcomeShares(
+      await prisma.bet.findMany({
+        where: {
+          eventId,
+          status: "PENDING",
+          sharesRemaining: { gt: 0 },
+        },
+        select: {
+          userId: true,
+          outcomeId: true,
+          sharesRemaining: true,
+          payout: true,
+          user: { select: { username: true } },
+        },
+      }),
+      event.status,
+      event.resolvedOutcomeId
+    );
+  }
   const canResolve =
     event.status === "OPEN" &&
     (isAdmin || (isCreator && now >= event.closesAt));
@@ -81,6 +142,9 @@ export default async function EventPage({ params }: EventPageProps) {
     <div className="max-w-4xl mx-auto px-4 py-8">
       <div className="mb-6">
         <div className="flex items-center gap-3 mb-2 flex-wrap">
+          <Badge variant="outline" className="border-slate-500 text-slate-300">
+            אירוע #{event.eventNumber}
+          </Badge>
           <Badge className="bg-blue-600 text-white">{event.category}</Badge>
           <Badge
             variant="outline"
@@ -110,7 +174,7 @@ export default async function EventPage({ params }: EventPageProps) {
         {(isCreator || isAdmin) && event.status === "OPEN" && (
           <div className="mt-4">
             <ResolveEventDialog
-              eventId={event.id}
+              eventRouteKey={String(event.eventNumber)}
               eventTitle={event.title}
               outcomes={event.outcomes}
               canResolve={canResolve}
@@ -189,6 +253,22 @@ export default async function EventPage({ params }: EventPageProps) {
           ) : null}
         </div>
       </div>
+
+      {resolvedPublicBreakdown && event.resolvedOutcomeId ? (
+        <ResolvedEventBettingSummary
+          outcomes={event.outcomes.map((o) => ({ id: o.id, label: o.label }))}
+          resolvedOutcomeId={event.resolvedOutcomeId}
+          breakdownByOutcomeId={resolvedPublicBreakdown}
+        />
+      ) : null}
+
+      {premiumOpenBreakdown ? (
+        <PremiumEventInsights
+          outcomes={event.outcomes.map((o) => ({ id: o.id, label: o.label }))}
+          breakdownByOutcomeId={premiumOpenBreakdown}
+          eventResolved={false}
+        />
+      ) : null}
     </div>
   );
 }

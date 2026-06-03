@@ -25,6 +25,7 @@ enum BetStatus {
 }
 
 enum TransactionType {
+  ADMIN_ADJUSTMENT
   ADMIN_GIFT
   BET_PLACED
   BET_SOLD
@@ -32,6 +33,15 @@ enum TransactionType {
   EVENT_CREATED
   EVENT_LIQUIDITY_RETURN
   INITIAL_GRANT
+  /** Self-service premium subscription (one-time debit). */
+  PREMIUM_PURCHASE
+}
+
+enum NotificationType {
+  EVENT_RESOLVED_WON
+  EVENT_RESOLVED_LOST
+  DIRECT_MESSAGE
+  ADMIN_COMPLAINT_NEW
 }
 
 model User {
@@ -39,6 +49,8 @@ model User {
   username     String   @unique
   passwordHash String
   role         Role     @default(USER)
+  /** When true, user sees extra per-event market insights (positions by outcome). */
+  isPremium    Boolean  @default(false)
   balance      Int      @default(0)
   createdAt    DateTime @default(now())
 
@@ -47,6 +59,10 @@ model User {
   createdEvents    Event[]            @relation("EventCreator")
   usedInviteCode   InviteCode?        @relation("UsedCode")
   createdCodes     InviteCode[]       @relation("CreatedCodes")
+  complaintsFiled  Complaint[]        @relation("ComplaintSubmitter")
+  notifications    Notification[]
+  messagesSent     DirectMessage[]    @relation("MessagesSent")
+  messagesReceived DirectMessage[]    @relation("MessagesReceived")
 }
 
 model InviteCode {
@@ -64,6 +80,8 @@ model InviteCode {
 
 model Event {
   id                String      @id @default(cuid())
+  /** Monotonic public id; used in /events/[eventNumber] URLs. */
+  eventNumber       Int         @unique @default(autoincrement())
   title             String
   description       String
   category          String
@@ -86,6 +104,8 @@ model Event {
 
   outcomes          Outcome[]   @relation("EventOutcomes")
   bets              Bet[]
+  complaints        Complaint[]
+  notifications     Notification[]
 }
 
 model Outcome {
@@ -131,4 +151,55 @@ model CoinTransaction {
 
   user        User            @relation(fields: [userId], references: [id])
   userId      String
+}
+
+/** User-submitted complaint / report (moderation). */
+model Complaint {
+  id                 String   @id @default(cuid())
+  body               String
+  reportedUsername   String?
+  createdAt          DateTime @default(now())
+
+  event     Event? @relation(fields: [eventId], references: [id], onDelete: SetNull)
+  eventId   String?
+
+  submitter   User?   @relation("ComplaintSubmitter", fields: [submitterId], references: [id], onDelete: SetNull)
+  submitterId String?
+
+  notifications Notification[]
+}
+
+/** Private message between users (or admin → user). */
+model DirectMessage {
+  id         String    @id @default(cuid())
+  body       String
+  createdAt  DateTime  @default(now())
+  readAt     DateTime?
+
+  fromUser   User @relation("MessagesSent", fields: [fromUserId], references: [id], onDelete: Cascade)
+  fromUserId String
+  toUser     User @relation("MessagesReceived", fields: [toUserId], references: [id], onDelete: Cascade)
+  toUserId   String
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  type      NotificationType
+  title     String
+  body      String?
+  readAt    DateTime?
+  createdAt DateTime         @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  eventId     String?
+  event       Event?   @relation(fields: [eventId], references: [id], onDelete: SetNull)
+  betId       String?
+  messageId   String?
+  complaintId String?
+  complaint   Complaint? @relation(fields: [complaintId], references: [id], onDelete: SetNull)
+
+  @@index([userId, createdAt])
+  @@index([userId, readAt])
 }

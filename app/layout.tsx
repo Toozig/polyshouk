@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { ComplaintBanner } from "@/components/complaint-banner";
 import { Navbar } from "@/components/navbar";
 import { SiteFooter } from "@/components/site-footer";
 import { DevErrorReporter } from "@/components/dev-error-reporter";
@@ -34,6 +35,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-slate-950 text-white">
         {process.env.NODE_ENV === "development" ? <DevErrorReporter /> : null}
+        <ComplaintBanner />
         <Navbar />
         <main className="flex-1">{children}</main>
         <SiteFooter />

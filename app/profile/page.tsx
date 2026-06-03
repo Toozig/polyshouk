@@ -90,7 +90,7 @@ export default async function ProfileEventsPage() {
                       tone="awaiting"
                       resolveSlot={
                         <ResolveEventDialog
-                          eventId={event.id}
+                          eventRouteKey={String(event.eventNumber)}
                           eventTitle={event.title}
                           outcomes={event.outcomes}
                           canResolve

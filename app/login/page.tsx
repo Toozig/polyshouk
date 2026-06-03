@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { usernameSchema } from "@/lib/validation/username";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -25,6 +26,16 @@ export default function LoginPage() {
     e.preventDefault();
     setError("");
     setLoading(true);
+
+    const usernameCheck = usernameSchema.safeParse(username);
+    if (!usernameCheck.success) {
+      setLoading(false);
+      setError(
+        usernameCheck.error.issues[0]?.message ??
+          "שם משתמש לא תקין"
+      );
+      return;
+    }
 
     const result = await signIn("credentials", {
       username,
@@ -80,6 +91,7 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 autoComplete="current-password"
+                dir="ltr"
                 className="bg-slate-700 border-slate-600 text-white"
                 placeholder="••••••••"
               />
@@ -88,6 +100,13 @@ export default function LoginPage() {
             {error && (
               <p className="text-red-400 text-sm text-center">{error}</p>
             )}
+
+            {process.env.NODE_ENV === "development" ? (
+              <p className="text-slate-500 text-xs text-center leading-relaxed">
+                פיתוח: שם משתמש <span dir="ltr">admin</span> — סיסמה{" "}
+                <span dir="ltr">admin</span>
+              </p>
+            ) : null}
 
             <Button
               type="submit"

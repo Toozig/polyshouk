@@ -1,9 +1,11 @@
 import { prisma } from "@/lib/db";
 import { payoutIfWin } from "@/lib/market";
+import { formatCoins } from "@/lib/utils";
 
 export async function resolveEvent(
   eventId: string,
-  outcomeId: string
+  outcomeId: string,
+  options?: { bypassBettingDeadline?: boolean }
 ): Promise<void> {
   const event = await prisma.event.findUnique({
     where: { id: eventId },
@@ -16,6 +18,11 @@ export async function resolveEvent(
 
   if (event.status !== "OPEN") {
     throw new Error("EVENT_NOT_OPEN");
+  }
+
+  const now = new Date();
+  if (!options?.bypassBettingDeadline && now < event.closesAt) {
+    throw new Error("RESOLVE_BEFORE_BETTING_CLOSE");
   }
 
   const winningOutcome = event.outcomes.find((o) => o.id === outcomeId);
@@ -104,4 +111,26 @@ export async function resolveEvent(
       });
     }
   });
+
+  const notifyBets = pendingBets.filter((b) => b.sharesRemaining > 0);
+  if (notifyBets.length > 0) {
+    await prisma.notification.createMany({
+      data: notifyBets.map((bet) => {
+        const won = bet.outcomeId === outcomeId;
+        const outcomeLabel =
+          event.outcomes.find((o) => o.id === bet.outcomeId)?.label ?? "תוצאה";
+        const payout = won ? payoutIfWin(bet.sharesRemaining) : 0;
+        return {
+          userId: bet.userId,
+          type: won ? ("EVENT_RESOLVED_WON" as const) : ("EVENT_RESOLVED_LOST" as const),
+          title: won ? "זכית באירוע" : "האירוע נסגר",
+          body: won
+            ? `האירוע "${event.title}" נפתר לטובתך. קיבלת ${formatCoins(payout)}.`
+            : `האירוע "${event.title}" נפתר. בחרת ב־"${outcomeLabel}" — התוצאה לא זכתה.`,
+          eventId: event.id,
+          betId: bet.id,
+        };
+      }),
+    });
+  }
 }

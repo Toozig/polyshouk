@@ -36,13 +36,25 @@ export type BetStatus = (typeof BetStatus)[keyof typeof BetStatus]
 
 
 export const TransactionType = {
+  ADMIN_ADJUSTMENT: 'ADMIN_ADJUSTMENT',
   ADMIN_GIFT: 'ADMIN_GIFT',
   BET_PLACED: 'BET_PLACED',
   BET_SOLD: 'BET_SOLD',
   BET_WON: 'BET_WON',
   EVENT_CREATED: 'EVENT_CREATED',
   EVENT_LIQUIDITY_RETURN: 'EVENT_LIQUIDITY_RETURN',
-  INITIAL_GRANT: 'INITIAL_GRANT'
+  INITIAL_GRANT: 'INITIAL_GRANT',
+  PREMIUM_PURCHASE: 'PREMIUM_PURCHASE'
 } as const
 
 export type TransactionType = (typeof TransactionType)[keyof typeof TransactionType]
+
+
+export const NotificationType = {
+  EVENT_RESOLVED_WON: 'EVENT_RESOLVED_WON',
+  EVENT_RESOLVED_LOST: 'EVENT_RESOLVED_LOST',
+  DIRECT_MESSAGE: 'DIRECT_MESSAGE',
+  ADMIN_COMPLAINT_NEW: 'ADMIN_COMPLAINT_NEW'
+} as const
+
+export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]

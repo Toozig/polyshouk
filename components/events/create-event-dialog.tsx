@@ -125,7 +125,7 @@ export function CreateEventDialog({
     setOpen(false);
     resetForm();
     router.refresh();
-    router.push(`/events/${data.id}`);
+    router.push(`/events/${data.eventNumber}`);
   }
 
   return (

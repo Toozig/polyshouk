@@ -11,6 +11,9 @@ const registerSchema = z.object({
   username: usernameSchema,
   password: z.string().min(6),
   inviteCode: z.string().min(1),
+  acceptedTerms: z.literal(true, {
+    message: "יש לאשר את התקנון",
+  }),
 });
 
 export async function POST(request: NextRequest): Promise<NextResponse> {

@@ -39,6 +39,7 @@ export type UserMinAggregateOutputType = {
   username: string | null
   passwordHash: string | null
   role: $Enums.Role | null
+  isPremium: boolean | null
   balance: number | null
   createdAt: Date | null
 }
@@ -48,6 +49,7 @@ export type UserMaxAggregateOutputType = {
   username: string | null
   passwordHash: string | null
   role: $Enums.Role | null
+  isPremium: boolean | null
   balance: number | null
   createdAt: Date | null
 }
@@ -57,6 +59,7 @@ export type UserCountAggregateOutputType = {
   username: number
   passwordHash: number
   role: number
+  isPremium: number
   balance: number
   createdAt: number
   _all: number
@@ -76,6 +79,7 @@ export type UserMinAggregateInputType = {
   username?: true
   passwordHash?: true
   role?: true
+  isPremium?: true
   balance?: true
   createdAt?: true
 }
@@ -85,6 +89,7 @@ export type UserMaxAggregateInputType = {
   username?: true
   passwordHash?: true
   role?: true
+  isPremium?: true
   balance?: true
   createdAt?: true
 }
@@ -94,6 +99,7 @@ export type UserCountAggregateInputType = {
   username?: true
   passwordHash?: true
   role?: true
+  isPremium?: true
   balance?: true
   createdAt?: true
   _all?: true
@@ -190,6 +196,7 @@ export type UserGroupByOutputType = {
   username: string
   passwordHash: string
   role: $Enums.Role
+  isPremium: boolean
   balance: number
   createdAt: Date
   _count: UserCountAggregateOutputType | null
@@ -222,6 +229,7 @@ export type UserWhereInput = {
   username?: Prisma.StringFilter<"User"> | string
   passwordHash?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  isPremium?: Prisma.BoolFilter<"User"> | boolean
   balance?: Prisma.IntFilter<"User"> | number
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   bets?: Prisma.BetListRelationFilter
@@ -229,6 +237,10 @@ export type UserWhereInput = {
   createdEvents?: Prisma.EventListRelationFilter
   usedInviteCode?: Prisma.XOR<Prisma.InviteCodeNullableScalarRelationFilter, Prisma.InviteCodeWhereInput> | null
   createdCodes?: Prisma.InviteCodeListRelationFilter
+  complaintsFiled?: Prisma.ComplaintListRelationFilter
+  notifications?: Prisma.NotificationListRelationFilter
+  messagesSent?: Prisma.DirectMessageListRelationFilter
+  messagesReceived?: Prisma.DirectMessageListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -236,6 +248,7 @@ export type UserOrderByWithRelationInput = {
   username?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  isPremium?: Prisma.SortOrder
   balance?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   bets?: Prisma.BetOrderByRelationAggregateInput
@@ -243,6 +256,10 @@ export type UserOrderByWithRelationInput = {
   createdEvents?: Prisma.EventOrderByRelationAggregateInput
   usedInviteCode?: Prisma.InviteCodeOrderByWithRelationInput
   createdCodes?: Prisma.InviteCodeOrderByRelationAggregateInput
+  complaintsFiled?: Prisma.ComplaintOrderByRelationAggregateInput
+  notifications?: Prisma.NotificationOrderByRelationAggregateInput
+  messagesSent?: Prisma.DirectMessageOrderByRelationAggregateInput
+  messagesReceived?: Prisma.DirectMessageOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -253,6 +270,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   passwordHash?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  isPremium?: Prisma.BoolFilter<"User"> | boolean
   balance?: Prisma.IntFilter<"User"> | number
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   bets?: Prisma.BetListRelationFilter
@@ -260,6 +278,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   createdEvents?: Prisma.EventListRelationFilter
   usedInviteCode?: Prisma.XOR<Prisma.InviteCodeNullableScalarRelationFilter, Prisma.InviteCodeWhereInput> | null
   createdCodes?: Prisma.InviteCodeListRelationFilter
+  complaintsFiled?: Prisma.ComplaintListRelationFilter
+  notifications?: Prisma.NotificationListRelationFilter
+  messagesSent?: Prisma.DirectMessageListRelationFilter
+  messagesReceived?: Prisma.DirectMessageListRelationFilter
 }, "id" | "username">
 
 export type UserOrderByWithAggregationInput = {
@@ -267,6 +289,7 @@ export type UserOrderByWithAggregationInput = {
   username?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  isPremium?: Prisma.SortOrder
   balance?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -284,6 +307,7 @@ export type UserScalarWhereWithAggregatesInput = {
   username?: Prisma.StringWithAggregatesFilter<"User"> | string
   passwordHash?: Prisma.StringWithAggregatesFilter<"User"> | string
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
+  isPremium?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   balance?: Prisma.IntWithAggregatesFilter<"User"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
@@ -293,6 +317,7 @@ export type UserCreateInput = {
   username: string
   passwordHash: string
   role?: $Enums.Role
+  isPremium?: boolean
   balance?: number
   createdAt?: Date | string
   bets?: Prisma.BetCreateNestedManyWithoutUserInput
@@ -300,6 +325,10 @@ export type UserCreateInput = {
   createdEvents?: Prisma.EventCreateNestedManyWithoutCreatedByInput
   usedInviteCode?: Prisma.InviteCodeCreateNestedOneWithoutUsedByInput
   createdCodes?: Prisma.InviteCodeCreateNestedManyWithoutCreatedByInput
+  complaintsFiled?: Prisma.ComplaintCreateNestedManyWithoutSubmitterInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.DirectMessageCreateNestedManyWithoutFromUserInput
+  messagesReceived?: Prisma.DirectMessageCreateNestedManyWithoutToUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -307,6 +336,7 @@ export type UserUncheckedCreateInput = {
   username: string
   passwordHash: string
   role?: $Enums.Role
+  isPremium?: boolean
   balance?: number
   createdAt?: Date | string
   bets?: Prisma.BetUncheckedCreateNestedManyWithoutUserInput
@@ -314,6 +344,10 @@ export type UserUncheckedCreateInput = {
   createdEvents?: Prisma.EventUncheckedCreateNestedManyWithoutCreatedByInput
   usedInviteCode?: Prisma.InviteCodeUncheckedCreateNestedOneWithoutUsedByInput
   createdCodes?: Prisma.InviteCodeUncheckedCreateNestedManyWithoutCreatedByInput
+  complaintsFiled?: Prisma.ComplaintUncheckedCreateNestedManyWithoutSubmitterInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutFromUserInput
+  messagesReceived?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutToUserInput
 }
 
 export type UserUpdateInput = {
@@ -321,6 +355,7 @@ export type UserUpdateInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   balance?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bets?: Prisma.BetUpdateManyWithoutUserNestedInput
@@ -328,6 +363,10 @@ export type UserUpdateInput = {
   createdEvents?: Prisma.EventUpdateManyWithoutCreatedByNestedInput
   usedInviteCode?: Prisma.InviteCodeUpdateOneWithoutUsedByNestedInput
   createdCodes?: Prisma.InviteCodeUpdateManyWithoutCreatedByNestedInput
+  complaintsFiled?: Prisma.ComplaintUpdateManyWithoutSubmitterNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.DirectMessageUpdateManyWithoutFromUserNestedInput
+  messagesReceived?: Prisma.DirectMessageUpdateManyWithoutToUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -335,6 +374,7 @@ export type UserUncheckedUpdateInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   balance?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bets?: Prisma.BetUncheckedUpdateManyWithoutUserNestedInput
@@ -342,6 +382,10 @@ export type UserUncheckedUpdateInput = {
   createdEvents?: Prisma.EventUncheckedUpdateManyWithoutCreatedByNestedInput
   usedInviteCode?: Prisma.InviteCodeUncheckedUpdateOneWithoutUsedByNestedInput
   createdCodes?: Prisma.InviteCodeUncheckedUpdateManyWithoutCreatedByNestedInput
+  complaintsFiled?: Prisma.ComplaintUncheckedUpdateManyWithoutSubmitterNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.DirectMessageUncheckedUpdateManyWithoutFromUserNestedInput
+  messagesReceived?: Prisma.DirectMessageUncheckedUpdateManyWithoutToUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -349,6 +393,7 @@ export type UserCreateManyInput = {
   username: string
   passwordHash: string
   role?: $Enums.Role
+  isPremium?: boolean
   balance?: number
   createdAt?: Date | string
 }
@@ -358,6 +403,7 @@ export type UserUpdateManyMutationInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   balance?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -367,6 +413,7 @@ export type UserUncheckedUpdateManyInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   balance?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -376,6 +423,7 @@ export type UserCountOrderByAggregateInput = {
   username?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  isPremium?: Prisma.SortOrder
   balance?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -389,6 +437,7 @@ export type UserMaxOrderByAggregateInput = {
   username?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  isPremium?: Prisma.SortOrder
   balance?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -398,6 +447,7 @@ export type UserMinOrderByAggregateInput = {
   username?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  isPremium?: Prisma.SortOrder
   balance?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -422,6 +472,10 @@ export type StringFieldUpdateOperationsInput = {
 
 export type EnumRoleFieldUpdateOperationsInput = {
   set?: $Enums.Role
+}
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
 }
 
 export type IntFieldUpdateOperationsInput = {
@@ -508,17 +562,80 @@ export type UserUpdateOneRequiredWithoutTransactionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTransactionsInput, Prisma.UserUpdateWithoutTransactionsInput>, Prisma.UserUncheckedUpdateWithoutTransactionsInput>
 }
 
+export type UserCreateNestedOneWithoutComplaintsFiledInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutComplaintsFiledInput, Prisma.UserUncheckedCreateWithoutComplaintsFiledInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutComplaintsFiledInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutComplaintsFiledNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutComplaintsFiledInput, Prisma.UserUncheckedCreateWithoutComplaintsFiledInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutComplaintsFiledInput
+  upsert?: Prisma.UserUpsertWithoutComplaintsFiledInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutComplaintsFiledInput, Prisma.UserUpdateWithoutComplaintsFiledInput>, Prisma.UserUncheckedUpdateWithoutComplaintsFiledInput>
+}
+
+export type UserCreateNestedOneWithoutMessagesSentInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMessagesSentInput, Prisma.UserUncheckedCreateWithoutMessagesSentInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessagesSentInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutMessagesReceivedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMessagesReceivedInput, Prisma.UserUncheckedCreateWithoutMessagesReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessagesReceivedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutMessagesSentNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMessagesSentInput, Prisma.UserUncheckedCreateWithoutMessagesSentInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessagesSentInput
+  upsert?: Prisma.UserUpsertWithoutMessagesSentInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMessagesSentInput, Prisma.UserUpdateWithoutMessagesSentInput>, Prisma.UserUncheckedUpdateWithoutMessagesSentInput>
+}
+
+export type UserUpdateOneRequiredWithoutMessagesReceivedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMessagesReceivedInput, Prisma.UserUncheckedCreateWithoutMessagesReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessagesReceivedInput
+  upsert?: Prisma.UserUpsertWithoutMessagesReceivedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMessagesReceivedInput, Prisma.UserUpdateWithoutMessagesReceivedInput>, Prisma.UserUncheckedUpdateWithoutMessagesReceivedInput>
+}
+
+export type UserCreateNestedOneWithoutNotificationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutNotificationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput
+  upsert?: Prisma.UserUpsertWithoutNotificationsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNotificationsInput, Prisma.UserUpdateWithoutNotificationsInput>, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+}
+
 export type UserCreateWithoutCreatedCodesInput = {
   id?: string
   username: string
   passwordHash: string
   role?: $Enums.Role
+  isPremium?: boolean
   balance?: number
   createdAt?: Date | string
   bets?: Prisma.BetCreateNestedManyWithoutUserInput
   transactions?: Prisma.CoinTransactionCreateNestedManyWithoutUserInput
   createdEvents?: Prisma.EventCreateNestedManyWithoutCreatedByInput
   usedInviteCode?: Prisma.InviteCodeCreateNestedOneWithoutUsedByInput
+  complaintsFiled?: Prisma.ComplaintCreateNestedManyWithoutSubmitterInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.DirectMessageCreateNestedManyWithoutFromUserInput
+  messagesReceived?: Prisma.DirectMessageCreateNestedManyWithoutToUserInput
 }
 
 export type UserUncheckedCreateWithoutCreatedCodesInput = {
@@ -526,12 +643,17 @@ export type UserUncheckedCreateWithoutCreatedCodesInput = {
   username: string
   passwordHash: string
   role?: $Enums.Role
+  isPremium?: boolean
   balance?: number
   createdAt?: Date | string
   bets?: Prisma.BetUncheckedCreateNestedManyWithoutUserInput
   transactions?: Prisma.CoinTransactionUncheckedCreateNestedManyWithoutUserInput
   createdEvents?: Prisma.EventUncheckedCreateNestedManyWithoutCreatedByInput
   usedInviteCode?: Prisma.InviteCodeUncheckedCreateNestedOneWithoutUsedByInput
+  complaintsFiled?: Prisma.ComplaintUncheckedCreateNestedManyWithoutSubmitterInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutFromUserInput
+  messagesReceived?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutToUserInput
 }
 
 export type UserCreateOrConnectWithoutCreatedCodesInput = {
@@ -544,12 +666,17 @@ export type UserCreateWithoutUsedInviteCodeInput = {
   username: string
   passwordHash: string
   role?: $Enums.Role
+  isPremium?: boolean
   balance?: number
   createdAt?: Date | string
   bets?: Prisma.BetCreateNestedManyWithoutUserInput
   transactions?: Prisma.CoinTransactionCreateNestedManyWithoutUserInput
   createdEvents?: Prisma.EventCreateNestedManyWithoutCreatedByInput
   createdCodes?: Prisma.InviteCodeCreateNestedManyWithoutCreatedByInput
+  complaintsFiled?: Prisma.ComplaintCreateNestedManyWithoutSubmitterInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.DirectMessageCreateNestedManyWithoutFromUserInput
+  messagesReceived?: Prisma.DirectMessageCreateNestedManyWithoutToUserInput
 }
 
 export type UserUncheckedCreateWithoutUsedInviteCodeInput = {
@@ -557,12 +684,17 @@ export type UserUncheckedCreateWithoutUsedInviteCodeInput = {
   username: string
   passwordHash: string
   role?: $Enums.Role
+  isPremium?: boolean
   balance?: number
   createdAt?: Date | string
   bets?: Prisma.BetUncheckedCreateNestedManyWithoutUserInput
   transactions?: Prisma.CoinTransactionUncheckedCreateNestedManyWithoutUserInput
   createdEvents?: Prisma.EventUncheckedCreateNestedManyWithoutCreatedByInput
   createdCodes?: Prisma.InviteCodeUncheckedCreateNestedManyWithoutCreatedByInput
+  complaintsFiled?: Prisma.ComplaintUncheckedCreateNestedManyWithoutSubmitterInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutFromUserInput
+  messagesReceived?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutToUserInput
 }
 
 export type UserCreateOrConnectWithoutUsedInviteCodeInput = {
@@ -586,12 +718,17 @@ export type UserUpdateWithoutCreatedCodesInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   balance?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bets?: Prisma.BetUpdateManyWithoutUserNestedInput
   transactions?: Prisma.CoinTransactionUpdateManyWithoutUserNestedInput
   createdEvents?: Prisma.EventUpdateManyWithoutCreatedByNestedInput
   usedInviteCode?: Prisma.InviteCodeUpdateOneWithoutUsedByNestedInput
+  complaintsFiled?: Prisma.ComplaintUpdateManyWithoutSubmitterNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.DirectMessageUpdateManyWithoutFromUserNestedInput
+  messagesReceived?: Prisma.DirectMessageUpdateManyWithoutToUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedCodesInput = {
@@ -599,12 +736,17 @@ export type UserUncheckedUpdateWithoutCreatedCodesInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   balance?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bets?: Prisma.BetUncheckedUpdateManyWithoutUserNestedInput
   transactions?: Prisma.CoinTransactionUncheckedUpdateManyWithoutUserNestedInput
   createdEvents?: Prisma.EventUncheckedUpdateManyWithoutCreatedByNestedInput
   usedInviteCode?: Prisma.InviteCodeUncheckedUpdateOneWithoutUsedByNestedInput
+  complaintsFiled?: Prisma.ComplaintUncheckedUpdateManyWithoutSubmitterNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.DirectMessageUncheckedUpdateManyWithoutFromUserNestedInput
+  messagesReceived?: Prisma.DirectMessageUncheckedUpdateManyWithoutToUserNestedInput
 }
 
 export type UserUpsertWithoutUsedInviteCodeInput = {
@@ -623,12 +765,17 @@ export type UserUpdateWithoutUsedInviteCodeInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   balance?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bets?: Prisma.BetUpdateManyWithoutUserNestedInput
   transactions?: Prisma.CoinTransactionUpdateManyWithoutUserNestedInput
   createdEvents?: Prisma.EventUpdateManyWithoutCreatedByNestedInput
   createdCodes?: Prisma.InviteCodeUpdateManyWithoutCreatedByNestedInput
+  complaintsFiled?: Prisma.ComplaintUpdateManyWithoutSubmitterNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.DirectMessageUpdateManyWithoutFromUserNestedInput
+  messagesReceived?: Prisma.DirectMessageUpdateManyWithoutToUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUsedInviteCodeInput = {
@@ -636,12 +783,17 @@ export type UserUncheckedUpdateWithoutUsedInviteCodeInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   balance?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bets?: Prisma.BetUncheckedUpdateManyWithoutUserNestedInput
   transactions?: Prisma.CoinTransactionUncheckedUpdateManyWithoutUserNestedInput
   createdEvents?: Prisma.EventUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCodes?: Prisma.InviteCodeUncheckedUpdateManyWithoutCreatedByNestedInput
+  complaintsFiled?: Prisma.ComplaintUncheckedUpdateManyWithoutSubmitterNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.DirectMessageUncheckedUpdateManyWithoutFromUserNestedInput
+  messagesReceived?: Prisma.DirectMessageUncheckedUpdateManyWithoutToUserNestedInput
 }
 
 export type UserCreateWithoutCreatedEventsInput = {
@@ -649,12 +801,17 @@ export type UserCreateWithoutCreatedEventsInput = {
   username: string
   passwordHash: string
   role?: $Enums.Role
+  isPremium?: boolean
   balance?: number
   createdAt?: Date | string
   bets?: Prisma.BetCreateNestedManyWithoutUserInput
   transactions?: Prisma.CoinTransactionCreateNestedManyWithoutUserInput
   usedInviteCode?: Prisma.InviteCodeCreateNestedOneWithoutUsedByInput
   createdCodes?: Prisma.InviteCodeCreateNestedManyWithoutCreatedByInput
+  complaintsFiled?: Prisma.ComplaintCreateNestedManyWithoutSubmitterInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.DirectMessageCreateNestedManyWithoutFromUserInput
+  messagesReceived?: Prisma.DirectMessageCreateNestedManyWithoutToUserInput
 }
 
 export type UserUncheckedCreateWithoutCreatedEventsInput = {
@@ -662,12 +819,17 @@ export type UserUncheckedCreateWithoutCreatedEventsInput = {
   username: string
   passwordHash: string
   role?: $Enums.Role
+  isPremium?: boolean
   balance?: number
   createdAt?: Date | string
   bets?: Prisma.BetUncheckedCreateNestedManyWithoutUserInput
   transactions?: Prisma.CoinTransactionUncheckedCreateNestedManyWithoutUserInput
   usedInviteCode?: Prisma.InviteCodeUncheckedCreateNestedOneWithoutUsedByInput
   createdCodes?: Prisma.InviteCodeUncheckedCreateNestedManyWithoutCreatedByInput
+  complaintsFiled?: Prisma.ComplaintUncheckedCreateNestedManyWithoutSubmitterInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutFromUserInput
+  messagesReceived?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutToUserInput
 }
 
 export type UserCreateOrConnectWithoutCreatedEventsInput = {
@@ -691,12 +853,17 @@ export type UserUpdateWithoutCreatedEventsInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   balance?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bets?: Prisma.BetUpdateManyWithoutUserNestedInput
   transactions?: Prisma.CoinTransactionUpdateManyWithoutUserNestedInput
   usedInviteCode?: Prisma.InviteCodeUpdateOneWithoutUsedByNestedInput
   createdCodes?: Prisma.InviteCodeUpdateManyWithoutCreatedByNestedInput
+  complaintsFiled?: Prisma.ComplaintUpdateManyWithoutSubmitterNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.DirectMessageUpdateManyWithoutFromUserNestedInput
+  messagesReceived?: Prisma.DirectMessageUpdateManyWithoutToUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedEventsInput = {
@@ -704,12 +871,17 @@ export type UserUncheckedUpdateWithoutCreatedEventsInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   balance?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bets?: Prisma.BetUncheckedUpdateManyWithoutUserNestedInput
   transactions?: Prisma.CoinTransactionUncheckedUpdateManyWithoutUserNestedInput
   usedInviteCode?: Prisma.InviteCodeUncheckedUpdateOneWithoutUsedByNestedInput
   createdCodes?: Prisma.InviteCodeUncheckedUpdateManyWithoutCreatedByNestedInput
+  complaintsFiled?: Prisma.ComplaintUncheckedUpdateManyWithoutSubmitterNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.DirectMessageUncheckedUpdateManyWithoutFromUserNestedInput
+  messagesReceived?: Prisma.DirectMessageUncheckedUpdateManyWithoutToUserNestedInput
 }
 
 export type UserCreateWithoutBetsInput = {
@@ -717,12 +889,17 @@ export type UserCreateWithoutBetsInput = {
   username: string
   passwordHash: string
   role?: $Enums.Role
+  isPremium?: boolean
   balance?: number
   createdAt?: Date | string
   transactions?: Prisma.CoinTransactionCreateNestedManyWithoutUserInput
   createdEvents?: Prisma.EventCreateNestedManyWithoutCreatedByInput
   usedInviteCode?: Prisma.InviteCodeCreateNestedOneWithoutUsedByInput
   createdCodes?: Prisma.InviteCodeCreateNestedManyWithoutCreatedByInput
+  complaintsFiled?: Prisma.ComplaintCreateNestedManyWithoutSubmitterInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.DirectMessageCreateNestedManyWithoutFromUserInput
+  messagesReceived?: Prisma.DirectMessageCreateNestedManyWithoutToUserInput
 }
 
 export type UserUncheckedCreateWithoutBetsInput = {
@@ -730,12 +907,17 @@ export type UserUncheckedCreateWithoutBetsInput = {
   username: string
   passwordHash: string
   role?: $Enums.Role
+  isPremium?: boolean
   balance?: number
   createdAt?: Date | string
   transactions?: Prisma.CoinTransactionUncheckedCreateNestedManyWithoutUserInput
   createdEvents?: Prisma.EventUncheckedCreateNestedManyWithoutCreatedByInput
   usedInviteCode?: Prisma.InviteCodeUncheckedCreateNestedOneWithoutUsedByInput
   createdCodes?: Prisma.InviteCodeUncheckedCreateNestedManyWithoutCreatedByInput
+  complaintsFiled?: Prisma.ComplaintUncheckedCreateNestedManyWithoutSubmitterInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutFromUserInput
+  messagesReceived?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutToUserInput
 }
 
 export type UserCreateOrConnectWithoutBetsInput = {
@@ -759,12 +941,17 @@ export type UserUpdateWithoutBetsInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   balance?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   transactions?: Prisma.CoinTransactionUpdateManyWithoutUserNestedInput
   createdEvents?: Prisma.EventUpdateManyWithoutCreatedByNestedInput
   usedInviteCode?: Prisma.InviteCodeUpdateOneWithoutUsedByNestedInput
   createdCodes?: Prisma.InviteCodeUpdateManyWithoutCreatedByNestedInput
+  complaintsFiled?: Prisma.ComplaintUpdateManyWithoutSubmitterNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.DirectMessageUpdateManyWithoutFromUserNestedInput
+  messagesReceived?: Prisma.DirectMessageUpdateManyWithoutToUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBetsInput = {
@@ -772,12 +959,17 @@ export type UserUncheckedUpdateWithoutBetsInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   balance?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   transactions?: Prisma.CoinTransactionUncheckedUpdateManyWithoutUserNestedInput
   createdEvents?: Prisma.EventUncheckedUpdateManyWithoutCreatedByNestedInput
   usedInviteCode?: Prisma.InviteCodeUncheckedUpdateOneWithoutUsedByNestedInput
   createdCodes?: Prisma.InviteCodeUncheckedUpdateManyWithoutCreatedByNestedInput
+  complaintsFiled?: Prisma.ComplaintUncheckedUpdateManyWithoutSubmitterNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.DirectMessageUncheckedUpdateManyWithoutFromUserNestedInput
+  messagesReceived?: Prisma.DirectMessageUncheckedUpdateManyWithoutToUserNestedInput
 }
 
 export type UserCreateWithoutTransactionsInput = {
@@ -785,12 +977,17 @@ export type UserCreateWithoutTransactionsInput = {
   username: string
   passwordHash: string
   role?: $Enums.Role
+  isPremium?: boolean
   balance?: number
   createdAt?: Date | string
   bets?: Prisma.BetCreateNestedManyWithoutUserInput
   createdEvents?: Prisma.EventCreateNestedManyWithoutCreatedByInput
   usedInviteCode?: Prisma.InviteCodeCreateNestedOneWithoutUsedByInput
   createdCodes?: Prisma.InviteCodeCreateNestedManyWithoutCreatedByInput
+  complaintsFiled?: Prisma.ComplaintCreateNestedManyWithoutSubmitterInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.DirectMessageCreateNestedManyWithoutFromUserInput
+  messagesReceived?: Prisma.DirectMessageCreateNestedManyWithoutToUserInput
 }
 
 export type UserUncheckedCreateWithoutTransactionsInput = {
@@ -798,12 +995,17 @@ export type UserUncheckedCreateWithoutTransactionsInput = {
   username: string
   passwordHash: string
   role?: $Enums.Role
+  isPremium?: boolean
   balance?: number
   createdAt?: Date | string
   bets?: Prisma.BetUncheckedCreateNestedManyWithoutUserInput
   createdEvents?: Prisma.EventUncheckedCreateNestedManyWithoutCreatedByInput
   usedInviteCode?: Prisma.InviteCodeUncheckedCreateNestedOneWithoutUsedByInput
   createdCodes?: Prisma.InviteCodeUncheckedCreateNestedManyWithoutCreatedByInput
+  complaintsFiled?: Prisma.ComplaintUncheckedCreateNestedManyWithoutSubmitterInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutFromUserInput
+  messagesReceived?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutToUserInput
 }
 
 export type UserCreateOrConnectWithoutTransactionsInput = {
@@ -827,12 +1029,17 @@ export type UserUpdateWithoutTransactionsInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   balance?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bets?: Prisma.BetUpdateManyWithoutUserNestedInput
   createdEvents?: Prisma.EventUpdateManyWithoutCreatedByNestedInput
   usedInviteCode?: Prisma.InviteCodeUpdateOneWithoutUsedByNestedInput
   createdCodes?: Prisma.InviteCodeUpdateManyWithoutCreatedByNestedInput
+  complaintsFiled?: Prisma.ComplaintUpdateManyWithoutSubmitterNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.DirectMessageUpdateManyWithoutFromUserNestedInput
+  messagesReceived?: Prisma.DirectMessageUpdateManyWithoutToUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTransactionsInput = {
@@ -840,12 +1047,369 @@ export type UserUncheckedUpdateWithoutTransactionsInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   balance?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bets?: Prisma.BetUncheckedUpdateManyWithoutUserNestedInput
   createdEvents?: Prisma.EventUncheckedUpdateManyWithoutCreatedByNestedInput
   usedInviteCode?: Prisma.InviteCodeUncheckedUpdateOneWithoutUsedByNestedInput
   createdCodes?: Prisma.InviteCodeUncheckedUpdateManyWithoutCreatedByNestedInput
+  complaintsFiled?: Prisma.ComplaintUncheckedUpdateManyWithoutSubmitterNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.DirectMessageUncheckedUpdateManyWithoutFromUserNestedInput
+  messagesReceived?: Prisma.DirectMessageUncheckedUpdateManyWithoutToUserNestedInput
+}
+
+export type UserCreateWithoutComplaintsFiledInput = {
+  id?: string
+  username: string
+  passwordHash: string
+  role?: $Enums.Role
+  isPremium?: boolean
+  balance?: number
+  createdAt?: Date | string
+  bets?: Prisma.BetCreateNestedManyWithoutUserInput
+  transactions?: Prisma.CoinTransactionCreateNestedManyWithoutUserInput
+  createdEvents?: Prisma.EventCreateNestedManyWithoutCreatedByInput
+  usedInviteCode?: Prisma.InviteCodeCreateNestedOneWithoutUsedByInput
+  createdCodes?: Prisma.InviteCodeCreateNestedManyWithoutCreatedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.DirectMessageCreateNestedManyWithoutFromUserInput
+  messagesReceived?: Prisma.DirectMessageCreateNestedManyWithoutToUserInput
+}
+
+export type UserUncheckedCreateWithoutComplaintsFiledInput = {
+  id?: string
+  username: string
+  passwordHash: string
+  role?: $Enums.Role
+  isPremium?: boolean
+  balance?: number
+  createdAt?: Date | string
+  bets?: Prisma.BetUncheckedCreateNestedManyWithoutUserInput
+  transactions?: Prisma.CoinTransactionUncheckedCreateNestedManyWithoutUserInput
+  createdEvents?: Prisma.EventUncheckedCreateNestedManyWithoutCreatedByInput
+  usedInviteCode?: Prisma.InviteCodeUncheckedCreateNestedOneWithoutUsedByInput
+  createdCodes?: Prisma.InviteCodeUncheckedCreateNestedManyWithoutCreatedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutFromUserInput
+  messagesReceived?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutToUserInput
+}
+
+export type UserCreateOrConnectWithoutComplaintsFiledInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutComplaintsFiledInput, Prisma.UserUncheckedCreateWithoutComplaintsFiledInput>
+}
+
+export type UserUpsertWithoutComplaintsFiledInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutComplaintsFiledInput, Prisma.UserUncheckedUpdateWithoutComplaintsFiledInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutComplaintsFiledInput, Prisma.UserUncheckedCreateWithoutComplaintsFiledInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutComplaintsFiledInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutComplaintsFiledInput, Prisma.UserUncheckedUpdateWithoutComplaintsFiledInput>
+}
+
+export type UserUpdateWithoutComplaintsFiledInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  balance?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bets?: Prisma.BetUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.CoinTransactionUpdateManyWithoutUserNestedInput
+  createdEvents?: Prisma.EventUpdateManyWithoutCreatedByNestedInput
+  usedInviteCode?: Prisma.InviteCodeUpdateOneWithoutUsedByNestedInput
+  createdCodes?: Prisma.InviteCodeUpdateManyWithoutCreatedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.DirectMessageUpdateManyWithoutFromUserNestedInput
+  messagesReceived?: Prisma.DirectMessageUpdateManyWithoutToUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutComplaintsFiledInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  balance?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bets?: Prisma.BetUncheckedUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.CoinTransactionUncheckedUpdateManyWithoutUserNestedInput
+  createdEvents?: Prisma.EventUncheckedUpdateManyWithoutCreatedByNestedInput
+  usedInviteCode?: Prisma.InviteCodeUncheckedUpdateOneWithoutUsedByNestedInput
+  createdCodes?: Prisma.InviteCodeUncheckedUpdateManyWithoutCreatedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.DirectMessageUncheckedUpdateManyWithoutFromUserNestedInput
+  messagesReceived?: Prisma.DirectMessageUncheckedUpdateManyWithoutToUserNestedInput
+}
+
+export type UserCreateWithoutMessagesSentInput = {
+  id?: string
+  username: string
+  passwordHash: string
+  role?: $Enums.Role
+  isPremium?: boolean
+  balance?: number
+  createdAt?: Date | string
+  bets?: Prisma.BetCreateNestedManyWithoutUserInput
+  transactions?: Prisma.CoinTransactionCreateNestedManyWithoutUserInput
+  createdEvents?: Prisma.EventCreateNestedManyWithoutCreatedByInput
+  usedInviteCode?: Prisma.InviteCodeCreateNestedOneWithoutUsedByInput
+  createdCodes?: Prisma.InviteCodeCreateNestedManyWithoutCreatedByInput
+  complaintsFiled?: Prisma.ComplaintCreateNestedManyWithoutSubmitterInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  messagesReceived?: Prisma.DirectMessageCreateNestedManyWithoutToUserInput
+}
+
+export type UserUncheckedCreateWithoutMessagesSentInput = {
+  id?: string
+  username: string
+  passwordHash: string
+  role?: $Enums.Role
+  isPremium?: boolean
+  balance?: number
+  createdAt?: Date | string
+  bets?: Prisma.BetUncheckedCreateNestedManyWithoutUserInput
+  transactions?: Prisma.CoinTransactionUncheckedCreateNestedManyWithoutUserInput
+  createdEvents?: Prisma.EventUncheckedCreateNestedManyWithoutCreatedByInput
+  usedInviteCode?: Prisma.InviteCodeUncheckedCreateNestedOneWithoutUsedByInput
+  createdCodes?: Prisma.InviteCodeUncheckedCreateNestedManyWithoutCreatedByInput
+  complaintsFiled?: Prisma.ComplaintUncheckedCreateNestedManyWithoutSubmitterInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  messagesReceived?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutToUserInput
+}
+
+export type UserCreateOrConnectWithoutMessagesSentInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMessagesSentInput, Prisma.UserUncheckedCreateWithoutMessagesSentInput>
+}
+
+export type UserCreateWithoutMessagesReceivedInput = {
+  id?: string
+  username: string
+  passwordHash: string
+  role?: $Enums.Role
+  isPremium?: boolean
+  balance?: number
+  createdAt?: Date | string
+  bets?: Prisma.BetCreateNestedManyWithoutUserInput
+  transactions?: Prisma.CoinTransactionCreateNestedManyWithoutUserInput
+  createdEvents?: Prisma.EventCreateNestedManyWithoutCreatedByInput
+  usedInviteCode?: Prisma.InviteCodeCreateNestedOneWithoutUsedByInput
+  createdCodes?: Prisma.InviteCodeCreateNestedManyWithoutCreatedByInput
+  complaintsFiled?: Prisma.ComplaintCreateNestedManyWithoutSubmitterInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.DirectMessageCreateNestedManyWithoutFromUserInput
+}
+
+export type UserUncheckedCreateWithoutMessagesReceivedInput = {
+  id?: string
+  username: string
+  passwordHash: string
+  role?: $Enums.Role
+  isPremium?: boolean
+  balance?: number
+  createdAt?: Date | string
+  bets?: Prisma.BetUncheckedCreateNestedManyWithoutUserInput
+  transactions?: Prisma.CoinTransactionUncheckedCreateNestedManyWithoutUserInput
+  createdEvents?: Prisma.EventUncheckedCreateNestedManyWithoutCreatedByInput
+  usedInviteCode?: Prisma.InviteCodeUncheckedCreateNestedOneWithoutUsedByInput
+  createdCodes?: Prisma.InviteCodeUncheckedCreateNestedManyWithoutCreatedByInput
+  complaintsFiled?: Prisma.ComplaintUncheckedCreateNestedManyWithoutSubmitterInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutFromUserInput
+}
+
+export type UserCreateOrConnectWithoutMessagesReceivedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMessagesReceivedInput, Prisma.UserUncheckedCreateWithoutMessagesReceivedInput>
+}
+
+export type UserUpsertWithoutMessagesSentInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMessagesSentInput, Prisma.UserUncheckedUpdateWithoutMessagesSentInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMessagesSentInput, Prisma.UserUncheckedCreateWithoutMessagesSentInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMessagesSentInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMessagesSentInput, Prisma.UserUncheckedUpdateWithoutMessagesSentInput>
+}
+
+export type UserUpdateWithoutMessagesSentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  balance?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bets?: Prisma.BetUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.CoinTransactionUpdateManyWithoutUserNestedInput
+  createdEvents?: Prisma.EventUpdateManyWithoutCreatedByNestedInput
+  usedInviteCode?: Prisma.InviteCodeUpdateOneWithoutUsedByNestedInput
+  createdCodes?: Prisma.InviteCodeUpdateManyWithoutCreatedByNestedInput
+  complaintsFiled?: Prisma.ComplaintUpdateManyWithoutSubmitterNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  messagesReceived?: Prisma.DirectMessageUpdateManyWithoutToUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMessagesSentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  balance?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bets?: Prisma.BetUncheckedUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.CoinTransactionUncheckedUpdateManyWithoutUserNestedInput
+  createdEvents?: Prisma.EventUncheckedUpdateManyWithoutCreatedByNestedInput
+  usedInviteCode?: Prisma.InviteCodeUncheckedUpdateOneWithoutUsedByNestedInput
+  createdCodes?: Prisma.InviteCodeUncheckedUpdateManyWithoutCreatedByNestedInput
+  complaintsFiled?: Prisma.ComplaintUncheckedUpdateManyWithoutSubmitterNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  messagesReceived?: Prisma.DirectMessageUncheckedUpdateManyWithoutToUserNestedInput
+}
+
+export type UserUpsertWithoutMessagesReceivedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMessagesReceivedInput, Prisma.UserUncheckedUpdateWithoutMessagesReceivedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMessagesReceivedInput, Prisma.UserUncheckedCreateWithoutMessagesReceivedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMessagesReceivedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMessagesReceivedInput, Prisma.UserUncheckedUpdateWithoutMessagesReceivedInput>
+}
+
+export type UserUpdateWithoutMessagesReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  balance?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bets?: Prisma.BetUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.CoinTransactionUpdateManyWithoutUserNestedInput
+  createdEvents?: Prisma.EventUpdateManyWithoutCreatedByNestedInput
+  usedInviteCode?: Prisma.InviteCodeUpdateOneWithoutUsedByNestedInput
+  createdCodes?: Prisma.InviteCodeUpdateManyWithoutCreatedByNestedInput
+  complaintsFiled?: Prisma.ComplaintUpdateManyWithoutSubmitterNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.DirectMessageUpdateManyWithoutFromUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMessagesReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  balance?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bets?: Prisma.BetUncheckedUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.CoinTransactionUncheckedUpdateManyWithoutUserNestedInput
+  createdEvents?: Prisma.EventUncheckedUpdateManyWithoutCreatedByNestedInput
+  usedInviteCode?: Prisma.InviteCodeUncheckedUpdateOneWithoutUsedByNestedInput
+  createdCodes?: Prisma.InviteCodeUncheckedUpdateManyWithoutCreatedByNestedInput
+  complaintsFiled?: Prisma.ComplaintUncheckedUpdateManyWithoutSubmitterNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.DirectMessageUncheckedUpdateManyWithoutFromUserNestedInput
+}
+
+export type UserCreateWithoutNotificationsInput = {
+  id?: string
+  username: string
+  passwordHash: string
+  role?: $Enums.Role
+  isPremium?: boolean
+  balance?: number
+  createdAt?: Date | string
+  bets?: Prisma.BetCreateNestedManyWithoutUserInput
+  transactions?: Prisma.CoinTransactionCreateNestedManyWithoutUserInput
+  createdEvents?: Prisma.EventCreateNestedManyWithoutCreatedByInput
+  usedInviteCode?: Prisma.InviteCodeCreateNestedOneWithoutUsedByInput
+  createdCodes?: Prisma.InviteCodeCreateNestedManyWithoutCreatedByInput
+  complaintsFiled?: Prisma.ComplaintCreateNestedManyWithoutSubmitterInput
+  messagesSent?: Prisma.DirectMessageCreateNestedManyWithoutFromUserInput
+  messagesReceived?: Prisma.DirectMessageCreateNestedManyWithoutToUserInput
+}
+
+export type UserUncheckedCreateWithoutNotificationsInput = {
+  id?: string
+  username: string
+  passwordHash: string
+  role?: $Enums.Role
+  isPremium?: boolean
+  balance?: number
+  createdAt?: Date | string
+  bets?: Prisma.BetUncheckedCreateNestedManyWithoutUserInput
+  transactions?: Prisma.CoinTransactionUncheckedCreateNestedManyWithoutUserInput
+  createdEvents?: Prisma.EventUncheckedCreateNestedManyWithoutCreatedByInput
+  usedInviteCode?: Prisma.InviteCodeUncheckedCreateNestedOneWithoutUsedByInput
+  createdCodes?: Prisma.InviteCodeUncheckedCreateNestedManyWithoutCreatedByInput
+  complaintsFiled?: Prisma.ComplaintUncheckedCreateNestedManyWithoutSubmitterInput
+  messagesSent?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutFromUserInput
+  messagesReceived?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutToUserInput
+}
+
+export type UserCreateOrConnectWithoutNotificationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+}
+
+export type UserUpsertWithoutNotificationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutNotificationsInput, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutNotificationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutNotificationsInput, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+}
+
+export type UserUpdateWithoutNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  balance?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bets?: Prisma.BetUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.CoinTransactionUpdateManyWithoutUserNestedInput
+  createdEvents?: Prisma.EventUpdateManyWithoutCreatedByNestedInput
+  usedInviteCode?: Prisma.InviteCodeUpdateOneWithoutUsedByNestedInput
+  createdCodes?: Prisma.InviteCodeUpdateManyWithoutCreatedByNestedInput
+  complaintsFiled?: Prisma.ComplaintUpdateManyWithoutSubmitterNestedInput
+  messagesSent?: Prisma.DirectMessageUpdateManyWithoutFromUserNestedInput
+  messagesReceived?: Prisma.DirectMessageUpdateManyWithoutToUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  balance?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bets?: Prisma.BetUncheckedUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.CoinTransactionUncheckedUpdateManyWithoutUserNestedInput
+  createdEvents?: Prisma.EventUncheckedUpdateManyWithoutCreatedByNestedInput
+  usedInviteCode?: Prisma.InviteCodeUncheckedUpdateOneWithoutUsedByNestedInput
+  createdCodes?: Prisma.InviteCodeUncheckedUpdateManyWithoutCreatedByNestedInput
+  complaintsFiled?: Prisma.ComplaintUncheckedUpdateManyWithoutSubmitterNestedInput
+  messagesSent?: Prisma.DirectMessageUncheckedUpdateManyWithoutFromUserNestedInput
+  messagesReceived?: Prisma.DirectMessageUncheckedUpdateManyWithoutToUserNestedInput
 }
 
 
@@ -858,6 +1422,10 @@ export type UserCountOutputType = {
   transactions: number
   createdEvents: number
   createdCodes: number
+  complaintsFiled: number
+  notifications: number
+  messagesSent: number
+  messagesReceived: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -865,6 +1433,10 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   transactions?: boolean | UserCountOutputTypeCountTransactionsArgs
   createdEvents?: boolean | UserCountOutputTypeCountCreatedEventsArgs
   createdCodes?: boolean | UserCountOutputTypeCountCreatedCodesArgs
+  complaintsFiled?: boolean | UserCountOutputTypeCountComplaintsFiledArgs
+  notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
+  messagesSent?: boolean | UserCountOutputTypeCountMessagesSentArgs
+  messagesReceived?: boolean | UserCountOutputTypeCountMessagesReceivedArgs
 }
 
 /**
@@ -905,12 +1477,41 @@ export type UserCountOutputTypeCountCreatedCodesArgs<ExtArgs extends runtime.Typ
   where?: Prisma.InviteCodeWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountComplaintsFiledArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ComplaintWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.NotificationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMessagesSentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DirectMessageWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMessagesReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DirectMessageWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   username?: boolean
   passwordHash?: boolean
   role?: boolean
+  isPremium?: boolean
   balance?: boolean
   createdAt?: boolean
   bets?: boolean | Prisma.User$betsArgs<ExtArgs>
@@ -918,6 +1519,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdEvents?: boolean | Prisma.User$createdEventsArgs<ExtArgs>
   usedInviteCode?: boolean | Prisma.User$usedInviteCodeArgs<ExtArgs>
   createdCodes?: boolean | Prisma.User$createdCodesArgs<ExtArgs>
+  complaintsFiled?: boolean | Prisma.User$complaintsFiledArgs<ExtArgs>
+  notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
+  messagesSent?: boolean | Prisma.User$messagesSentArgs<ExtArgs>
+  messagesReceived?: boolean | Prisma.User$messagesReceivedArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -926,6 +1531,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   username?: boolean
   passwordHash?: boolean
   role?: boolean
+  isPremium?: boolean
   balance?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -935,6 +1541,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   username?: boolean
   passwordHash?: boolean
   role?: boolean
+  isPremium?: boolean
   balance?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -944,17 +1551,22 @@ export type UserSelectScalar = {
   username?: boolean
   passwordHash?: boolean
   role?: boolean
+  isPremium?: boolean
   balance?: boolean
   createdAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "username" | "passwordHash" | "role" | "balance" | "createdAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "username" | "passwordHash" | "role" | "isPremium" | "balance" | "createdAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   bets?: boolean | Prisma.User$betsArgs<ExtArgs>
   transactions?: boolean | Prisma.User$transactionsArgs<ExtArgs>
   createdEvents?: boolean | Prisma.User$createdEventsArgs<ExtArgs>
   usedInviteCode?: boolean | Prisma.User$usedInviteCodeArgs<ExtArgs>
   createdCodes?: boolean | Prisma.User$createdCodesArgs<ExtArgs>
+  complaintsFiled?: boolean | Prisma.User$complaintsFiledArgs<ExtArgs>
+  notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
+  messagesSent?: boolean | Prisma.User$messagesSentArgs<ExtArgs>
+  messagesReceived?: boolean | Prisma.User$messagesReceivedArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -968,12 +1580,20 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     createdEvents: Prisma.$EventPayload<ExtArgs>[]
     usedInviteCode: Prisma.$InviteCodePayload<ExtArgs> | null
     createdCodes: Prisma.$InviteCodePayload<ExtArgs>[]
+    complaintsFiled: Prisma.$ComplaintPayload<ExtArgs>[]
+    notifications: Prisma.$NotificationPayload<ExtArgs>[]
+    messagesSent: Prisma.$DirectMessagePayload<ExtArgs>[]
+    messagesReceived: Prisma.$DirectMessagePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     username: string
     passwordHash: string
     role: $Enums.Role
+    /**
+     * * When true, user sees extra per-event market insights (positions by outcome).
+     */
+    isPremium: boolean
     balance: number
     createdAt: Date
   }, ExtArgs["result"]["user"]>
@@ -1375,6 +1995,10 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   createdEvents<T extends Prisma.User$createdEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   usedInviteCode<T extends Prisma.User$usedInviteCodeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$usedInviteCodeArgs<ExtArgs>>): Prisma.Prisma__InviteCodeClient<runtime.Types.Result.GetResult<Prisma.$InviteCodePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   createdCodes<T extends Prisma.User$createdCodesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdCodesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InviteCodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  complaintsFiled<T extends Prisma.User$complaintsFiledArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$complaintsFiledArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ComplaintPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  messagesSent<T extends Prisma.User$messagesSentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$messagesSentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DirectMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  messagesReceived<T extends Prisma.User$messagesReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$messagesReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DirectMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1408,6 +2032,7 @@ export interface UserFieldRefs {
   readonly username: Prisma.FieldRef<"User", 'String'>
   readonly passwordHash: Prisma.FieldRef<"User", 'String'>
   readonly role: Prisma.FieldRef<"User", 'Role'>
+  readonly isPremium: Prisma.FieldRef<"User", 'Boolean'>
   readonly balance: Prisma.FieldRef<"User", 'Int'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
 }
@@ -1915,6 +2540,102 @@ export type User$createdCodesArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.InviteCodeScalarFieldEnum | Prisma.InviteCodeScalarFieldEnum[]
+}
+
+/**
+ * User.complaintsFiled
+ */
+export type User$complaintsFiledArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Complaint
+   */
+  select?: Prisma.ComplaintSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Complaint
+   */
+  omit?: Prisma.ComplaintOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ComplaintInclude<ExtArgs> | null
+  where?: Prisma.ComplaintWhereInput
+  orderBy?: Prisma.ComplaintOrderByWithRelationInput | Prisma.ComplaintOrderByWithRelationInput[]
+  cursor?: Prisma.ComplaintWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ComplaintScalarFieldEnum | Prisma.ComplaintScalarFieldEnum[]
+}
+
+/**
+ * User.notifications
+ */
+export type User$notificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Notification
+   */
+  select?: Prisma.NotificationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Notification
+   */
+  omit?: Prisma.NotificationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.NotificationInclude<ExtArgs> | null
+  where?: Prisma.NotificationWhereInput
+  orderBy?: Prisma.NotificationOrderByWithRelationInput | Prisma.NotificationOrderByWithRelationInput[]
+  cursor?: Prisma.NotificationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.NotificationScalarFieldEnum | Prisma.NotificationScalarFieldEnum[]
+}
+
+/**
+ * User.messagesSent
+ */
+export type User$messagesSentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DirectMessage
+   */
+  select?: Prisma.DirectMessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DirectMessage
+   */
+  omit?: Prisma.DirectMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DirectMessageInclude<ExtArgs> | null
+  where?: Prisma.DirectMessageWhereInput
+  orderBy?: Prisma.DirectMessageOrderByWithRelationInput | Prisma.DirectMessageOrderByWithRelationInput[]
+  cursor?: Prisma.DirectMessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DirectMessageScalarFieldEnum | Prisma.DirectMessageScalarFieldEnum[]
+}
+
+/**
+ * User.messagesReceived
+ */
+export type User$messagesReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DirectMessage
+   */
+  select?: Prisma.DirectMessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DirectMessage
+   */
+  omit?: Prisma.DirectMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DirectMessageInclude<ExtArgs> | null
+  where?: Prisma.DirectMessageWhereInput
+  orderBy?: Prisma.DirectMessageOrderByWithRelationInput | Prisma.DirectMessageOrderByWithRelationInput[]
+  cursor?: Prisma.DirectMessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DirectMessageScalarFieldEnum | Prisma.DirectMessageScalarFieldEnum[]
 }
 
 /**

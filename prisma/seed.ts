@@ -15,11 +15,11 @@ const SEED_LIQUIDITY_M = 100;
 async function main(): Promise<void> {
   console.log("🌱 Starting seed...");
 
-  const passwordHash = await bcrypt.hash("admin123", 10);
+  const passwordHash = await bcrypt.hash("admin", 10);
 
   const admin = await prisma.user.upsert({
     where: { username: "admin" },
-    update: {},
+    update: { passwordHash, role: "ADMIN" },
     create: {
       username: "admin",
       passwordHash,

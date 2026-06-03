@@ -101,6 +101,7 @@ export async function sellShares(
         userId,
         amount: proceeds,
         type: "BET_SOLD",
+        referenceId: eventId,
         note: `מכירת ${sharesToSell} מניות על "${refreshed.title}" (${priceCents}¢)`,
       },
     });

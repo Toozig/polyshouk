@@ -56,7 +56,10 @@ export const ModelName = {
   Event: 'Event',
   Outcome: 'Outcome',
   Bet: 'Bet',
-  CoinTransaction: 'CoinTransaction'
+  CoinTransaction: 'CoinTransaction',
+  Complaint: 'Complaint',
+  DirectMessage: 'DirectMessage',
+  Notification: 'Notification'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -80,6 +83,7 @@ export const UserScalarFieldEnum = {
   username: 'username',
   passwordHash: 'passwordHash',
   role: 'role',
+  isPremium: 'isPremium',
   balance: 'balance',
   createdAt: 'createdAt'
 } as const
@@ -101,6 +105,7 @@ export type InviteCodeScalarFieldEnum = (typeof InviteCodeScalarFieldEnum)[keyof
 
 export const EventScalarFieldEnum = {
   id: 'id',
+  eventNumber: 'eventNumber',
   title: 'title',
   description: 'description',
   category: 'category',
@@ -155,6 +160,47 @@ export const CoinTransactionScalarFieldEnum = {
 } as const
 
 export type CoinTransactionScalarFieldEnum = (typeof CoinTransactionScalarFieldEnum)[keyof typeof CoinTransactionScalarFieldEnum]
+
+
+export const ComplaintScalarFieldEnum = {
+  id: 'id',
+  body: 'body',
+  reportedUsername: 'reportedUsername',
+  createdAt: 'createdAt',
+  eventId: 'eventId',
+  submitterId: 'submitterId'
+} as const
+
+export type ComplaintScalarFieldEnum = (typeof ComplaintScalarFieldEnum)[keyof typeof ComplaintScalarFieldEnum]
+
+
+export const DirectMessageScalarFieldEnum = {
+  id: 'id',
+  body: 'body',
+  createdAt: 'createdAt',
+  readAt: 'readAt',
+  fromUserId: 'fromUserId',
+  toUserId: 'toUserId'
+} as const
+
+export type DirectMessageScalarFieldEnum = (typeof DirectMessageScalarFieldEnum)[keyof typeof DirectMessageScalarFieldEnum]
+
+
+export const NotificationScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  title: 'title',
+  body: 'body',
+  readAt: 'readAt',
+  createdAt: 'createdAt',
+  userId: 'userId',
+  eventId: 'eventId',
+  betId: 'betId',
+  messageId: 'messageId',
+  complaintId: 'complaintId'
+} as const
+
+export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
 
 
 export const SortOrder = {

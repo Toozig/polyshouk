@@ -14,7 +14,7 @@ export default async function ProfileLayout({
 
   const user = await prisma.user.findUnique({
     where: { id: session.user.id },
-    select: { username: true, balance: true, createdAt: true },
+    select: { username: true, balance: true, createdAt: true, role: true },
   });
   if (!user) redirect("/login");
 
@@ -32,7 +32,7 @@ export default async function ProfileLayout({
           חבר מאז {formatDate(user.createdAt)}
         </p>
       </div>
-      <ProfileTabs />
+      <ProfileTabs isAdmin={user.role === "ADMIN"} />
       {children}
     </div>
   );

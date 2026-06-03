@@ -17,7 +17,7 @@ This will:
 
 The script is safe to re-run — it reuses the existing container, `.env`, and npm scripts.
 
-Seeded admin login: `admin` / `admin123`.
+Seeded admin login: `admin` / `admin`.
 
 ---
 

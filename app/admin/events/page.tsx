@@ -58,11 +58,14 @@ export default async function AdminEventsPage() {
           >
             <div className="flex items-start justify-between gap-4">
               <div className="flex-1">
-                <div className="flex items-center gap-2 mb-1">
-                  <h3 className="text-white font-semibold text-lg">
+                <div className="flex flex-wrap items-center gap-2 mb-1">
+                  <span className="text-slate-500 text-xs font-mono shrink-0">
+                    #{event.eventNumber}
+                  </span>
+                  <h3 className="text-white font-semibold text-lg min-w-0">
                     {event.title}
                   </h3>
-                  <Badge className={`${statusColors[event.status]} text-white`}>
+                  <Badge className={`${statusColors[event.status]} text-white shrink-0`}>
                     {statusLabels[event.status]}
                   </Badge>
                 </div>
@@ -96,7 +99,7 @@ export default async function AdminEventsPage() {
               </div>
               {event.status === "OPEN" && (
                 <ResolveEventDialog
-                  eventId={event.id}
+                  eventRouteKey={String(event.eventNumber)}
                   eventTitle={event.title}
                   outcomes={event.outcomes}
                   canResolve

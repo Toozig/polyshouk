@@ -3,6 +3,7 @@ import { z } from "zod";
 import { lmsrBuyCost } from "@/lib/lmsr";
 import { getOutcomePrices, marketFromEvent } from "@/lib/market";
 import { prisma } from "@/lib/db";
+import { eventWhereUniqueFromRouteSegment } from "@/lib/events/event-route-param";
 
 const querySchema = z.object({
   outcome: z.string().optional(),
@@ -13,7 +14,12 @@ export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ): Promise<NextResponse> {
-  const { id } = await params;
+  const { id: segment } = await params;
+  const uniqueWhere = eventWhereUniqueFromRouteSegment(segment);
+  if (!uniqueWhere) {
+    return NextResponse.json({ error: "אירוע לא נמצא" }, { status: 404 });
+  }
+
   const parsed = querySchema.safeParse(
     Object.fromEntries(request.nextUrl.searchParams)
   );
@@ -26,7 +32,7 @@ export async function GET(
   }
 
   const event = await prisma.event.findUnique({
-    where: { id },
+    where: uniqueWhere,
     include: { outcomes: true },
   });
 
@@ -40,6 +46,7 @@ export async function GET(
 
   const body: Record<string, unknown> = {
     market_id: event.id,
+    event_number: event.eventNumber,
     status: event.status,
     b_parameter: event.bParameter,
     liquidity_m: event.liquidityM,

@@ -8,6 +8,7 @@ import type { Outcome } from "@/types";
 
 export type CreatorEventForProfile = {
   id: string;
+  eventNumber: number;
   title: string;
   category: string;
   closesAt: Date;
@@ -61,8 +62,11 @@ export function CreatorEventBlock({
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="min-w-0 space-y-1">
           <div className="flex flex-wrap items-center gap-2">
+            <span className="text-slate-500 font-mono text-xs">
+              #{event.eventNumber}
+            </span>
             <Link
-              href={`/events/${event.id}`}
+              href={`/events/${event.eventNumber}`}
               className="text-white font-medium hover:text-blue-400"
             >
               {event.title}
@@ -116,7 +120,7 @@ export function CreatorEventBlock({
         ))}
       </div>
       <Link
-        href={`/events/${event.id}`}
+        href={`/events/${event.eventNumber}`}
         className="inline-block text-sm text-blue-400 hover:text-blue-300 hover:underline"
       >
         דף האירוע →

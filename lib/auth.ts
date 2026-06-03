@@ -7,7 +7,11 @@ import { normalizeUsername, usernameSchema } from "@/lib/validation/username";
 
 const loginSchema = z.object({
   username: usernameSchema,
-  password: z.string().min(1),
+  /** Trim ends only — avoids failed logins from accidental paste whitespace */
+  password: z.preprocess(
+    (v) => (typeof v === "string" ? v.trim() : v),
+    z.string().min(1)
+  ),
 });
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
@@ -49,11 +53,17 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       }
       return token;
     },
-    session({ session, token }) {
-      if (token) {
-        session.user.id = token.id as string;
-        session.user.name = token.name;
-        (session.user as { role?: string }).role = token.role as string;
+    async session({ session, token }) {
+      if (!token?.id) return session;
+      session.user.id = token.id as string;
+      session.user.name = token.name as string | null | undefined;
+      const dbUser = await prisma.user.findUnique({
+        where: { id: token.id as string },
+        select: { role: true, isPremium: true },
+      });
+      if (dbUser) {
+        (session.user as { role?: string }).role = dbUser.role;
+        session.user.isPremium = dbUser.isPremium;
       }
       return session;
     },

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { formatCoins } from "@/lib/utils";
+import { NavbarPremiumCta } from "@/components/navbar-premium-cta";
 import { SignOutButton } from "@/components/sign-out-button";
 
 export async function Navbar() {
@@ -13,7 +14,13 @@ export async function Navbar() {
   const dbUser = sessionUser?.id
     ? await prisma.user.findUnique({
         where: { id: sessionUser.id },
-        select: { id: true, username: true, role: true, balance: true },
+        select: {
+          id: true,
+          username: true,
+          role: true,
+          balance: true,
+          isPremium: true,
+        },
       })
     : null;
 
@@ -53,9 +60,13 @@ export async function Navbar() {
           )}
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 flex-wrap justify-end">
           {user ? (
             <>
+              <NavbarPremiumCta
+                balance={user.balance}
+                isPremium={user.isPremium}
+              />
               <span className="text-slate-300 text-sm">{user.username}</span>
               {user.balance !== undefined && (
                 <span className="text-blue-400 text-sm font-medium">

@@ -20,6 +20,7 @@ export default function RegisterPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [inviteCode, setInviteCode] = useState("");
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -33,7 +34,12 @@ export default function RegisterPage() {
       response = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password, inviteCode }),
+        body: JSON.stringify({
+          username,
+          password,
+          inviteCode,
+          acceptedTerms: acceptedTerms ? true : false,
+        }),
       });
     } catch {
       setLoading(false);
@@ -134,13 +140,39 @@ export default function RegisterPage() {
               />
             </div>
 
+            <div className="flex gap-3 items-start rounded-lg border border-slate-600/60 bg-slate-900/50 px-3 py-3">
+              <input
+                id="acceptedTerms"
+                type="checkbox"
+                checked={acceptedTerms}
+                onChange={(e) => setAcceptedTerms(e.target.checked)}
+                required
+                className="mt-1 size-4 shrink-0 rounded border-slate-500 bg-slate-700 text-blue-600 focus:ring-blue-500"
+              />
+              <label
+                htmlFor="acceptedTerms"
+                className="text-sm text-slate-300 leading-relaxed text-right cursor-pointer"
+              >
+                קראתי והסכמתי ל{" "}
+                <Link
+                  href="/takanon"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-400 hover:text-blue-300 underline"
+                >
+                  תקנון האתר
+                </Link>
+                .
+              </label>
+            </div>
+
             {error && (
               <p className="text-red-400 text-sm text-center">{error}</p>
             )}
 
             <Button
               type="submit"
-              disabled={loading}
+              disabled={loading || !acceptedTerms}
               className="w-full bg-blue-600 hover:bg-blue-700 text-white"
             >
               {loading ? "נרשם..." : "הצטרף"}

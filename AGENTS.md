@@ -30,11 +30,15 @@ Polyshouk is a **house-backed** prediction market (not an order book). The platf
 | Place / sell execution | `lib/bets/place-bet.ts`, `lib/bets/sell-shares.ts` |
 | Fix drifted `lmsrQ` | `lib/bets/reconcile-lmsr.ts` |
 | Resolution & pool payout | `lib/events/resolve-event.ts` |
-| Prices API | `GET /api/events/[id]/price` |
+| Event URLs & route parsing | `lib/events/event-route-param.ts` (`eventNumber` in path; legacy `id` still works) |
+| Prices API | `GET /api/events/[segment]/price` — `segment` = `eventNumber` (digits) or legacy internal `id` |
 | In-memory sim | `scripts/simulate-market.ts`, `lib/bets/memory.ts` |
+| Premium per-outcome positions (open markets only) | `User.isPremium`, `PREMIUM_SUBSCRIPTION_PRICE` in `lib/constants.ts`, `POST /api/user/premium` (self-pay), `lib/premium-outcome-shares.ts`, `components/events/premium-event-insights.tsx`, `components/navbar-premium-cta.tsx`, admin `PATCH /api/admin/users/[id]/premium` |
+| Public resolved betting recap (who bet / won / lost) | `components/events/resolved-event-betting-summary.tsx` on `app/events/[id]/page.tsx` when `Event.status === RESOLVED` |
 
 ### Parameters & DB
 
+- **`Event.eventNumber`** — Monotonic public id; canonical URLs are `/events/<eventNumber>`. Internal `Event.id` (cuid) still resolves and redirects to the numeric URL.
 - **`m` (`Event.liquidityM`)** — Creator-locked collateral (coins). Minimum `MIN_LIQUIDITY_M` (50), default `DEFAULT_LIQUIDITY_M` (100). Deducted on `POST /api/events`.
 - **`b` (`Event.bParameter`)** — LMSR depth. Set on create as `m / ln(n)` outcomes (`defaultBParameter` in `lib/lmsr.ts`). Higher `b` → slower price moves.
 - **`qᵢ` (`Outcome.lmsrQ`)** — LMSR quantity per outcome. **Initialized to `m` for every outcome** at market creation.

@@ -29,9 +29,12 @@ export function EventCard({ event, showEventStatus }: EventCardProps) {
     <Card className="bg-slate-800 border-slate-700 hover:border-slate-500 transition-colors">
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between gap-2">
-          <CardTitle className="text-white text-lg leading-tight">
-            {event.title}
-          </CardTitle>
+          <div className="min-w-0 space-y-1">
+            <p className="text-xs text-slate-500 font-mono">#{event.eventNumber}</p>
+            <CardTitle className="text-white text-lg leading-tight">
+              {event.title}
+            </CardTitle>
+          </div>
           <div className="flex flex-col items-end gap-1 shrink-0">
             <Badge className="bg-blue-600 text-white">
               {event.category}
@@ -70,7 +73,7 @@ export function EventCard({ event, showEventStatus }: EventCardProps) {
         </div>
 
         <Link
-          href={`/events/${event.id}`}
+          href={`/events/${event.eventNumber}`}
           className="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white text-sm py-2 px-4 rounded-lg font-medium transition-colors"
         >
           פרטים ומשחק

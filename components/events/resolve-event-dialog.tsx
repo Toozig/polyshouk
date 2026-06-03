@@ -14,7 +14,8 @@ import { Button } from "@/components/ui/button";
 import type { Outcome } from "@/types";
 
 interface ResolveEventDialogProps {
-  eventId: string;
+  /** URL segment: public `eventNumber` (preferred) or legacy internal id. */
+  eventRouteKey: string;
   eventTitle: string;
   outcomes: Outcome[];
   canResolve: boolean;
@@ -22,7 +23,7 @@ interface ResolveEventDialogProps {
 }
 
 export function ResolveEventDialog({
-  eventId,
+  eventRouteKey,
   eventTitle,
   outcomes,
   canResolve,
@@ -39,7 +40,7 @@ export function ResolveEventDialog({
     if (!selectedOutcomeId) return;
     setLoading(true);
 
-    const response = await fetch(`/api/events/${eventId}/resolve`, {
+    const response = await fetch(`/api/events/${eventRouteKey}/resolve`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ outcomeId: selectedOutcomeId }),

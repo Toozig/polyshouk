@@ -4,22 +4,32 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
-const tabs = [
-  { href: "/profile", label: "אירועים שלי" },
-  { href: "/profile/bets", label: "הימורים" },
+const baseTabs = [
+  { href: "/profile", label: "אירועים שלי", match: (p: string) => p === "/profile" },
+  { href: "/profile/bets", label: "הימורים", match: (p: string) => p.startsWith("/profile/bets") },
+  {
+    href: "/profile/history",
+    label: "היסטוריית ערכים",
+    match: (p: string) => p.startsWith("/profile/history"),
+  },
 ] as const;
 
-export function ProfileTabs() {
+const adminTab = {
+  href: "/profile/admin",
+  label: "מנהל",
+  match: (p: string) => p.startsWith("/profile/admin"),
+} as const;
+
+export function ProfileTabs({ isAdmin }: { isAdmin?: boolean }) {
   const pathname = usePathname();
   const normalized = pathname.replace(/\/$/, "") || "/";
 
+  const tabs = isAdmin ? [...baseTabs, adminTab] : [...baseTabs];
+
   return (
     <nav className="flex gap-1 mb-8 border-b border-slate-700" aria-label="פרופיל">
-      {tabs.map(({ href, label }) => {
-        const isEventsTab = href === "/profile";
-        const active = isEventsTab
-          ? normalized === "/profile"
-          : normalized.startsWith("/profile/bets");
+      {tabs.map(({ href, label, match }) => {
+        const active = match(normalized);
         return (
           <Link
             key={href}
