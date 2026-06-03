@@ -13,7 +13,8 @@
     "db:seed": "prisma db seed",
     "db:studio": "prisma studio",
     "simulate": "tsx scripts/simulate-market.ts",
-    "credit-all-users": "tsx scripts/credit-all-users.ts"
+    "credit-all-users": "tsx scripts/credit-all-users.ts",
+    "policies:html": "node scripts/convert-policies-to-html.mjs"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
@@ -51,6 +52,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
+    "marked": "^18.0.4",
     "tailwindcss": "^4",
     "ts-node": "^10.9.2",
     "tsx": "^4.22.3",

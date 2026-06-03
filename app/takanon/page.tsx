@@ -1,7 +1,8 @@
-import fs from "node:fs";
-import path from "node:path";
 import type { Metadata } from "next";
-import { MarkdownBody } from "@/components/markdown-body";
+import { PolicyHtmlFrame } from "@/components/policy-html-frame";
+import { loadRandomPolicyHtml } from "@/lib/policy/load-random-policy";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "תקנון | פולישוק",
@@ -9,12 +10,11 @@ export const metadata: Metadata = {
 };
 
 export default function TakanonPage() {
-  const filePath = path.join(process.cwd(), "content", "takanon.md");
-  const markdown = fs.readFileSync(filePath, "utf8");
+  const html = loadRandomPolicyHtml();
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10 pb-16">
-      <MarkdownBody markdown={markdown} />
+    <div className="max-w-5xl mx-auto px-4 py-10 pb-16">
+      <PolicyHtmlFrame html={html} />
     </div>
   );
 }

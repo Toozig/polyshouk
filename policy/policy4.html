@@ -1,304 +1,128 @@
-```html
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <title>האקסיומות של פולישוק</title>
-
-    <script>
-        MathJax = {
-            tex: {
-                inlineMath: [['\\(', '\\)']],
-                displayMath: [['\\[', '\\]']]
-            }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>האקסיומות, הלמות והמשפטים של פולישוק</title>
+  <style>
+  body {
+    font-family: system-ui, sans-serif;
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: 1.5rem 1.25rem 3rem;
+    line-height: 1.75;
+    color: #e2e8f0;
+    background: #0f172a;
+  }
+  h1, h2, h3 { color: #f8fafc; margin-top: 1.5em; }
+  h1 { font-size: 1.75rem; margin-top: 0; }
+  h2 { font-size: 1.25rem; }
+  h3 { font-size: 1.1rem; }
+  p { margin: 0.75em 0; }
+  a { color: #60a5fa; }
+  hr { border: none; border-top: 1px solid #334155; margin: 2rem 0; }
+  ul, ol { padding-right: 1.5rem; margin: 0.75em 0; }
+  li { margin: 0.35em 0; }
+  blockquote {
+    border-right: 4px solid #475569;
+    padding: 0.25rem 1rem 0.25rem 0;
+    margin: 1rem 0;
+    background: rgba(30, 41, 59, 0.5);
+    color: #cbd5e1;
+  }
+  strong { color: #f8fafc; }
+  .math-display { margin: 1rem 0; overflow-x: auto; }
+</style>
+  <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['\\(', '\\)']],
+            displayMath: [['\\[', '\\]']]
+          }
         };
-    </script>
-
-    <script async
-        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-    </script>
-
-    <style>
-        body {
-            max-width: 1000px;
-            margin: auto;
-            padding: 40px;
-            font-family: "David", "Times New Roman", serif;
-            line-height: 1.8;
-            background: #fafafa;
-        }
-
-        h1,h2,h3 {
-            color: #222;
-        }
-
-        .proof {
-            border-right: 4px solid #444;
-            padding-right: 15px;
-            margin: 20px 0;
-            background: #f3f3f3;
-        }
-
-        .qed {
-            font-weight: bold;
-        }
-    </style>
+      </script>
+      <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
-
 <h1>האקסיומות, הלמות והמשפטים של פולישוק</h1>
-
-<p>
-מסמך זה נועד להוכיח באופן פורמלי כי האחריות לכל פעולה בפולישוק
-חלה על המשתמש, בעוד שלפולישוק שמורה הזכות לעשות ככל העולה על רוחה.
-</p>
-
+<p>מסמך זה נועד להוכיח באופן פורמלי כי האחריות לכל פעולה בפולישוק חלה על המשתמש, בעוד שלפולישוק שמורה הזכות לעשות ככל העולה על רוחה.</p>
 <hr>
-
 <h2>אקסיומה 1 — אקסיומת הריבונות</h2>
-
-<p>
-תהי \(P\) פלטפורמת פולישוק.
-</p>
-
-\[
-\forall x,\quad P \succ x
-\]
-
-<p>
-כלומר: פולישוק עליונה על כל גורם אחר במערכת.
-</p>
-
+<p>תהי <span class="math-inline">\(P\)</span> פלטפורמת פולישוק.</p>
+<div class="math-display">\[\forall x,\quad P \succ x\]</div><p>כלומר: פולישוק עליונה על כל גורם אחר במערכת.</p>
 <hr>
-
 <h2>אקסיומה 2 — אקסיומת הסמכות</h2>
-
-<p>
-לפולישוק שמורה הזכות לבצע כל פעולה.
-</p>
-
-\[
-\forall a,\quad Can(P,a)
-\]
-
-<p>
-ובפרט:
-</p>
-
+<p>לפולישוק שמורה הזכות לבצע כל פעולה.</p>
+<div class="math-display">\[\forall a,\quad Can(P,a)\]</div><p>ובפרט:</p>
 <ul>
-    <li>לפתוח אירועים</li>
-    <li>לסגור אירועים</li>
-    <li>למחוק אירועים</li>
-    <li>לשנות כללים</li>
-    <li>לבטל הכרעות</li>
-    <li>להכריע מחדש הכרעות שבוטלו</li>
+<li>לפתוח אירועים</li>
+<li>לסגור אירועים</li>
+<li>למחוק אירועים</li>
+<li>לשנות כללים</li>
+<li>לבטל הכרעות</li>
+<li>להכריע מחדש הכרעות שבוטלו</li>
 </ul>
-
 <hr>
-
 <h2>אקסיומה 3 — אקסיומת ההסכמה</h2>
-
-<p>
-כל משתמש המשתמש במערכת מסכים לכלליה.
-</p>
-
-\[
-Use(u)
-\Rightarrow
-Agree(u)
-\]
-
-<p>
-גם אם לא קרא אותם.
-</p>
-
+<p>כל משתמש המשתמש במערכת מסכים לכלליה.</p>
+<div class="math-display">\[Use(u) \Rightarrow Agree(u)\]</div><p>גם אם לא קרא אותם.</p>
 <hr>
-
 <h2>אקסיומה 4 — אקסיומת האחריות האסימטרית</h2>
-
-<p>
-לכל פעולה שבוצעה על ידי משתמש:
-</p>
-
-\[
-Action(u)
-\Rightarrow
-Responsibility(u)
-\]
-
-<p>
-לעומת זאת:
-</p>
-
-\[
-Action(P)
-\not\Rightarrow
-Responsibility(P)
-\]
-
-<hr>
-
+<p>לכל פעולה שבוצעה על ידי משתמש:</p>
+<div class="math-display">\[Action(u) \Rightarrow Responsibility(u)\]</div><p>לעומת זאת:</p>
+<div class="math-display">\[Action(P) \not\Rightarrow Responsibility(P)\]</div><hr>
 <h2>אקסיומה 5 — אקסיומת המתנה</h2>
-
-<p>
-הפלטפורמה היא המתנה.
-</p>
-
-\[
-Gift = P
-\]
-
-<p>
-ולכן:
-</p>
-
-\[
-Entitlement = 0
-\]
-
-<p>
-כלומר: עצם קבלת המתנה אינה יוצרת זכאות.
-</p>
-
+<p>הפלטפורמה היא המתנה.</p>
+<div class="math-display">\[Gift = P\]</div><p>ולכן:</p>
+<div class="math-display">\[Entitlement = 0\]</div><p>כלומר: עצם קבלת המתנה אינה יוצרת זכאות.</p>
 <hr>
-
 <h2>אקסיומה 6 — אקסיומת המציאות הרשמית</h2>
-
-<p>
-נסמן:
-</p>
-
-\[
-R_p
-\]
-
-<p>
-כתוצאה הרשמית בפולישוק,
-ו-
-</p>
-
-\[
-R_r
-\]
-
-<p>
-כתוצאה במציאות.
-</p>
-
-\[
-OfficialReality = R_p
-\]
-
-<p>
-ללא תלות בערכו של \(R_r\).
-</p>
-
+<p>נסמן:</p>
+<div class="math-display">\[R_p\]</div><p>כתוצאה הרשמית בפולישוק, ו-</p>
+<div class="math-display">\[R_r\]</div><p>כתוצאה במציאות.</p>
+<div class="math-display">\[OfficialReality = R_p\]</div><p>ללא תלות בערכו של <span class="math-inline">\(R_r\)</span>.</p>
 <hr>
-
 <h2>משפט הקיום</h2>
-
-<p>
-אם משתמש הפסיד:
-</p>
-
-\[
-Loss(u)
-\]
-
-<p>
-אז קיימת סיבה.
-</p>
-
-<div class="proof">
-<h3>הוכחה</h3>
-
-<p>
-אם אין סיבה, אין הפסד.
-</p>
-
-<p>
-אם יש הפסד, הייתה סיבה.
-</p>
-
-<p>
-בדרך כלל המשתמש.
-</p>
-
-<p class="qed">□</p>
-</div>
-
-<hr>
-
-<h2>משפט אי-השלמות של פולישוק</h2>
-
-<p>
-קיימים אירועים שלא ניתן לדעת את תוצאתם מראש.
-</p>
-
-<div class="proof">
-<h3>הוכחה</h3>
-
-<p>
-אחרת הם היו היסטוריה ולא תחזית.
-</p>
-
-<p class="qed">□</p>
-</div>
-
-<hr>
-
-<h2>משפט פרמה האחרון של פולישוק</h2>
-
-<p>
-לכל משתמש קיימת טענה מהצורה:
-</p>
-
+<p>אם משתמש הפסיד:</p>
+<div class="math-display">\[Loss(u)\]</div><p>אז קיימת סיבה.</p>
 <blockquote>
-"אבל במקרה שלי זה שונה"
+<h3>הוכחה</h3>
+<p>אם אין סיבה, אין הפסד.</p>
+<p>אם יש הפסד, הייתה סיבה.</p>
+<p>בדרך כלל המשתמש.</p>
+<p><strong>□</strong></p>
 </blockquote>
-
-<p>
-שלגביה קיימת הוכחה פשוטה לכך שהאחריות עליו.
-</p>
-
-<div class="proof">
-<h3>הוכחה</h3>
-
-\[
-Responsibility(u)=u
-\]
-
-<p>
-הוכחה נפלאה קיימת, אך שדה הטקסט צר מלהכילה.
-</p>
-
-<p class="qed">□</p>
-</div>
-
 <hr>
-
-<h2>המשפט היסודי של פולישוק</h2>
-
-\[
-\boxed{
-Responsibility(u)=u
-}
-\]
-
-<p>
-לכל משתמש.
-</p>
-
-<div class="proof">
+<h2>משפט אי-השלמות של פולישוק</h2>
+<p>קיימים אירועים שלא ניתן לדעת את תוצאתם מראש.</p>
+<blockquote>
 <h3>הוכחה</h3>
-
-<p>
-נובע ישירות מכל האקסיומות לעיל.
-</p>
-
-<p class="qed">□</p>
-</div>
+<p>אחרת הם היו היסטוריה ולא תחזית.</p>
+<p><strong>□</strong></p>
+</blockquote>
+<hr>
+<h2>משפט פרמה האחרון של פולישוק</h2>
+<p>לכל משתמש קיימת טענה מהצורה:</p>
+<blockquote>
+<p>&quot;אבל במקרה שלי זה שונה&quot;</p>
+</blockquote>
+<p>שלגביה קיימת הוכחה פשוטה לכך שהאחריות עליו.</p>
+<blockquote>
+<h3>הוכחה</h3>
+</blockquote>
+<div class="math-display">\[> Responsibility(u)=u
+>\]</div><blockquote>
+<p>הוכחה נפלאה קיימת, אך שדה הטקסט צר מלהכילה.</p>
+<p><strong>□</strong></p>
+</blockquote>
+<hr>
+<h2>המשפט היסודי של פולישוק</h2>
+<div class="math-display">\[\boxed{Responsibility(u)=u}\]</div><p>לכל משתמש.</p>
+<blockquote>
+<h3>הוכחה</h3>
+<p>נובע ישירות מכל האקסיומות לעיל.</p>
+<p><strong>□</strong></p>
+</blockquote>
 
 </body>
 </html>
-```
