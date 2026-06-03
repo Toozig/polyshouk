@@ -36,7 +36,11 @@ export function ComplaintBanner() {
       });
       const data = (await res.json().catch(() => ({}))) as { error?: string };
       if (!res.ok) {
-        toast.error(data.error ?? "שגיאה בשליחה");
+        if (res.status === 401) {
+          toast.error("יש להתחבר לפני שליחת תלונה");
+        } else {
+          toast.error(data.error ?? "שגיאה בשליחה");
+        }
         return;
       }
       toast.success("התלונה נשלחה. תודה.");

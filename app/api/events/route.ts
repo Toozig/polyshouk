@@ -8,6 +8,7 @@ import {
   MIN_LIQUIDITY_M,
 } from "@/lib/constants";
 import { defaultBForEvent } from "@/lib/market";
+import { recordMarketSnapshot } from "@/lib/events/price-history";
 import { prisma } from "@/lib/db";
 
 const createEventSchema = z.object({
@@ -117,6 +118,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         note: `יצירת אירוע "${title}" (נזילות ${liquidityM})`,
       },
     });
+
+    await recordMarketSnapshot(tx, created.id, "INITIAL");
 
     return created;
   });

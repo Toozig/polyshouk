@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
+import { notifyAdminsNewComplaint } from "@/lib/notifications/create";
 import { normalizeUsername, usernameSchema } from "@/lib/validation/username";
 
 const bodySchema = z.object({
@@ -10,7 +11,32 @@ const bodySchema = z.object({
   reportedUsername: z.string().optional(),
 });
 
+function complaintBodyWithSubmitter(submitterUsername: string, body: string): string {
+  const prefix = `מאת: ${submitterUsername}\n\n`;
+  if (body.startsWith(prefix)) return body;
+  return `${prefix}${body}`;
+}
+
 export async function POST(req: Request) {
+  const session = await auth();
+  if (!session?.user?.id) {
+    return NextResponse.json({ error: "נדרשת התחברות לשליחת תלונה" }, { status: 401 });
+  }
+
+  const submitterId = session.user.id;
+  const submitterUsername =
+    session.user.name?.trim() ??
+    (
+      await prisma.user.findUnique({
+        where: { id: submitterId },
+        select: { username: true },
+      })
+    )?.username;
+
+  if (!submitterUsername) {
+    return NextResponse.json({ error: "משתמש לא נמצא" }, { status: 400 });
+  }
+
   let json: unknown;
   try {
     json = await req.json();
@@ -54,17 +80,19 @@ export async function POST(req: Request) {
     reportedUsername = normalized;
   }
 
-  const session = await auth();
-  const submitterId = session?.user?.id ?? undefined;
+  const storedBody = complaintBodyWithSubmitter(submitterUsername, body);
 
-  await prisma.complaint.create({
+  const complaint = await prisma.complaint.create({
     data: {
-      body,
+      body: storedBody,
       eventId: eventId ?? null,
       reportedUsername: reportedUsername ?? null,
-      submitterId: submitterId ?? null,
+      submitterId,
     },
+    select: { id: true },
   });
+
+  await notifyAdminsNewComplaint(complaint.id, storedBody, submitterUsername);
 
   return NextResponse.json({ ok: true });
 }

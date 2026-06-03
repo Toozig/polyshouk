@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { OutcomeMarketRow } from "@/components/market/outcome-market-row";
-import { marketFromEvent } from "@/lib/market";
+import { marketFromEvent, topOutcomesForEventPreview } from "@/lib/market";
 import { formatCoins, formatDate } from "@/lib/utils";
 import type { Outcome } from "@/types";
 
@@ -48,6 +48,10 @@ export function CreatorEventBlock({
   resolveSlot?: ReactNode;
 }) {
   const market = marketFromEvent(event);
+  const previewOutcomes = topOutcomesForEventPreview(event.outcomes, market, {
+    pinOutcomeId: event.resolvedOutcomeId,
+  });
+  const hiddenOutcomeCount = event.outcomes.length - previewOutcomes.length;
   const borderClass =
     tone === "awaiting"
       ? "border-yellow-600/40"
@@ -108,16 +112,27 @@ export function CreatorEventBlock({
       </p>
       <div className="space-y-2">
         <p className="text-slate-500 text-xs">הסתברויות שוק (LMSR) לפי תוצאה</p>
-        {event.outcomes.map((outcome, index) => (
+        {previewOutcomes.map(({ outcome, outcomeIndex }) => (
           <OutcomeMarketRow
             key={outcome.id}
             compact
             label={outcome.label}
             market={market}
-            outcomeIndex={index}
+            outcomeIndex={outcomeIndex}
             isWinner={event.resolvedOutcomeId === outcome.id}
           />
         ))}
+        {hiddenOutcomeCount > 0 ? (
+          <p className="text-slate-500 text-xs">
+            ועוד {hiddenOutcomeCount} תשובות ·{" "}
+            <Link
+              href={`/events/${event.eventNumber}`}
+              className="text-blue-400 hover:underline"
+            >
+              כל התשובות בדף האירוע
+            </Link>
+          </p>
+        ) : null}
       </div>
       <Link
         href={`/events/${event.eventNumber}`}

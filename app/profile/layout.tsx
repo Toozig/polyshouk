@@ -3,6 +3,9 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { ProfileTabs } from "@/components/profile/profile-tabs";
 import { formatCoins, formatDate } from "@/lib/utils";
+import { UserAvatar } from "@/components/user/user-avatar";
+import { userProfilePath } from "@/lib/users/user-route";
+import Link from "next/link";
 
 export default async function ProfileLayout({
   children,
@@ -21,7 +24,20 @@ export default async function ProfileLayout({
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
       <div className="bg-slate-800 border border-slate-700 rounded-xl p-6 mb-6">
-        <h1 className="text-2xl font-bold text-white">{user.username}</h1>
+        <div className="flex items-center gap-4">
+          <UserAvatar username={user.username} size="lg" />
+          <div>
+            <h1 className="text-2xl font-bold text-white" dir="ltr">
+              {user.username}
+            </h1>
+            <Link
+              href={userProfilePath(user.username)}
+              className="text-sm text-blue-400 hover:text-blue-300 mt-1 inline-block"
+            >
+              עמוד פרופיל ציבורי
+            </Link>
+          </div>
+        </div>
         <div className="mt-4">
           <span className="text-slate-400 text-sm">יתרה:</span>
           <span className="text-3xl font-bold text-blue-400 mr-2">

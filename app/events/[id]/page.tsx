@@ -1,18 +1,18 @@
 import { notFound, redirect } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
-import { BetForm } from "@/components/bets/bet-form";
-import { SellSharesForm } from "@/components/bets/sell-shares-form";
 import { ResolveEventDialog } from "@/components/events/resolve-event-dialog";
 import { auth } from "@/lib/auth";
 import { reconcileEventLmsrQ } from "@/lib/bets/reconcile-lmsr";
 import { prisma } from "@/lib/db";
-import { OutcomeMarketRow } from "@/components/market/outcome-market-row";
-import { marketFromEvent } from "@/lib/market";
+import { OutcomeTradeList } from "@/components/market/outcome-trade-list";
 import { formatDate } from "@/lib/utils";
+import { UserLink } from "@/components/user/user-link";
 import { eventWhereUniqueFromRouteSegment } from "@/lib/events/event-route-param";
 import { aggregatePremiumOutcomeShares } from "@/lib/premium-outcome-shares";
 import { PremiumEventInsights } from "@/components/events/premium-event-insights";
 import { ResolvedEventBettingSummary } from "@/components/events/resolved-event-betting-summary";
+import { EventPriceChart } from "@/components/events/event-price-chart";
+import { getEventPriceHistory } from "@/lib/events/price-history";
 
 export const revalidate = 0;
 
@@ -136,7 +136,9 @@ export default async function EventPage({ params }: EventPageProps) {
       ? `ניתן לפתור את האירוע לאחר ${formatDate(event.closesAt)}`
       : undefined;
 
-  const market = marketFromEvent(event);
+  const priceHistory = await getEventPriceHistory(eventId);
+
+  const canTrade = Boolean(bettingOpen && dbUser && !isCreator);
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
@@ -168,7 +170,8 @@ export default async function EventPage({ params }: EventPageProps) {
         <h1 className="text-3xl font-bold text-white">{event.title}</h1>
         <p className="text-slate-400 mt-2">{event.description}</p>
         <p className="text-slate-500 text-sm mt-2">
-          יוצר: {event.createdBy.username} · נזילות {event.liquidityM} · נסגר
+          יוצר: <UserLink username={event.createdBy.username} /> · נזילות{" "}
+          {event.liquidityM} · נסגר
           להימורים: {formatDate(event.closesAt)} · {event._count.bets} הימורים
         </p>
         {(isCreator || isAdmin) && event.status === "OPEN" && (
@@ -184,74 +187,56 @@ export default async function EventPage({ params }: EventPageProps) {
         )}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="space-y-4">
-          <h2 className="text-xl font-semibold text-white">תוצאות אפשריות</h2>
-          {event.outcomes.map((outcome, index) => (
-            <OutcomeMarketRow
-              key={outcome.id}
-              label={outcome.label}
-              market={market}
-              outcomeIndex={index}
-              isWinner={
-                event.status === "RESOLVED" &&
-                event.resolvedOutcomeId === outcome.id
-              }
-            />
-          ))}
-        </div>
+      <div className="space-y-4">
+        <h2 className="text-xl font-semibold text-white">תוצאות אפשריות</h2>
 
-        <div>
-          {bettingOpen && dbUser && isCreator ? (
-            <div className="bg-slate-800 border border-slate-700 rounded-lg p-6 text-center">
-              <p className="text-slate-300 font-medium">אתה יוצר השוק</p>
-              <p className="text-slate-400 text-sm mt-2">
-                יוצרי אירועים מספקים נזילות ואינם יכולים לסחור באירוע שלהם.
+        {bettingOpen && dbUser && isCreator ? (
+          <div className="bg-slate-800 border border-slate-700 rounded-lg p-4 text-center">
+            <p className="text-slate-300 font-medium">אתה יוצר השוק</p>
+            <p className="text-slate-400 text-sm mt-1">
+              יוצרי אירועים מספקים נזילות ואינם יכולים לסחור באירוע שלהם.
+            </p>
+          </div>
+        ) : bettingOpen && !session ? (
+          <div className="bg-slate-800 border border-slate-700 rounded-lg p-4 text-center">
+            <p className="text-slate-400">יש להתחבר כדי לקנות או למכור מניות</p>
+          </div>
+        ) : event.status === "OPEN" && !bettingOpen ? (
+          <div className="bg-slate-800 border border-slate-700 rounded-lg p-4 text-center">
+            <p className="text-yellow-400 font-medium">תקופת ההימורים הסתיימה</p>
+            {isCreator && (
+              <p className="text-slate-400 text-sm mt-1">
+                בחר את התוצאה המנצחת למעלה
               </p>
-            </div>
-          ) : bettingOpen && dbUser ? (
-            <>
-              <BetForm
-                eventId={event.id}
-                bParameter={event.bParameter}
-                liquidityM={event.liquidityM}
-                outcomes={event.outcomes}
-                userBalance={dbUser.balance}
-              />
-              <SellSharesForm
-                eventId={event.id}
-                bParameter={event.bParameter}
-                liquidityM={event.liquidityM}
-                outcomes={event.outcomes}
-                positions={positions}
-              />
-            </>
-          ) : bettingOpen && !session ? (
-            <div className="bg-slate-800 border border-slate-700 rounded-lg p-6 text-center">
-              <p className="text-slate-400 mb-4">יש להתחבר כדי להניח הימור</p>
-            </div>
-          ) : event.status === "OPEN" && !bettingOpen ? (
-            <div className="bg-slate-800 border border-slate-700 rounded-lg p-6 text-center">
-              <p className="text-yellow-400 font-medium">
-                תקופת ההימורים הסתיימה
+            )}
+          </div>
+        ) : event.status === "RESOLVED" ? (
+          <div className="bg-slate-800 border border-slate-700 rounded-lg p-4 text-center">
+            <p className="text-green-400 font-semibold">אירוע זה נפתר</p>
+            {event.resolvedOutcome && (
+              <p className="text-slate-300 mt-1">
+                תוצאה מנצחת: {event.resolvedOutcome.label}
               </p>
-              {isCreator && (
-                <p className="text-slate-400 text-sm mt-2">
-                  בחר את התוצאה המנצחת למעלה
-                </p>
-              )}
-            </div>
-          ) : event.status === "RESOLVED" ? (
-            <div className="bg-slate-800 border border-slate-700 rounded-lg p-6 text-center">
-              <p className="text-green-400 font-semibold">אירוע זה נפתר</p>
-              {event.resolvedOutcome && (
-                <p className="text-slate-300 mt-2">
-                  תוצאה מנצחת: {event.resolvedOutcome.label}
-                </p>
-              )}
-            </div>
-          ) : null}
-        </div>
+            )}
+          </div>
+        ) : null}
+
+        <OutcomeTradeList
+          eventId={event.id}
+          bParameter={event.bParameter}
+          liquidityM={event.liquidityM}
+          outcomes={event.outcomes}
+          canTrade={canTrade}
+          userBalance={dbUser?.balance ?? 0}
+          positions={positions}
+          resolvedOutcomeId={
+            event.status === "RESOLVED" ? event.resolvedOutcomeId : null
+          }
+        />
+      </div>
+
+      <div className="mt-8">
+        <EventPriceChart history={priceHistory} />
       </div>
 
       {resolvedPublicBreakdown && event.resolvedOutcomeId ? (

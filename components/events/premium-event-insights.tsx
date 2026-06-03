@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/table";
 import { CURRENCY_NAME } from "@/lib/constants";
 import { formatCoins } from "@/lib/utils";
+import { UserLink } from "@/components/user/user-link";
 import type { PremiumUserOutcomeRow } from "@/lib/premium-outcome-shares";
 
 type OutcomeLite = { id: string; label: string };
@@ -61,11 +62,11 @@ export function PremiumEventInsights({
                   <TableBody>
                     {rows.map((row) => (
                       <TableRow key={row.userId} className="border-slate-700">
-                        <TableCell
-                          className="text-white font-medium"
-                          dir="ltr"
-                        >
-                          {row.username}
+                        <TableCell className="font-medium">
+                          <UserLink
+                            username={row.username}
+                            className="text-white hover:text-blue-300"
+                          />
                         </TableCell>
                         <TableCell
                           className="text-slate-300 text-left"

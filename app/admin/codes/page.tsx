@@ -11,6 +11,7 @@ import {
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { formatDate } from "@/lib/utils";
+import { UserLink } from "@/components/user/user-link";
 import { CreateCodeButton } from "@/components/admin/create-code-button";
 
 export const revalidate = 0;
@@ -69,7 +70,9 @@ export default async function AdminCodesPage() {
                   </Badge>
                 </TableCell>
                 <TableCell className="text-slate-300">
-                  {code.usedBy?.username ?? (
+                  {code.usedBy?.username ? (
+                    <UserLink username={code.usedBy.username} />
+                  ) : (
                     <span className="text-slate-500">לא נוצל</span>
                   )}
                 </TableCell>

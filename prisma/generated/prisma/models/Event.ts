@@ -298,6 +298,7 @@ export type EventWhereInput = {
   bets?: Prisma.BetListRelationFilter
   complaints?: Prisma.ComplaintListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
+  priceSnapshots?: Prisma.MarketSnapshotListRelationFilter
 }
 
 export type EventOrderByWithRelationInput = {
@@ -320,6 +321,7 @@ export type EventOrderByWithRelationInput = {
   bets?: Prisma.BetOrderByRelationAggregateInput
   complaints?: Prisma.ComplaintOrderByRelationAggregateInput
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
+  priceSnapshots?: Prisma.MarketSnapshotOrderByRelationAggregateInput
 }
 
 export type EventWhereUniqueInput = Prisma.AtLeast<{
@@ -345,6 +347,7 @@ export type EventWhereUniqueInput = Prisma.AtLeast<{
   bets?: Prisma.BetListRelationFilter
   complaints?: Prisma.ComplaintListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
+  priceSnapshots?: Prisma.MarketSnapshotListRelationFilter
 }, "id" | "eventNumber">
 
 export type EventOrderByWithAggregationInput = {
@@ -405,6 +408,7 @@ export type EventCreateInput = {
   bets?: Prisma.BetCreateNestedManyWithoutEventInput
   complaints?: Prisma.ComplaintCreateNestedManyWithoutEventInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutEventInput
+  priceSnapshots?: Prisma.MarketSnapshotCreateNestedManyWithoutEventInput
 }
 
 export type EventUncheckedCreateInput = {
@@ -425,6 +429,7 @@ export type EventUncheckedCreateInput = {
   bets?: Prisma.BetUncheckedCreateNestedManyWithoutEventInput
   complaints?: Prisma.ComplaintUncheckedCreateNestedManyWithoutEventInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutEventInput
+  priceSnapshots?: Prisma.MarketSnapshotUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type EventUpdateInput = {
@@ -444,6 +449,7 @@ export type EventUpdateInput = {
   bets?: Prisma.BetUpdateManyWithoutEventNestedInput
   complaints?: Prisma.ComplaintUpdateManyWithoutEventNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutEventNestedInput
+  priceSnapshots?: Prisma.MarketSnapshotUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateInput = {
@@ -464,6 +470,7 @@ export type EventUncheckedUpdateInput = {
   bets?: Prisma.BetUncheckedUpdateManyWithoutEventNestedInput
   complaints?: Prisma.ComplaintUncheckedUpdateManyWithoutEventNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutEventNestedInput
+  priceSnapshots?: Prisma.MarketSnapshotUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type EventCreateManyInput = {
@@ -741,6 +748,20 @@ export type EventUpdateOneWithoutNotificationsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.EventUpdateToOneWithWhereWithoutNotificationsInput, Prisma.EventUpdateWithoutNotificationsInput>, Prisma.EventUncheckedUpdateWithoutNotificationsInput>
 }
 
+export type EventCreateNestedOneWithoutPriceSnapshotsInput = {
+  create?: Prisma.XOR<Prisma.EventCreateWithoutPriceSnapshotsInput, Prisma.EventUncheckedCreateWithoutPriceSnapshotsInput>
+  connectOrCreate?: Prisma.EventCreateOrConnectWithoutPriceSnapshotsInput
+  connect?: Prisma.EventWhereUniqueInput
+}
+
+export type EventUpdateOneRequiredWithoutPriceSnapshotsNestedInput = {
+  create?: Prisma.XOR<Prisma.EventCreateWithoutPriceSnapshotsInput, Prisma.EventUncheckedCreateWithoutPriceSnapshotsInput>
+  connectOrCreate?: Prisma.EventCreateOrConnectWithoutPriceSnapshotsInput
+  upsert?: Prisma.EventUpsertWithoutPriceSnapshotsInput
+  connect?: Prisma.EventWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EventUpdateToOneWithWhereWithoutPriceSnapshotsInput, Prisma.EventUpdateWithoutPriceSnapshotsInput>, Prisma.EventUncheckedUpdateWithoutPriceSnapshotsInput>
+}
+
 export type EventCreateWithoutCreatedByInput = {
   id?: string
   eventNumber?: number
@@ -758,6 +779,7 @@ export type EventCreateWithoutCreatedByInput = {
   bets?: Prisma.BetCreateNestedManyWithoutEventInput
   complaints?: Prisma.ComplaintCreateNestedManyWithoutEventInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutEventInput
+  priceSnapshots?: Prisma.MarketSnapshotCreateNestedManyWithoutEventInput
 }
 
 export type EventUncheckedCreateWithoutCreatedByInput = {
@@ -777,6 +799,7 @@ export type EventUncheckedCreateWithoutCreatedByInput = {
   bets?: Prisma.BetUncheckedCreateNestedManyWithoutEventInput
   complaints?: Prisma.ComplaintUncheckedCreateNestedManyWithoutEventInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutEventInput
+  priceSnapshots?: Prisma.MarketSnapshotUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type EventCreateOrConnectWithoutCreatedByInput = {
@@ -841,6 +864,7 @@ export type EventCreateWithoutOutcomesInput = {
   bets?: Prisma.BetCreateNestedManyWithoutEventInput
   complaints?: Prisma.ComplaintCreateNestedManyWithoutEventInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutEventInput
+  priceSnapshots?: Prisma.MarketSnapshotCreateNestedManyWithoutEventInput
 }
 
 export type EventUncheckedCreateWithoutOutcomesInput = {
@@ -860,6 +884,7 @@ export type EventUncheckedCreateWithoutOutcomesInput = {
   bets?: Prisma.BetUncheckedCreateNestedManyWithoutEventInput
   complaints?: Prisma.ComplaintUncheckedCreateNestedManyWithoutEventInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutEventInput
+  priceSnapshots?: Prisma.MarketSnapshotUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type EventCreateOrConnectWithoutOutcomesInput = {
@@ -884,6 +909,7 @@ export type EventCreateWithoutResolvedOutcomeInput = {
   bets?: Prisma.BetCreateNestedManyWithoutEventInput
   complaints?: Prisma.ComplaintCreateNestedManyWithoutEventInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutEventInput
+  priceSnapshots?: Prisma.MarketSnapshotCreateNestedManyWithoutEventInput
 }
 
 export type EventUncheckedCreateWithoutResolvedOutcomeInput = {
@@ -903,6 +929,7 @@ export type EventUncheckedCreateWithoutResolvedOutcomeInput = {
   bets?: Prisma.BetUncheckedCreateNestedManyWithoutEventInput
   complaints?: Prisma.ComplaintUncheckedCreateNestedManyWithoutEventInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutEventInput
+  priceSnapshots?: Prisma.MarketSnapshotUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type EventCreateOrConnectWithoutResolvedOutcomeInput = {
@@ -942,6 +969,7 @@ export type EventUpdateWithoutOutcomesInput = {
   bets?: Prisma.BetUpdateManyWithoutEventNestedInput
   complaints?: Prisma.ComplaintUpdateManyWithoutEventNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutEventNestedInput
+  priceSnapshots?: Prisma.MarketSnapshotUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateWithoutOutcomesInput = {
@@ -961,6 +989,7 @@ export type EventUncheckedUpdateWithoutOutcomesInput = {
   bets?: Prisma.BetUncheckedUpdateManyWithoutEventNestedInput
   complaints?: Prisma.ComplaintUncheckedUpdateManyWithoutEventNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutEventNestedInput
+  priceSnapshots?: Prisma.MarketSnapshotUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type EventUpsertWithWhereUniqueWithoutResolvedOutcomeInput = {
@@ -996,6 +1025,7 @@ export type EventCreateWithoutBetsInput = {
   outcomes?: Prisma.OutcomeCreateNestedManyWithoutEventInput
   complaints?: Prisma.ComplaintCreateNestedManyWithoutEventInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutEventInput
+  priceSnapshots?: Prisma.MarketSnapshotCreateNestedManyWithoutEventInput
 }
 
 export type EventUncheckedCreateWithoutBetsInput = {
@@ -1015,6 +1045,7 @@ export type EventUncheckedCreateWithoutBetsInput = {
   outcomes?: Prisma.OutcomeUncheckedCreateNestedManyWithoutEventInput
   complaints?: Prisma.ComplaintUncheckedCreateNestedManyWithoutEventInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutEventInput
+  priceSnapshots?: Prisma.MarketSnapshotUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type EventCreateOrConnectWithoutBetsInput = {
@@ -1049,6 +1080,7 @@ export type EventUpdateWithoutBetsInput = {
   outcomes?: Prisma.OutcomeUpdateManyWithoutEventNestedInput
   complaints?: Prisma.ComplaintUpdateManyWithoutEventNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutEventNestedInput
+  priceSnapshots?: Prisma.MarketSnapshotUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateWithoutBetsInput = {
@@ -1068,6 +1100,7 @@ export type EventUncheckedUpdateWithoutBetsInput = {
   outcomes?: Prisma.OutcomeUncheckedUpdateManyWithoutEventNestedInput
   complaints?: Prisma.ComplaintUncheckedUpdateManyWithoutEventNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutEventNestedInput
+  priceSnapshots?: Prisma.MarketSnapshotUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type EventCreateWithoutComplaintsInput = {
@@ -1087,6 +1120,7 @@ export type EventCreateWithoutComplaintsInput = {
   outcomes?: Prisma.OutcomeCreateNestedManyWithoutEventInput
   bets?: Prisma.BetCreateNestedManyWithoutEventInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutEventInput
+  priceSnapshots?: Prisma.MarketSnapshotCreateNestedManyWithoutEventInput
 }
 
 export type EventUncheckedCreateWithoutComplaintsInput = {
@@ -1106,6 +1140,7 @@ export type EventUncheckedCreateWithoutComplaintsInput = {
   outcomes?: Prisma.OutcomeUncheckedCreateNestedManyWithoutEventInput
   bets?: Prisma.BetUncheckedCreateNestedManyWithoutEventInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutEventInput
+  priceSnapshots?: Prisma.MarketSnapshotUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type EventCreateOrConnectWithoutComplaintsInput = {
@@ -1140,6 +1175,7 @@ export type EventUpdateWithoutComplaintsInput = {
   outcomes?: Prisma.OutcomeUpdateManyWithoutEventNestedInput
   bets?: Prisma.BetUpdateManyWithoutEventNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutEventNestedInput
+  priceSnapshots?: Prisma.MarketSnapshotUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateWithoutComplaintsInput = {
@@ -1159,6 +1195,7 @@ export type EventUncheckedUpdateWithoutComplaintsInput = {
   outcomes?: Prisma.OutcomeUncheckedUpdateManyWithoutEventNestedInput
   bets?: Prisma.BetUncheckedUpdateManyWithoutEventNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutEventNestedInput
+  priceSnapshots?: Prisma.MarketSnapshotUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type EventCreateWithoutNotificationsInput = {
@@ -1178,6 +1215,7 @@ export type EventCreateWithoutNotificationsInput = {
   outcomes?: Prisma.OutcomeCreateNestedManyWithoutEventInput
   bets?: Prisma.BetCreateNestedManyWithoutEventInput
   complaints?: Prisma.ComplaintCreateNestedManyWithoutEventInput
+  priceSnapshots?: Prisma.MarketSnapshotCreateNestedManyWithoutEventInput
 }
 
 export type EventUncheckedCreateWithoutNotificationsInput = {
@@ -1197,6 +1235,7 @@ export type EventUncheckedCreateWithoutNotificationsInput = {
   outcomes?: Prisma.OutcomeUncheckedCreateNestedManyWithoutEventInput
   bets?: Prisma.BetUncheckedCreateNestedManyWithoutEventInput
   complaints?: Prisma.ComplaintUncheckedCreateNestedManyWithoutEventInput
+  priceSnapshots?: Prisma.MarketSnapshotUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type EventCreateOrConnectWithoutNotificationsInput = {
@@ -1231,6 +1270,7 @@ export type EventUpdateWithoutNotificationsInput = {
   outcomes?: Prisma.OutcomeUpdateManyWithoutEventNestedInput
   bets?: Prisma.BetUpdateManyWithoutEventNestedInput
   complaints?: Prisma.ComplaintUpdateManyWithoutEventNestedInput
+  priceSnapshots?: Prisma.MarketSnapshotUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateWithoutNotificationsInput = {
@@ -1250,6 +1290,102 @@ export type EventUncheckedUpdateWithoutNotificationsInput = {
   outcomes?: Prisma.OutcomeUncheckedUpdateManyWithoutEventNestedInput
   bets?: Prisma.BetUncheckedUpdateManyWithoutEventNestedInput
   complaints?: Prisma.ComplaintUncheckedUpdateManyWithoutEventNestedInput
+  priceSnapshots?: Prisma.MarketSnapshotUncheckedUpdateManyWithoutEventNestedInput
+}
+
+export type EventCreateWithoutPriceSnapshotsInput = {
+  id?: string
+  eventNumber?: number
+  title: string
+  description: string
+  category: string
+  closesAt: Date | string
+  status?: $Enums.EventStatus
+  createdAt?: Date | string
+  liquidityM?: number
+  bParameter?: number
+  poolBalance?: number
+  resolvedOutcome?: Prisma.OutcomeCreateNestedOneWithoutResolvedEventsInput
+  createdBy: Prisma.UserCreateNestedOneWithoutCreatedEventsInput
+  outcomes?: Prisma.OutcomeCreateNestedManyWithoutEventInput
+  bets?: Prisma.BetCreateNestedManyWithoutEventInput
+  complaints?: Prisma.ComplaintCreateNestedManyWithoutEventInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutEventInput
+}
+
+export type EventUncheckedCreateWithoutPriceSnapshotsInput = {
+  id?: string
+  eventNumber?: number
+  title: string
+  description: string
+  category: string
+  closesAt: Date | string
+  status?: $Enums.EventStatus
+  createdAt?: Date | string
+  liquidityM?: number
+  bParameter?: number
+  poolBalance?: number
+  resolvedOutcomeId?: string | null
+  createdById: string
+  outcomes?: Prisma.OutcomeUncheckedCreateNestedManyWithoutEventInput
+  bets?: Prisma.BetUncheckedCreateNestedManyWithoutEventInput
+  complaints?: Prisma.ComplaintUncheckedCreateNestedManyWithoutEventInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutEventInput
+}
+
+export type EventCreateOrConnectWithoutPriceSnapshotsInput = {
+  where: Prisma.EventWhereUniqueInput
+  create: Prisma.XOR<Prisma.EventCreateWithoutPriceSnapshotsInput, Prisma.EventUncheckedCreateWithoutPriceSnapshotsInput>
+}
+
+export type EventUpsertWithoutPriceSnapshotsInput = {
+  update: Prisma.XOR<Prisma.EventUpdateWithoutPriceSnapshotsInput, Prisma.EventUncheckedUpdateWithoutPriceSnapshotsInput>
+  create: Prisma.XOR<Prisma.EventCreateWithoutPriceSnapshotsInput, Prisma.EventUncheckedCreateWithoutPriceSnapshotsInput>
+  where?: Prisma.EventWhereInput
+}
+
+export type EventUpdateToOneWithWhereWithoutPriceSnapshotsInput = {
+  where?: Prisma.EventWhereInput
+  data: Prisma.XOR<Prisma.EventUpdateWithoutPriceSnapshotsInput, Prisma.EventUncheckedUpdateWithoutPriceSnapshotsInput>
+}
+
+export type EventUpdateWithoutPriceSnapshotsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  closesAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  liquidityM?: Prisma.IntFieldUpdateOperationsInput | number
+  bParameter?: Prisma.IntFieldUpdateOperationsInput | number
+  poolBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  resolvedOutcome?: Prisma.OutcomeUpdateOneWithoutResolvedEventsNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedEventsNestedInput
+  outcomes?: Prisma.OutcomeUpdateManyWithoutEventNestedInput
+  bets?: Prisma.BetUpdateManyWithoutEventNestedInput
+  complaints?: Prisma.ComplaintUpdateManyWithoutEventNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutEventNestedInput
+}
+
+export type EventUncheckedUpdateWithoutPriceSnapshotsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  eventNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  closesAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  liquidityM?: Prisma.IntFieldUpdateOperationsInput | number
+  bParameter?: Prisma.IntFieldUpdateOperationsInput | number
+  poolBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  resolvedOutcomeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  outcomes?: Prisma.OutcomeUncheckedUpdateManyWithoutEventNestedInput
+  bets?: Prisma.BetUncheckedUpdateManyWithoutEventNestedInput
+  complaints?: Prisma.ComplaintUncheckedUpdateManyWithoutEventNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type EventCreateManyCreatedByInput = {
@@ -1283,6 +1419,7 @@ export type EventUpdateWithoutCreatedByInput = {
   bets?: Prisma.BetUpdateManyWithoutEventNestedInput
   complaints?: Prisma.ComplaintUpdateManyWithoutEventNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutEventNestedInput
+  priceSnapshots?: Prisma.MarketSnapshotUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateWithoutCreatedByInput = {
@@ -1302,6 +1439,7 @@ export type EventUncheckedUpdateWithoutCreatedByInput = {
   bets?: Prisma.BetUncheckedUpdateManyWithoutEventNestedInput
   complaints?: Prisma.ComplaintUncheckedUpdateManyWithoutEventNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutEventNestedInput
+  priceSnapshots?: Prisma.MarketSnapshotUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateManyWithoutCreatedByInput = {
@@ -1350,6 +1488,7 @@ export type EventUpdateWithoutResolvedOutcomeInput = {
   bets?: Prisma.BetUpdateManyWithoutEventNestedInput
   complaints?: Prisma.ComplaintUpdateManyWithoutEventNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutEventNestedInput
+  priceSnapshots?: Prisma.MarketSnapshotUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateWithoutResolvedOutcomeInput = {
@@ -1369,6 +1508,7 @@ export type EventUncheckedUpdateWithoutResolvedOutcomeInput = {
   bets?: Prisma.BetUncheckedUpdateManyWithoutEventNestedInput
   complaints?: Prisma.ComplaintUncheckedUpdateManyWithoutEventNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutEventNestedInput
+  priceSnapshots?: Prisma.MarketSnapshotUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateManyWithoutResolvedOutcomeInput = {
@@ -1396,6 +1536,7 @@ export type EventCountOutputType = {
   bets: number
   complaints: number
   notifications: number
+  priceSnapshots: number
 }
 
 export type EventCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1403,6 +1544,7 @@ export type EventCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.
   bets?: boolean | EventCountOutputTypeCountBetsArgs
   complaints?: boolean | EventCountOutputTypeCountComplaintsArgs
   notifications?: boolean | EventCountOutputTypeCountNotificationsArgs
+  priceSnapshots?: boolean | EventCountOutputTypeCountPriceSnapshotsArgs
 }
 
 /**
@@ -1443,6 +1585,13 @@ export type EventCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.T
   where?: Prisma.NotificationWhereInput
 }
 
+/**
+ * EventCountOutputType without action
+ */
+export type EventCountOutputTypeCountPriceSnapshotsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MarketSnapshotWhereInput
+}
+
 
 export type EventSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1464,6 +1613,7 @@ export type EventSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   bets?: boolean | Prisma.Event$betsArgs<ExtArgs>
   complaints?: boolean | Prisma.Event$complaintsArgs<ExtArgs>
   notifications?: boolean | Prisma.Event$notificationsArgs<ExtArgs>
+  priceSnapshots?: boolean | Prisma.Event$priceSnapshotsArgs<ExtArgs>
   _count?: boolean | Prisma.EventCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["event"]>
 
@@ -1527,6 +1677,7 @@ export type EventInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   bets?: boolean | Prisma.Event$betsArgs<ExtArgs>
   complaints?: boolean | Prisma.Event$complaintsArgs<ExtArgs>
   notifications?: boolean | Prisma.Event$notificationsArgs<ExtArgs>
+  priceSnapshots?: boolean | Prisma.Event$priceSnapshotsArgs<ExtArgs>
   _count?: boolean | Prisma.EventCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type EventIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1547,6 +1698,7 @@ export type $EventPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     bets: Prisma.$BetPayload<ExtArgs>[]
     complaints: Prisma.$ComplaintPayload<ExtArgs>[]
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
+    priceSnapshots: Prisma.$MarketSnapshotPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1974,6 +2126,7 @@ export interface Prisma__EventClient<T, Null = never, ExtArgs extends runtime.Ty
   bets<T extends Prisma.Event$betsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$betsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   complaints<T extends Prisma.Event$complaintsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$complaintsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ComplaintPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notifications<T extends Prisma.Event$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  priceSnapshots<T extends Prisma.Event$priceSnapshotsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$priceSnapshotsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MarketSnapshotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2529,6 +2682,30 @@ export type Event$notificationsArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.NotificationScalarFieldEnum | Prisma.NotificationScalarFieldEnum[]
+}
+
+/**
+ * Event.priceSnapshots
+ */
+export type Event$priceSnapshotsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MarketSnapshot
+   */
+  select?: Prisma.MarketSnapshotSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MarketSnapshot
+   */
+  omit?: Prisma.MarketSnapshotOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MarketSnapshotInclude<ExtArgs> | null
+  where?: Prisma.MarketSnapshotWhereInput
+  orderBy?: Prisma.MarketSnapshotOrderByWithRelationInput | Prisma.MarketSnapshotOrderByWithRelationInput[]
+  cursor?: Prisma.MarketSnapshotWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MarketSnapshotScalarFieldEnum | Prisma.MarketSnapshotScalarFieldEnum[]
 }
 
 /**

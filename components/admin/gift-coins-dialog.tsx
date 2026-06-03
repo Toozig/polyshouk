@@ -54,15 +54,17 @@ export function GiftCoinsDialog({ userId, userName }: GiftCoinsDialogProps) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger>
-        <Button
-          variant="outline"
-          size="sm"
-          className="border-blue-500 text-blue-400 hover:bg-blue-500/10"
-        >
-          תן {CURRENCY_NAME}
-        </Button>
-      </DialogTrigger>
+      <DialogTrigger
+        render={
+          <Button
+            variant="outline"
+            size="sm"
+            className="border-blue-500 text-blue-400 hover:bg-blue-500/10"
+          >
+            תן {CURRENCY_NAME}
+          </Button>
+        }
+      />
       <DialogContent className="bg-slate-800 border-slate-700 text-white">
         <DialogHeader>
           <DialogTitle>שלח {CURRENCY_NAME} ל-{userName}</DialogTitle>

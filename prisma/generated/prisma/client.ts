@@ -86,3 +86,13 @@ export type DirectMessage = Prisma.DirectMessageModel
  * 
  */
 export type Notification = Prisma.NotificationModel
+/**
+ * Model MarketSnapshot
+ * * Point-in-time market state, one per trade (and on create/resolve).
+ */
+export type MarketSnapshot = Prisma.MarketSnapshotModel
+/**
+ * Model MarketSnapshotPoint
+ * * Per-outcome price/quantity within a single MarketSnapshot.
+ */
+export type MarketSnapshotPoint = Prisma.MarketSnapshotPointModel

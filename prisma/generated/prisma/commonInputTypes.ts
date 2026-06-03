@@ -287,6 +287,23 @@ export type EnumNotificationTypeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumNotificationTypeFilter<$PrismaModel>
 }
 
+export type EnumSnapshotReasonFilter<$PrismaModel = never> = {
+  equals?: $Enums.SnapshotReason | Prisma.EnumSnapshotReasonFieldRefInput<$PrismaModel>
+  in?: $Enums.SnapshotReason[] | Prisma.ListEnumSnapshotReasonFieldRefInput<$PrismaModel>
+  notIn?: $Enums.SnapshotReason[] | Prisma.ListEnumSnapshotReasonFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumSnapshotReasonFilter<$PrismaModel> | $Enums.SnapshotReason
+}
+
+export type EnumSnapshotReasonWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.SnapshotReason | Prisma.EnumSnapshotReasonFieldRefInput<$PrismaModel>
+  in?: $Enums.SnapshotReason[] | Prisma.ListEnumSnapshotReasonFieldRefInput<$PrismaModel>
+  notIn?: $Enums.SnapshotReason[] | Prisma.ListEnumSnapshotReasonFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumSnapshotReasonWithAggregatesFilter<$PrismaModel> | $Enums.SnapshotReason
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumSnapshotReasonFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumSnapshotReasonFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -571,6 +588,23 @@ export type NestedEnumNotificationTypeWithAggregatesFilter<$PrismaModel = never>
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumNotificationTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumNotificationTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumSnapshotReasonFilter<$PrismaModel = never> = {
+  equals?: $Enums.SnapshotReason | Prisma.EnumSnapshotReasonFieldRefInput<$PrismaModel>
+  in?: $Enums.SnapshotReason[] | Prisma.ListEnumSnapshotReasonFieldRefInput<$PrismaModel>
+  notIn?: $Enums.SnapshotReason[] | Prisma.ListEnumSnapshotReasonFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumSnapshotReasonFilter<$PrismaModel> | $Enums.SnapshotReason
+}
+
+export type NestedEnumSnapshotReasonWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.SnapshotReason | Prisma.EnumSnapshotReasonFieldRefInput<$PrismaModel>
+  in?: $Enums.SnapshotReason[] | Prisma.ListEnumSnapshotReasonFieldRefInput<$PrismaModel>
+  notIn?: $Enums.SnapshotReason[] | Prisma.ListEnumSnapshotReasonFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumSnapshotReasonWithAggregatesFilter<$PrismaModel> | $Enums.SnapshotReason
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumSnapshotReasonFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumSnapshotReasonFilter<$PrismaModel>
 }
 
 

@@ -11,6 +11,8 @@ import { formatCoins, formatDate } from "@/lib/utils";
 import { GiftCoinsDialog } from "@/components/admin/gift-coins-dialog";
 import { SetBalanceDialog } from "@/components/admin/set-balance-dialog";
 import { TogglePremiumButton } from "@/components/admin/toggle-premium-button";
+import { SendMessageDialog } from "@/components/send-message-dialog";
+import { UserLink } from "@/components/user/user-link";
 
 export type AdminUserRow = {
   id: string;
@@ -40,8 +42,12 @@ export function AdminUsersTable({ users }: { users: AdminUserRow[] }) {
         <TableBody>
           {users.map((user) => (
             <TableRow key={user.id} className="border-slate-700">
-              <TableCell className="text-white font-medium" dir="ltr">
-                {user.username}
+              <TableCell className="font-medium">
+                <UserLink
+                  username={user.username}
+                  showAvatar
+                  className="text-white hover:text-blue-300"
+                />
               </TableCell>
               <TableCell>
                 <Badge
@@ -74,6 +80,10 @@ export function AdminUsersTable({ users }: { users: AdminUserRow[] }) {
               </TableCell>
               <TableCell>
                 <div className="flex flex-wrap gap-2 justify-end">
+                  <SendMessageDialog
+                    toUserId={user.id}
+                    toUsername={user.username}
+                  />
                   <GiftCoinsDialog userId={user.id} userName={user.username} />
                   <SetBalanceDialog
                     userId={user.id}

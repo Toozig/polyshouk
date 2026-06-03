@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/db";
 import { BetError, betErrorMessage } from "@/lib/bets/errors";
 import { quoteSellShares } from "@/lib/bets/quotes";
+import { recordMarketSnapshot } from "@/lib/events/price-history";
 import { reconcileEventLmsrQ } from "@/lib/bets/reconcile-lmsr";
 import { allocateSellFifo, sumOpenShares } from "@/lib/bets/lots";
 
@@ -105,6 +106,8 @@ export async function sellShares(
         note: `מכירת ${sharesToSell} מניות על "${refreshed.title}" (${priceCents}¢)`,
       },
     });
+
+    await recordMarketSnapshot(tx, eventId, "SELL");
   });
 
   return { sharesSold: sharesToSell, proceeds, priceCents };

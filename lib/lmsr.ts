@@ -94,8 +94,18 @@ export function lmsrSharesForBudget(
   return lo;
 }
 
-/** b so max market-maker loss ≈ liquidity m for n outcomes (b = m / ln n). */
-export function defaultBParameter(liquidityM: number, outcomeCount: number): number {
-  if (outcomeCount < 2) return liquidityM;
-  return Math.max(1, Math.round(liquidityM / Math.log(outcomeCount)));
+/**
+ * LMSR depth `b = multiplier · m / ln n`.
+ *
+ * With `multiplier = 1`, max market-maker loss ≈ liquidity m. A larger
+ * multiplier deepens the market (prices move slower, stay relative under heavy
+ * betting) at the cost of a proportionally larger worst-case house subsidy.
+ */
+export function defaultBParameter(
+  liquidityM: number,
+  outcomeCount: number,
+  multiplier: number = 1
+): number {
+  if (outcomeCount < 2) return Math.max(1, Math.round(liquidityM * multiplier));
+  return Math.max(1, Math.round((liquidityM * multiplier) / Math.log(outcomeCount)));
 }

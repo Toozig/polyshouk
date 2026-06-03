@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { OutcomeMarketRow } from "@/components/market/outcome-market-row";
-import { marketFromEvent } from "@/lib/market";
+import { marketFromEvent, topOutcomesForEventPreview } from "@/lib/market";
 import { formatDate } from "@/lib/utils";
 import type { EventWithOutcomes } from "@/types";
 import { EventStatus } from "@/prisma/generated/prisma/enums";
@@ -24,6 +24,10 @@ interface EventCardProps {
 
 export function EventCard({ event, showEventStatus }: EventCardProps) {
   const market = marketFromEvent(event);
+  const previewOutcomes = topOutcomesForEventPreview(event.outcomes, market, {
+    pinOutcomeId: event.resolvedOutcomeId,
+  });
+  const hiddenOutcomeCount = event.outcomes.length - previewOutcomes.length;
 
   return (
     <Card className="bg-slate-800 border-slate-700 hover:border-slate-500 transition-colors">
@@ -62,14 +66,19 @@ export function EventCard({ event, showEventStatus }: EventCardProps) {
 
       <CardContent className="space-y-3">
         <div className="space-y-2">
-          {event.outcomes.map((outcome, index) => (
+          {previewOutcomes.map(({ outcome, outcomeIndex }) => (
             <OutcomeMarketRow
               key={outcome.id}
               label={outcome.label}
               market={market}
-              outcomeIndex={index}
+              outcomeIndex={outcomeIndex}
             />
           ))}
+          {hiddenOutcomeCount > 0 ? (
+            <p className="text-slate-500 text-xs text-center">
+              ועוד {hiddenOutcomeCount} תשובות
+            </p>
+          ) : null}
         </div>
 
         <Link

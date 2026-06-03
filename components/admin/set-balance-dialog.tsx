@@ -62,15 +62,17 @@ export function SetBalanceDialog({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger>
-        <Button
-          variant="outline"
-          size="sm"
-          className="border-slate-500 text-slate-200 hover:bg-slate-700/50"
-        >
-          ערוך יתרה
-        </Button>
-      </DialogTrigger>
+      <DialogTrigger
+        render={
+          <Button
+            variant="outline"
+            size="sm"
+            className="border-slate-500 text-slate-200 hover:bg-slate-700/50"
+          >
+            ערוך יתרה
+          </Button>
+        }
+      />
       <DialogContent className="bg-slate-800 border-slate-700 text-white">
         <DialogHeader>
           <DialogTitle>יתרת {CURRENCY_NAME} ל-{userName}</DialogTitle>

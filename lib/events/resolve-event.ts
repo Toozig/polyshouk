@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/db";
 import { payoutIfWin } from "@/lib/market";
+import { recordMarketSnapshot } from "@/lib/events/price-history";
 import { formatCoins } from "@/lib/utils";
 
 export async function resolveEvent(
@@ -110,6 +111,8 @@ export async function resolveEvent(
         data: { poolBalance: 0 },
       });
     }
+
+    await recordMarketSnapshot(tx, eventId, "RESOLVE");
   });
 
   const notifyBets = pendingBets.filter((b) => b.sharesRemaining > 0);

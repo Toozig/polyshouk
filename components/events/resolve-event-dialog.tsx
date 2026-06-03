@@ -68,15 +68,17 @@ export function ResolveEventDialog({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger>
-        <Button
-          variant="outline"
-          size="sm"
-          className="border-yellow-500 text-yellow-400 hover:bg-yellow-500/10"
-        >
-          פתור אירוע
-        </Button>
-      </DialogTrigger>
+      <DialogTrigger
+        render={
+          <Button
+            variant="outline"
+            size="sm"
+            className="border-yellow-500 text-yellow-400 hover:bg-yellow-500/10"
+          >
+            פתור אירוע
+          </Button>
+        }
+      />
       <DialogContent className="bg-slate-800 border-slate-700 text-white">
         <DialogHeader>
           <DialogTitle>פתרון אירוע</DialogTitle>

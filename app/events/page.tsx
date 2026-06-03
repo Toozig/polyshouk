@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/db";
 import { auth } from "@/lib/auth";
-import { EventCard } from "@/components/events/event-card";
+import { EventsPageLists } from "@/components/events/events-page-lists";
 import { CreateEventDialog } from "@/components/events/create-event-dialog";
 import type { EventWithOutcomes } from "@/types";
 
@@ -66,39 +66,10 @@ export default async function EventsPage() {
         )}
       </div>
 
-      {myCreatedEvents.length > 0 ? (
-        <section className="mb-12">
-          <h2 className="text-xl font-semibold text-white mb-4">האירועים שלי</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {(myCreatedEvents as EventWithOutcomes[]).map((event) => (
-              <EventCard
-                key={event.id}
-                event={event}
-                showEventStatus
-              />
-            ))}
-          </div>
-        </section>
-      ) : null}
-
-      {openEvents.length === 0 && myCreatedEvents.length === 0 ? (
-        <div className="text-center py-16">
-          <p className="text-slate-400 text-lg">אין אירועים פתוחים כרגע</p>
-        </div>
-      ) : openEvents.length > 0 ? (
-        <section>
-          {myCreatedEvents.length > 0 ? (
-            <h2 className="text-xl font-semibold text-white mb-4">
-              אירועים פתוחים
-            </h2>
-          ) : null}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {(openEvents as EventWithOutcomes[]).map((event) => (
-              <EventCard key={event.id} event={event} />
-            ))}
-          </div>
-        </section>
-      ) : null}
+      <EventsPageLists
+        myCreatedEvents={myCreatedEvents as EventWithOutcomes[]}
+        openEvents={openEvents as EventWithOutcomes[]}
+      />
     </div>
   );
 }

@@ -2,8 +2,10 @@ import Link from "next/link";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { formatCoins } from "@/lib/utils";
+import { NavbarNotifications } from "@/components/navbar-notifications";
 import { NavbarPremiumCta } from "@/components/navbar-premium-cta";
 import { SignOutButton } from "@/components/sign-out-button";
+import { UserLink } from "@/components/user/user-link";
 
 export async function Navbar() {
   const session = await auth();
@@ -67,7 +69,12 @@ export async function Navbar() {
                 balance={user.balance}
                 isPremium={user.isPremium}
               />
-              <span className="text-slate-300 text-sm">{user.username}</span>
+              <NavbarNotifications />
+              <UserLink
+                username={user.username}
+                showAvatar
+                className="text-slate-300 text-sm hover:text-white"
+              />
               {user.balance !== undefined && (
                 <span className="text-blue-400 text-sm font-medium">
                   {formatCoins(user.balance)}

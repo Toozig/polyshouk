@@ -59,7 +59,9 @@ export const ModelName = {
   CoinTransaction: 'CoinTransaction',
   Complaint: 'Complaint',
   DirectMessage: 'DirectMessage',
-  Notification: 'Notification'
+  Notification: 'Notification',
+  MarketSnapshot: 'MarketSnapshot',
+  MarketSnapshotPoint: 'MarketSnapshotPoint'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -201,6 +203,27 @@ export const NotificationScalarFieldEnum = {
 } as const
 
 export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
+export const MarketSnapshotScalarFieldEnum = {
+  id: 'id',
+  reason: 'reason',
+  createdAt: 'createdAt',
+  eventId: 'eventId'
+} as const
+
+export type MarketSnapshotScalarFieldEnum = (typeof MarketSnapshotScalarFieldEnum)[keyof typeof MarketSnapshotScalarFieldEnum]
+
+
+export const MarketSnapshotPointScalarFieldEnum = {
+  id: 'id',
+  lmsrQ: 'lmsrQ',
+  priceCents: 'priceCents',
+  snapshotId: 'snapshotId',
+  outcomeId: 'outcomeId'
+} as const
+
+export type MarketSnapshotPointScalarFieldEnum = (typeof MarketSnapshotPointScalarFieldEnum)[keyof typeof MarketSnapshotPointScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -6,6 +6,7 @@ import {
   lmsrSellProceeds,
   lmsrSharesForBudget,
 } from "@/lib/lmsr";
+import { LIQUIDITY_DEPTH_MULTIPLIER } from "@/lib/constants";
 
 /** Price bounds: 1¢–99¢ per share (1 share = 1 ערך if it wins). */
 export const MIN_PRICE_CENTS = 1;
@@ -127,6 +128,58 @@ export function coinsFromSell(shares: number, priceCents: number): number {
   return Math.floor((shares * priceCents) / 100);
 }
 
+/** Max outcomes shown on event previews (lists, profile) — not on the event detail page. */
+export const EVENT_PREVIEW_OUTCOME_LIMIT = 3;
+
+export type IndexedOutcome<T> = {
+  outcome: T;
+  outcomeIndex: number;
+};
+
+/**
+ * Top outcomes by LMSR implied price (highest chance first).
+ * When there are more than `limit`, optionally pins `pinOutcomeId` (e.g. resolved winner).
+ */
+export function topOutcomesForEventPreview<
+  T extends { id: string } & LmsrOutcomeState,
+>(
+  outcomes: T[],
+  market: LmsrMarketState,
+  options?: { limit?: number; pinOutcomeId?: string | null }
+): IndexedOutcome<T>[] {
+  const limit = options?.limit ?? EVENT_PREVIEW_OUTCOME_LIMIT;
+  if (outcomes.length <= limit) {
+    return outcomes.map((outcome, outcomeIndex) => ({ outcome, outcomeIndex }));
+  }
+
+  const prices = getOutcomePrices(market);
+  const ranked = outcomes
+    .map((outcome, outcomeIndex) => ({
+      outcome,
+      outcomeIndex,
+      priceCents: prices[outcomeIndex] ?? 0,
+    }))
+    .sort(
+      (a, b) =>
+        b.priceCents - a.priceCents || a.outcomeIndex - b.outcomeIndex
+    );
+
+  let selected = ranked.slice(0, limit);
+
+  const pinId = options?.pinOutcomeId;
+  if (pinId && !selected.some((row) => row.outcome.id === pinId)) {
+    const pinned = ranked.find((row) => row.outcome.id === pinId);
+    if (pinned) {
+      selected = [...selected.slice(0, limit - 1), pinned].sort(
+        (a, b) =>
+          b.priceCents - a.priceCents || a.outcomeIndex - b.outcomeIndex
+      );
+    }
+  }
+
+  return selected.map(({ outcome, outcomeIndex }) => ({ outcome, outcomeIndex }));
+}
+
 export function marketFromEvent(event: {
   bParameter: number;
   liquidityM: number;
@@ -143,7 +196,7 @@ export function defaultBForEvent(
   liquidityM: number,
   outcomeCount: number
 ): number {
-  return defaultBParameter(liquidityM, outcomeCount);
+  return defaultBParameter(liquidityM, outcomeCount, LIQUIDITY_DEPTH_MULTIPLIER);
 }
 
 /** Each winning share pays 1 ערך. */

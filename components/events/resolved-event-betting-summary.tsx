@@ -8,6 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { formatCoins } from "@/lib/utils";
+import { UserLink } from "@/components/user/user-link";
 import type { PremiumUserOutcomeRow } from "@/lib/premium-outcome-shares";
 
 type OutcomeLite = { id: string; label: string };
@@ -67,11 +68,11 @@ export function ResolvedEventBettingSummary({
                       const lost = !isWinningOutcome && row.shares > 0;
                       return (
                         <TableRow key={row.userId} className="border-slate-700">
-                          <TableCell
-                            className="text-white font-medium"
-                            dir="ltr"
-                          >
-                            {row.username}
+                          <TableCell className="font-medium">
+                            <UserLink
+                              username={row.username}
+                              className="text-white hover:text-blue-300"
+                            />
                           </TableCell>
                           <TableCell
                             className="text-slate-300 text-left"

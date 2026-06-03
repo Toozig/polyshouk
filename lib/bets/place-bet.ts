@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/db";
 import { BetError, betErrorMessage } from "@/lib/bets/errors";
+import { recordMarketSnapshot } from "@/lib/events/price-history";
 import { quotePlaceBet, type PlaceBetQuote } from "@/lib/bets/quotes";
 import type { PlaceBetParams } from "@/lib/bets/types";
 import type { Bet } from "@/prisma/generated/prisma/client";
@@ -74,6 +75,8 @@ export async function placeBet(params: PlaceBetParams): Promise<Bet> {
         note: `הימור על "${event.title}" (${shares} מניות ב-${priceAtBet}¢)`,
       },
     });
+
+    await recordMarketSnapshot(tx, eventId, "BUY");
 
     return newBet;
   });

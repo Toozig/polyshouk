@@ -58,3 +58,13 @@ export const NotificationType = {
 } as const
 
 export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
+
+
+export const SnapshotReason = {
+  INITIAL: 'INITIAL',
+  BUY: 'BUY',
+  SELL: 'SELL',
+  RESOLVE: 'RESOLVE'
+} as const
+
+export type SnapshotReason = (typeof SnapshotReason)[keyof typeof SnapshotReason]

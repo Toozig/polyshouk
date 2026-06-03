@@ -4,6 +4,17 @@ export const DEFAULT_LIQUIDITY_M = 100;
 /** Minimum liquidity (m) required to create a market. */
 export const MIN_LIQUIDITY_M = 50;
 
+/**
+ * Multiplies the baseline LMSR depth `b` (= m / ln n).
+ *
+ * Baseline `b = m / ln n` caps the house's worst-case subsidy at exactly `m`,
+ * but makes the market so shallow that a few thousand shares push prices to
+ * 0/100. A larger multiplier makes the market much deeper so prices stay
+ * relative under heavy betting. Tradeoff: the house's worst-case loss grows to
+ * `multiplier · m`, i.e. it can pay out more than the creator's locked `m`.
+ */
+export const LIQUIDITY_DEPTH_MULTIPLIER = 10;
+
 /** Display name for in-app currency. */
 export const CURRENCY_NAME = "ערך";
 

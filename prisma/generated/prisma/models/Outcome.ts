@@ -211,6 +211,7 @@ export type OutcomeWhereInput = {
   event?: Prisma.XOR<Prisma.EventScalarRelationFilter, Prisma.EventWhereInput>
   bets?: Prisma.BetListRelationFilter
   resolvedEvents?: Prisma.EventListRelationFilter
+  snapshotPoints?: Prisma.MarketSnapshotPointListRelationFilter
 }
 
 export type OutcomeOrderByWithRelationInput = {
@@ -221,6 +222,7 @@ export type OutcomeOrderByWithRelationInput = {
   event?: Prisma.EventOrderByWithRelationInput
   bets?: Prisma.BetOrderByRelationAggregateInput
   resolvedEvents?: Prisma.EventOrderByRelationAggregateInput
+  snapshotPoints?: Prisma.MarketSnapshotPointOrderByRelationAggregateInput
 }
 
 export type OutcomeWhereUniqueInput = Prisma.AtLeast<{
@@ -234,6 +236,7 @@ export type OutcomeWhereUniqueInput = Prisma.AtLeast<{
   event?: Prisma.XOR<Prisma.EventScalarRelationFilter, Prisma.EventWhereInput>
   bets?: Prisma.BetListRelationFilter
   resolvedEvents?: Prisma.EventListRelationFilter
+  snapshotPoints?: Prisma.MarketSnapshotPointListRelationFilter
 }, "id">
 
 export type OutcomeOrderByWithAggregationInput = {
@@ -265,6 +268,7 @@ export type OutcomeCreateInput = {
   event: Prisma.EventCreateNestedOneWithoutOutcomesInput
   bets?: Prisma.BetCreateNestedManyWithoutOutcomeInput
   resolvedEvents?: Prisma.EventCreateNestedManyWithoutResolvedOutcomeInput
+  snapshotPoints?: Prisma.MarketSnapshotPointCreateNestedManyWithoutOutcomeInput
 }
 
 export type OutcomeUncheckedCreateInput = {
@@ -274,6 +278,7 @@ export type OutcomeUncheckedCreateInput = {
   eventId: string
   bets?: Prisma.BetUncheckedCreateNestedManyWithoutOutcomeInput
   resolvedEvents?: Prisma.EventUncheckedCreateNestedManyWithoutResolvedOutcomeInput
+  snapshotPoints?: Prisma.MarketSnapshotPointUncheckedCreateNestedManyWithoutOutcomeInput
 }
 
 export type OutcomeUpdateInput = {
@@ -283,6 +288,7 @@ export type OutcomeUpdateInput = {
   event?: Prisma.EventUpdateOneRequiredWithoutOutcomesNestedInput
   bets?: Prisma.BetUpdateManyWithoutOutcomeNestedInput
   resolvedEvents?: Prisma.EventUpdateManyWithoutResolvedOutcomeNestedInput
+  snapshotPoints?: Prisma.MarketSnapshotPointUpdateManyWithoutOutcomeNestedInput
 }
 
 export type OutcomeUncheckedUpdateInput = {
@@ -292,6 +298,7 @@ export type OutcomeUncheckedUpdateInput = {
   eventId?: Prisma.StringFieldUpdateOperationsInput | string
   bets?: Prisma.BetUncheckedUpdateManyWithoutOutcomeNestedInput
   resolvedEvents?: Prisma.EventUncheckedUpdateManyWithoutResolvedOutcomeNestedInput
+  snapshotPoints?: Prisma.MarketSnapshotPointUncheckedUpdateManyWithoutOutcomeNestedInput
 }
 
 export type OutcomeCreateManyInput = {
@@ -435,12 +442,27 @@ export type OutcomeUpdateOneRequiredWithoutBetsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.OutcomeUpdateToOneWithWhereWithoutBetsInput, Prisma.OutcomeUpdateWithoutBetsInput>, Prisma.OutcomeUncheckedUpdateWithoutBetsInput>
 }
 
+export type OutcomeCreateNestedOneWithoutSnapshotPointsInput = {
+  create?: Prisma.XOR<Prisma.OutcomeCreateWithoutSnapshotPointsInput, Prisma.OutcomeUncheckedCreateWithoutSnapshotPointsInput>
+  connectOrCreate?: Prisma.OutcomeCreateOrConnectWithoutSnapshotPointsInput
+  connect?: Prisma.OutcomeWhereUniqueInput
+}
+
+export type OutcomeUpdateOneRequiredWithoutSnapshotPointsNestedInput = {
+  create?: Prisma.XOR<Prisma.OutcomeCreateWithoutSnapshotPointsInput, Prisma.OutcomeUncheckedCreateWithoutSnapshotPointsInput>
+  connectOrCreate?: Prisma.OutcomeCreateOrConnectWithoutSnapshotPointsInput
+  upsert?: Prisma.OutcomeUpsertWithoutSnapshotPointsInput
+  connect?: Prisma.OutcomeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OutcomeUpdateToOneWithWhereWithoutSnapshotPointsInput, Prisma.OutcomeUpdateWithoutSnapshotPointsInput>, Prisma.OutcomeUncheckedUpdateWithoutSnapshotPointsInput>
+}
+
 export type OutcomeCreateWithoutResolvedEventsInput = {
   id?: string
   label: string
   lmsrQ?: number
   event: Prisma.EventCreateNestedOneWithoutOutcomesInput
   bets?: Prisma.BetCreateNestedManyWithoutOutcomeInput
+  snapshotPoints?: Prisma.MarketSnapshotPointCreateNestedManyWithoutOutcomeInput
 }
 
 export type OutcomeUncheckedCreateWithoutResolvedEventsInput = {
@@ -449,6 +471,7 @@ export type OutcomeUncheckedCreateWithoutResolvedEventsInput = {
   lmsrQ?: number
   eventId: string
   bets?: Prisma.BetUncheckedCreateNestedManyWithoutOutcomeInput
+  snapshotPoints?: Prisma.MarketSnapshotPointUncheckedCreateNestedManyWithoutOutcomeInput
 }
 
 export type OutcomeCreateOrConnectWithoutResolvedEventsInput = {
@@ -462,6 +485,7 @@ export type OutcomeCreateWithoutEventInput = {
   lmsrQ?: number
   bets?: Prisma.BetCreateNestedManyWithoutOutcomeInput
   resolvedEvents?: Prisma.EventCreateNestedManyWithoutResolvedOutcomeInput
+  snapshotPoints?: Prisma.MarketSnapshotPointCreateNestedManyWithoutOutcomeInput
 }
 
 export type OutcomeUncheckedCreateWithoutEventInput = {
@@ -470,6 +494,7 @@ export type OutcomeUncheckedCreateWithoutEventInput = {
   lmsrQ?: number
   bets?: Prisma.BetUncheckedCreateNestedManyWithoutOutcomeInput
   resolvedEvents?: Prisma.EventUncheckedCreateNestedManyWithoutResolvedOutcomeInput
+  snapshotPoints?: Prisma.MarketSnapshotPointUncheckedCreateNestedManyWithoutOutcomeInput
 }
 
 export type OutcomeCreateOrConnectWithoutEventInput = {
@@ -499,6 +524,7 @@ export type OutcomeUpdateWithoutResolvedEventsInput = {
   lmsrQ?: Prisma.IntFieldUpdateOperationsInput | number
   event?: Prisma.EventUpdateOneRequiredWithoutOutcomesNestedInput
   bets?: Prisma.BetUpdateManyWithoutOutcomeNestedInput
+  snapshotPoints?: Prisma.MarketSnapshotPointUpdateManyWithoutOutcomeNestedInput
 }
 
 export type OutcomeUncheckedUpdateWithoutResolvedEventsInput = {
@@ -507,6 +533,7 @@ export type OutcomeUncheckedUpdateWithoutResolvedEventsInput = {
   lmsrQ?: Prisma.IntFieldUpdateOperationsInput | number
   eventId?: Prisma.StringFieldUpdateOperationsInput | string
   bets?: Prisma.BetUncheckedUpdateManyWithoutOutcomeNestedInput
+  snapshotPoints?: Prisma.MarketSnapshotPointUncheckedUpdateManyWithoutOutcomeNestedInput
 }
 
 export type OutcomeUpsertWithWhereUniqueWithoutEventInput = {
@@ -541,6 +568,7 @@ export type OutcomeCreateWithoutBetsInput = {
   lmsrQ?: number
   event: Prisma.EventCreateNestedOneWithoutOutcomesInput
   resolvedEvents?: Prisma.EventCreateNestedManyWithoutResolvedOutcomeInput
+  snapshotPoints?: Prisma.MarketSnapshotPointCreateNestedManyWithoutOutcomeInput
 }
 
 export type OutcomeUncheckedCreateWithoutBetsInput = {
@@ -549,6 +577,7 @@ export type OutcomeUncheckedCreateWithoutBetsInput = {
   lmsrQ?: number
   eventId: string
   resolvedEvents?: Prisma.EventUncheckedCreateNestedManyWithoutResolvedOutcomeInput
+  snapshotPoints?: Prisma.MarketSnapshotPointUncheckedCreateNestedManyWithoutOutcomeInput
 }
 
 export type OutcomeCreateOrConnectWithoutBetsInput = {
@@ -573,6 +602,7 @@ export type OutcomeUpdateWithoutBetsInput = {
   lmsrQ?: Prisma.IntFieldUpdateOperationsInput | number
   event?: Prisma.EventUpdateOneRequiredWithoutOutcomesNestedInput
   resolvedEvents?: Prisma.EventUpdateManyWithoutResolvedOutcomeNestedInput
+  snapshotPoints?: Prisma.MarketSnapshotPointUpdateManyWithoutOutcomeNestedInput
 }
 
 export type OutcomeUncheckedUpdateWithoutBetsInput = {
@@ -580,6 +610,59 @@ export type OutcomeUncheckedUpdateWithoutBetsInput = {
   label?: Prisma.StringFieldUpdateOperationsInput | string
   lmsrQ?: Prisma.IntFieldUpdateOperationsInput | number
   eventId?: Prisma.StringFieldUpdateOperationsInput | string
+  resolvedEvents?: Prisma.EventUncheckedUpdateManyWithoutResolvedOutcomeNestedInput
+  snapshotPoints?: Prisma.MarketSnapshotPointUncheckedUpdateManyWithoutOutcomeNestedInput
+}
+
+export type OutcomeCreateWithoutSnapshotPointsInput = {
+  id?: string
+  label: string
+  lmsrQ?: number
+  event: Prisma.EventCreateNestedOneWithoutOutcomesInput
+  bets?: Prisma.BetCreateNestedManyWithoutOutcomeInput
+  resolvedEvents?: Prisma.EventCreateNestedManyWithoutResolvedOutcomeInput
+}
+
+export type OutcomeUncheckedCreateWithoutSnapshotPointsInput = {
+  id?: string
+  label: string
+  lmsrQ?: number
+  eventId: string
+  bets?: Prisma.BetUncheckedCreateNestedManyWithoutOutcomeInput
+  resolvedEvents?: Prisma.EventUncheckedCreateNestedManyWithoutResolvedOutcomeInput
+}
+
+export type OutcomeCreateOrConnectWithoutSnapshotPointsInput = {
+  where: Prisma.OutcomeWhereUniqueInput
+  create: Prisma.XOR<Prisma.OutcomeCreateWithoutSnapshotPointsInput, Prisma.OutcomeUncheckedCreateWithoutSnapshotPointsInput>
+}
+
+export type OutcomeUpsertWithoutSnapshotPointsInput = {
+  update: Prisma.XOR<Prisma.OutcomeUpdateWithoutSnapshotPointsInput, Prisma.OutcomeUncheckedUpdateWithoutSnapshotPointsInput>
+  create: Prisma.XOR<Prisma.OutcomeCreateWithoutSnapshotPointsInput, Prisma.OutcomeUncheckedCreateWithoutSnapshotPointsInput>
+  where?: Prisma.OutcomeWhereInput
+}
+
+export type OutcomeUpdateToOneWithWhereWithoutSnapshotPointsInput = {
+  where?: Prisma.OutcomeWhereInput
+  data: Prisma.XOR<Prisma.OutcomeUpdateWithoutSnapshotPointsInput, Prisma.OutcomeUncheckedUpdateWithoutSnapshotPointsInput>
+}
+
+export type OutcomeUpdateWithoutSnapshotPointsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.StringFieldUpdateOperationsInput | string
+  lmsrQ?: Prisma.IntFieldUpdateOperationsInput | number
+  event?: Prisma.EventUpdateOneRequiredWithoutOutcomesNestedInput
+  bets?: Prisma.BetUpdateManyWithoutOutcomeNestedInput
+  resolvedEvents?: Prisma.EventUpdateManyWithoutResolvedOutcomeNestedInput
+}
+
+export type OutcomeUncheckedUpdateWithoutSnapshotPointsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.StringFieldUpdateOperationsInput | string
+  lmsrQ?: Prisma.IntFieldUpdateOperationsInput | number
+  eventId?: Prisma.StringFieldUpdateOperationsInput | string
+  bets?: Prisma.BetUncheckedUpdateManyWithoutOutcomeNestedInput
   resolvedEvents?: Prisma.EventUncheckedUpdateManyWithoutResolvedOutcomeNestedInput
 }
 
@@ -595,6 +678,7 @@ export type OutcomeUpdateWithoutEventInput = {
   lmsrQ?: Prisma.IntFieldUpdateOperationsInput | number
   bets?: Prisma.BetUpdateManyWithoutOutcomeNestedInput
   resolvedEvents?: Prisma.EventUpdateManyWithoutResolvedOutcomeNestedInput
+  snapshotPoints?: Prisma.MarketSnapshotPointUpdateManyWithoutOutcomeNestedInput
 }
 
 export type OutcomeUncheckedUpdateWithoutEventInput = {
@@ -603,6 +687,7 @@ export type OutcomeUncheckedUpdateWithoutEventInput = {
   lmsrQ?: Prisma.IntFieldUpdateOperationsInput | number
   bets?: Prisma.BetUncheckedUpdateManyWithoutOutcomeNestedInput
   resolvedEvents?: Prisma.EventUncheckedUpdateManyWithoutResolvedOutcomeNestedInput
+  snapshotPoints?: Prisma.MarketSnapshotPointUncheckedUpdateManyWithoutOutcomeNestedInput
 }
 
 export type OutcomeUncheckedUpdateManyWithoutEventInput = {
@@ -619,11 +704,13 @@ export type OutcomeUncheckedUpdateManyWithoutEventInput = {
 export type OutcomeCountOutputType = {
   bets: number
   resolvedEvents: number
+  snapshotPoints: number
 }
 
 export type OutcomeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   bets?: boolean | OutcomeCountOutputTypeCountBetsArgs
   resolvedEvents?: boolean | OutcomeCountOutputTypeCountResolvedEventsArgs
+  snapshotPoints?: boolean | OutcomeCountOutputTypeCountSnapshotPointsArgs
 }
 
 /**
@@ -650,6 +737,13 @@ export type OutcomeCountOutputTypeCountResolvedEventsArgs<ExtArgs extends runtim
   where?: Prisma.EventWhereInput
 }
 
+/**
+ * OutcomeCountOutputType without action
+ */
+export type OutcomeCountOutputTypeCountSnapshotPointsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MarketSnapshotPointWhereInput
+}
+
 
 export type OutcomeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -659,6 +753,7 @@ export type OutcomeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
   bets?: boolean | Prisma.Outcome$betsArgs<ExtArgs>
   resolvedEvents?: boolean | Prisma.Outcome$resolvedEventsArgs<ExtArgs>
+  snapshotPoints?: boolean | Prisma.Outcome$snapshotPointsArgs<ExtArgs>
   _count?: boolean | Prisma.OutcomeCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["outcome"]>
 
@@ -690,6 +785,7 @@ export type OutcomeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
   bets?: boolean | Prisma.Outcome$betsArgs<ExtArgs>
   resolvedEvents?: boolean | Prisma.Outcome$resolvedEventsArgs<ExtArgs>
+  snapshotPoints?: boolean | Prisma.Outcome$snapshotPointsArgs<ExtArgs>
   _count?: boolean | Prisma.OutcomeCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type OutcomeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -705,6 +801,7 @@ export type $OutcomePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     event: Prisma.$EventPayload<ExtArgs>
     bets: Prisma.$BetPayload<ExtArgs>[]
     resolvedEvents: Prisma.$EventPayload<ExtArgs>[]
+    snapshotPoints: Prisma.$MarketSnapshotPointPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1111,6 +1208,7 @@ export interface Prisma__OutcomeClient<T, Null = never, ExtArgs extends runtime.
   event<T extends Prisma.EventDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EventDefaultArgs<ExtArgs>>): Prisma.Prisma__EventClient<runtime.Types.Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   bets<T extends Prisma.Outcome$betsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Outcome$betsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   resolvedEvents<T extends Prisma.Outcome$resolvedEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Outcome$resolvedEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  snapshotPoints<T extends Prisma.Outcome$snapshotPointsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Outcome$snapshotPointsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MarketSnapshotPointPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1590,6 +1688,30 @@ export type Outcome$resolvedEventsArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.EventScalarFieldEnum | Prisma.EventScalarFieldEnum[]
+}
+
+/**
+ * Outcome.snapshotPoints
+ */
+export type Outcome$snapshotPointsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MarketSnapshotPoint
+   */
+  select?: Prisma.MarketSnapshotPointSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MarketSnapshotPoint
+   */
+  omit?: Prisma.MarketSnapshotPointOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MarketSnapshotPointInclude<ExtArgs> | null
+  where?: Prisma.MarketSnapshotPointWhereInput
+  orderBy?: Prisma.MarketSnapshotPointOrderByWithRelationInput | Prisma.MarketSnapshotPointOrderByWithRelationInput[]
+  cursor?: Prisma.MarketSnapshotPointWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MarketSnapshotPointScalarFieldEnum | Prisma.MarketSnapshotPointScalarFieldEnum[]
 }
 
 /**

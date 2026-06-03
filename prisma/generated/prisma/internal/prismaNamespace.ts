@@ -392,7 +392,9 @@ export const ModelName = {
   CoinTransaction: 'CoinTransaction',
   Complaint: 'Complaint',
   DirectMessage: 'DirectMessage',
-  Notification: 'Notification'
+  Notification: 'Notification',
+  MarketSnapshot: 'MarketSnapshot',
+  MarketSnapshotPoint: 'MarketSnapshotPoint'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -408,7 +410,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "inviteCode" | "event" | "outcome" | "bet" | "coinTransaction" | "complaint" | "directMessage" | "notification"
+    modelProps: "user" | "inviteCode" | "event" | "outcome" | "bet" | "coinTransaction" | "complaint" | "directMessage" | "notification" | "marketSnapshot" | "marketSnapshotPoint"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1078,6 +1080,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    MarketSnapshot: {
+      payload: Prisma.$MarketSnapshotPayload<ExtArgs>
+      fields: Prisma.MarketSnapshotFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MarketSnapshotFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarketSnapshotPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MarketSnapshotFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarketSnapshotPayload>
+        }
+        findFirst: {
+          args: Prisma.MarketSnapshotFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarketSnapshotPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MarketSnapshotFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarketSnapshotPayload>
+        }
+        findMany: {
+          args: Prisma.MarketSnapshotFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarketSnapshotPayload>[]
+        }
+        create: {
+          args: Prisma.MarketSnapshotCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarketSnapshotPayload>
+        }
+        createMany: {
+          args: Prisma.MarketSnapshotCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MarketSnapshotCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarketSnapshotPayload>[]
+        }
+        delete: {
+          args: Prisma.MarketSnapshotDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarketSnapshotPayload>
+        }
+        update: {
+          args: Prisma.MarketSnapshotUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarketSnapshotPayload>
+        }
+        deleteMany: {
+          args: Prisma.MarketSnapshotDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MarketSnapshotUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MarketSnapshotUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarketSnapshotPayload>[]
+        }
+        upsert: {
+          args: Prisma.MarketSnapshotUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarketSnapshotPayload>
+        }
+        aggregate: {
+          args: Prisma.MarketSnapshotAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMarketSnapshot>
+        }
+        groupBy: {
+          args: Prisma.MarketSnapshotGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MarketSnapshotGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MarketSnapshotCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MarketSnapshotCountAggregateOutputType> | number
+        }
+      }
+    }
+    MarketSnapshotPoint: {
+      payload: Prisma.$MarketSnapshotPointPayload<ExtArgs>
+      fields: Prisma.MarketSnapshotPointFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MarketSnapshotPointFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarketSnapshotPointPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MarketSnapshotPointFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarketSnapshotPointPayload>
+        }
+        findFirst: {
+          args: Prisma.MarketSnapshotPointFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarketSnapshotPointPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MarketSnapshotPointFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarketSnapshotPointPayload>
+        }
+        findMany: {
+          args: Prisma.MarketSnapshotPointFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarketSnapshotPointPayload>[]
+        }
+        create: {
+          args: Prisma.MarketSnapshotPointCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarketSnapshotPointPayload>
+        }
+        createMany: {
+          args: Prisma.MarketSnapshotPointCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MarketSnapshotPointCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarketSnapshotPointPayload>[]
+        }
+        delete: {
+          args: Prisma.MarketSnapshotPointDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarketSnapshotPointPayload>
+        }
+        update: {
+          args: Prisma.MarketSnapshotPointUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarketSnapshotPointPayload>
+        }
+        deleteMany: {
+          args: Prisma.MarketSnapshotPointDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MarketSnapshotPointUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MarketSnapshotPointUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarketSnapshotPointPayload>[]
+        }
+        upsert: {
+          args: Prisma.MarketSnapshotPointUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarketSnapshotPointPayload>
+        }
+        aggregate: {
+          args: Prisma.MarketSnapshotPointAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMarketSnapshotPoint>
+        }
+        groupBy: {
+          args: Prisma.MarketSnapshotPointGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MarketSnapshotPointGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MarketSnapshotPointCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MarketSnapshotPointCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1242,6 +1392,27 @@ export const NotificationScalarFieldEnum = {
 export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
 
 
+export const MarketSnapshotScalarFieldEnum = {
+  id: 'id',
+  reason: 'reason',
+  createdAt: 'createdAt',
+  eventId: 'eventId'
+} as const
+
+export type MarketSnapshotScalarFieldEnum = (typeof MarketSnapshotScalarFieldEnum)[keyof typeof MarketSnapshotScalarFieldEnum]
+
+
+export const MarketSnapshotPointScalarFieldEnum = {
+  id: 'id',
+  lmsrQ: 'lmsrQ',
+  priceCents: 'priceCents',
+  snapshotId: 'snapshotId',
+  outcomeId: 'outcomeId'
+} as const
+
+export type MarketSnapshotPointScalarFieldEnum = (typeof MarketSnapshotPointScalarFieldEnum)[keyof typeof MarketSnapshotPointScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1392,6 +1563,20 @@ export type ListEnumNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputT
 
 
 /**
+ * Reference to a field of type 'SnapshotReason'
+ */
+export type EnumSnapshotReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SnapshotReason'>
+    
+
+
+/**
+ * Reference to a field of type 'SnapshotReason[]'
+ */
+export type ListEnumSnapshotReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SnapshotReason[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -1523,6 +1708,8 @@ export type GlobalOmitConfig = {
   complaint?: Prisma.ComplaintOmit
   directMessage?: Prisma.DirectMessageOmit
   notification?: Prisma.NotificationOmit
+  marketSnapshot?: Prisma.MarketSnapshotOmit
+  marketSnapshotPoint?: Prisma.MarketSnapshotPointOmit
 }
 
 /* Types for Logging */

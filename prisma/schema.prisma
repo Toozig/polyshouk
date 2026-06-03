@@ -44,6 +44,14 @@ enum NotificationType {
   ADMIN_COMPLAINT_NEW
 }
 
+/** What triggered a market price snapshot. */
+enum SnapshotReason {
+  INITIAL
+  BUY
+  SELL
+  RESOLVE
+}
+
 model User {
   id           String   @id @default(cuid())
   username     String   @unique
@@ -106,6 +114,7 @@ model Event {
   bets              Bet[]
   complaints        Complaint[]
   notifications     Notification[]
+  priceSnapshots    MarketSnapshot[]
 }
 
 model Outcome {
@@ -119,6 +128,7 @@ model Outcome {
 
   bets           Bet[]
   resolvedEvents Event[] @relation("ResolvedOutcome")
+  snapshotPoints MarketSnapshotPoint[]
 }
 
 model Bet {
@@ -202,4 +212,34 @@ model Notification {
 
   @@index([userId, createdAt])
   @@index([userId, readAt])
+}
+
+/** Point-in-time market state, one per trade (and on create/resolve). */
+model MarketSnapshot {
+  id        String         @id @default(cuid())
+  reason    SnapshotReason
+  createdAt DateTime       @default(now())
+
+  event   Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  eventId String
+
+  points  MarketSnapshotPoint[]
+
+  @@index([eventId, createdAt])
+}
+
+/** Per-outcome price/quantity within a single MarketSnapshot. */
+model MarketSnapshotPoint {
+  id         String @id @default(cuid())
+  lmsrQ      Int
+  priceCents Int
+
+  snapshot   MarketSnapshot @relation(fields: [snapshotId], references: [id], onDelete: Cascade)
+  snapshotId String
+
+  outcome   Outcome @relation(fields: [outcomeId], references: [id], onDelete: Cascade)
+  outcomeId String
+
+  @@index([snapshotId])
+  @@index([outcomeId])
 }
